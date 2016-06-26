@@ -6,10 +6,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class Login extends JFrame {
-
-	private JPanel contentPane;
+	protected JLabel lblLogin;
+	protected JTextField txtfielLogin;
+	protected JLabel lblMotDePasse;
+	protected JTextField txtPass;
+	protected JButton btnConnection;
+	protected JButton btnQuitter;
 
 	/**
 	 * Launch the application.
@@ -31,12 +38,39 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		initialize();
+	}
+	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		this.contentPane = new JPanel();
-		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(this.contentPane);
-	}
+		JPanel content = new JPanel();
+		setContentPane(content);
+		content.setLayout(null);
 
+		this.lblLogin = new JLabel("Login");
+		this.lblLogin.setBounds(52, 50, 107, 31);
+		content.add(this.lblLogin);
+
+		this.txtfielLogin = new JTextField();
+		this.txtfielLogin.setBounds(177, 50, 220, 31);
+		content.add(this.txtfielLogin);
+		this.txtfielLogin.setColumns(10);
+
+		this.lblMotDePasse = new JLabel("Mot de passe");
+		this.lblMotDePasse.setBounds(52, 130, 107, 31);
+		content.add(this.lblMotDePasse);
+
+		this.txtPass = new JTextField();
+		this.txtPass.setBounds(177, 130, 220, 31);
+		content.add(this.txtPass);
+		this.txtPass.setColumns(10);
+
+		this.btnConnection = new JButton("Connection");
+		this.btnConnection.setBounds(125, 208, 117, 25);
+		content.add(this.btnConnection);
+
+		this.btnQuitter = new JButton("Quitter");
+		this.btnQuitter.setBounds(293, 208, 117, 25);
+		content.add(this.btnQuitter);
+	}
 }

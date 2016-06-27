@@ -24,6 +24,7 @@ public class Identification extends JPanel {
 	protected JButton btnValider;
 	protected JButton btnAnnuller;
 	protected JLabel lblIdentificationDunlve;
+	private JLabel lblSexe;
 
 	/**
 	 * Create the panel.
@@ -54,7 +55,7 @@ public class Identification extends JPanel {
 		add(this.textField_1);
 		this.textField_1.setColumns(10);
 
-		this.lblNumroDeTable = new JLabel("NumÃ©ro de table");
+		this.lblNumroDeTable = new JLabel("Numero de table");
 		this.lblNumroDeTable.setBounds(46, 60, 127, 15);
 		add(this.lblNumroDeTable);
 
@@ -100,7 +101,11 @@ public class Identification extends JPanel {
 		add(this.btnAnnuller);
 
 		this.lblIdentificationDunlve = new JLabel("IDENTIFICATION D'UN ELEVE");
-		this.lblIdentificationDunlve.setBounds(93, 12, 285, 36);
+		this.lblIdentificationDunlve.setBounds(230, 12, 148, 36);
 		add(this.lblIdentificationDunlve);
+		
+		lblSexe = new JLabel("Sexe");
+		lblSexe.setBounds(46, 162, 96, 33);
+		add(lblSexe);
 	}
 }

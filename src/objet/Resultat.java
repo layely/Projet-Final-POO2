@@ -45,11 +45,11 @@ public class Resultat {
 	private Double moyenneChoix(double d1, double d2) {
 		double coefficient = 0;
 
-		if (passageExam == 0)
+		if (passageExam == 0) //A échoué au bfem
 			coefficient = 0.75;
-		if (passageExam == 1)
+		if (passageExam == 1) //A réussi au premier tour
 			coefficient = 2.5;
-		if (passageExam == 2)
+		if (passageExam == 2) //A réussi au second tour
 			coefficient = 1.25;
 
 		return moyenneGenerale + d1 + d2 + coefficient;

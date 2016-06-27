@@ -20,6 +20,7 @@ public class Resultat extends JPanel {
 	protected JTextField textField_2;
 	protected JLabel lblNewLabel;
 	protected JLabel lblRsultatDuBfem;
+	protected JLabel lblHistogo;
 
 	/**
 	 * Create the panel.
@@ -35,21 +36,21 @@ public class Resultat extends JPanel {
 		this.lblSaisieDeNotes.setBounds(76, 26, 278, 31);
 		add(this.lblSaisieDeNotes);
 
-		this.lblD = new JLabel("D1");
-		this.lblD.setBounds(39, 69, 46, 15);
+		this.lblD = new JLabel("Français");
+		this.lblD.setBounds(39, 69, 83, 15);
 		add(this.lblD);
 
 		this.textField = new JTextField();
-		this.textField.setBounds(183, 79, 114, 19);
+		this.textField.setBounds(183, 67, 114, 19);
 		add(this.textField);
 		this.textField.setColumns(10);
 
-		this.lblD_1 = new JLabel("D2");
-		this.lblD_1.setBounds(42, 112, 57, 15);
+		this.lblD_1 = new JLabel("Mathématiques");
+		this.lblD_1.setBounds(39, 95, 117, 15);
 		add(this.lblD_1);
 
 		this.textField_1 = new JTextField();
-		this.textField_1.setBounds(183, 110, 114, 19);
+		this.textField_1.setBounds(183, 93, 114, 19);
 		add(this.textField_1);
 		this.textField_1.setColumns(10);
 
@@ -85,5 +86,9 @@ public class Resultat extends JPanel {
 		this.lblRsultatDuBfem = new JLabel("Résultat du BFEM");
 		this.lblRsultatDuBfem.setBounds(39, 210, 150, 15);
 		add(this.lblRsultatDuBfem);
+
+		this.lblHistogo = new JLabel("Histo-Géo");
+		this.lblHistogo.setBounds(39, 122, 70, 15);
+		add(this.lblHistogo);
 	}
 }

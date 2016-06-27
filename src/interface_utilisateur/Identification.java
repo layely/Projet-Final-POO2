@@ -54,7 +54,7 @@ public class Identification extends JPanel {
 		add(this.textField_1);
 		this.textField_1.setColumns(10);
 
-		this.lblNumroDeTable = new JLabel("Numéro de table");
+		this.lblNumroDeTable = new JLabel("NumÃ©ro de table");
 		this.lblNumroDeTable.setBounds(46, 60, 127, 15);
 		add(this.lblNumroDeTable);
 
@@ -99,7 +99,7 @@ public class Identification extends JPanel {
 		this.btnAnnuller.setBounds(311, 295, 117, 25);
 		add(this.btnAnnuller);
 
-		this.lblIdentificationDunlve = new JLabel("IDENTIFICATION D'UN ÉLÈVE");
+		this.lblIdentificationDunlve = new JLabel("IDENTIFICATION D'UN ELEVE");
 		this.lblIdentificationDunlve.setBounds(93, 12, 285, 36);
 		add(this.lblIdentificationDunlve);
 	}

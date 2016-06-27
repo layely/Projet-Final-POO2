@@ -9,7 +9,7 @@ Gestion Des Orientations du BFEM
 1.0
 
 ## Author
-Fatou Samb BA
+Fatou Samb BA --
 
 Abdoulaye Oumar LY
 

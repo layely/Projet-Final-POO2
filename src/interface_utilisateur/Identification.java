@@ -7,7 +7,7 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
-public class IdentificationEleve extends JPanel {
+public class Identification extends JPanel {
 	protected JLabel lblNom;
 	protected JTextField textField;
 	protected JLabel lblPrenom;
@@ -28,7 +28,7 @@ public class IdentificationEleve extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public IdentificationEleve() {
+	public Identification() {
 
 		initialize();
 	}

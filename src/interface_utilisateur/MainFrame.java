@@ -48,6 +48,7 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		initialize();
 	}
+
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -81,13 +82,13 @@ public class MainFrame extends JFrame {
 
 		this.btnListeDesOrientes_3 = new JButton("Liste des orientes en T");
 		this.panel.add(this.btnListeDesOrientes_3);
-		
+
 		this.btnNewButton = new JButton("Ajouter une ecole");
 		this.panel.add(this.btnNewButton);
-		
+
 		this.btnAjouterUnLyce = new JButton("Ajouter un lycée");
 		this.panel.add(this.btnAjouterUnLyce);
-		
+
 		this.btnQuitter = new JButton("Quitter");
 		this.panel.add(this.btnQuitter);
 	}

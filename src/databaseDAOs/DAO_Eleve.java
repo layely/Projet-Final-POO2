@@ -23,6 +23,7 @@ public class DAO_Eleve {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_ELEVE);
 			commeListeEleve(resultSet);
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,6 +53,18 @@ public class DAO_Eleve {
 			e.printStackTrace();
 		}
 	}
+	
+	// information sur un eleve
+	public void infoEleve(int num_table){
+		try{
+			Statement stm = connect.createStatement() ;
+			ResultSet resultSet = stm.executeQuery("SELECT FROM "+TABLE_ELEVE+" WHERE "+COLONNE_NUM_TABLE+"="+num_table) ;
+			commeListeEleve(resultSet);
+		}catch(SQLException e){
+			e.printStackTrace();
+			//TODO
+		}
+	}
 
 	public void commeListeEleve(ResultSet resultSet) {
 		try {
@@ -63,6 +76,8 @@ public class DAO_Eleve {
 				String lieu_Naissance = resultSet.getString(COLONNE_LIEU_NAISSANCE);
 				String sexe = resultSet.getString(COLONNE_SEXE);
 				String email = resultSet.getString(COLONNE_EMAIL);
+				
+				//Eleve eleve = new Eleve(numeroTable, prenom, nom, date_Naissance, dateNaissance, email, resultat, etablissement);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

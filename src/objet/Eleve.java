@@ -1,5 +1,6 @@
 package objet;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Eleve {
@@ -8,16 +9,19 @@ public class Eleve {
 	String nom;
 	String prenom;
 	String lieuNaissance;
-	GregorianCalendar dateNaissance;
+	Calendar dateNaissance;
+	char sex;
 	String email;
 	Resultat resultat;
-	Ecole etablissement;
-	
-	
+	String etablissement;
+
+
 	/////////////////////////////////////////
 	// Constructeur
-	public Eleve(int numTable, String nom, String prenom, String lieuNaissance, GregorianCalendar dateNaissance,
-			String email, Resultat resultat, Ecole etablissement) {
+
+
+	public Eleve(int numTable, String nom, String prenom, String lieuNaissance, Calendar dateNaissance,
+			String email, Resultat resultat, String etablissement) {
 		super();
 		this.numTable = numTable;
 		this.nom = nom;
@@ -28,9 +32,42 @@ public class Eleve {
 		this.resultat = resultat;
 		this.etablissement = etablissement;
 	}
-	
-	
-	
+
+
+
+	public Eleve(int numTable, String nom, String prenom, String lieuNaissance, Calendar dateNaissance,
+			char sex, String etablissement) {
+		super();
+		this.numTable = numTable;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.lieuNaissance = lieuNaissance;
+		this.dateNaissance = dateNaissance;
+		this.sex = sex;
+		this.etablissement = etablissement;
+	}
+
+
+
+	public Eleve(int numTable, String nom, String prenom, String lieuNaissance, Calendar dateNaissance,
+			String etablissement) {
+		super();
+		this.numTable = numTable;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.lieuNaissance = lieuNaissance;
+		this.dateNaissance = dateNaissance;
+		this.etablissement = etablissement;
+	}
+
+
+
+	public Eleve() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	////////////////////////////////
 	// Getters and Setters
 	////////////////////////////////
@@ -49,6 +86,7 @@ public class Eleve {
 	public String getPrenom() {
 		return prenom;
 	}
+
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
@@ -58,7 +96,7 @@ public class Eleve {
 	public void setLieuNaissance(String lieuNaissance) {
 		this.lieuNaissance = lieuNaissance;
 	}
-	public GregorianCalendar getDateNaissance() {
+	public Calendar getDateNaissance() {
 		return dateNaissance;
 	}
 	public void setDateNaissance(GregorianCalendar dateNaissance) {
@@ -76,11 +114,11 @@ public class Eleve {
 	public void setResultat(Resultat resultat) {
 		this.resultat = resultat;
 	}
-	public Ecole getEtablissement() {
+	public String getEtablissement() {
 		return etablissement;
 	}
-	public void setEtablissement(Ecole etablissement) {
+	public void setEtablissement(String etablissement) {
 		this.etablissement = etablissement;
 	}
-	
+
 }

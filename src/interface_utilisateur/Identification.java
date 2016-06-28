@@ -3,10 +3,19 @@ package interface_utilisateur;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import org.jbundle.thin.base.screen.jcalendarbutton.JCalendarButton;
+
+import objet.Eleve;
+import utilitaire.Connection;
+import utilitaire.Outil;
+
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.Calendar;
 import java.awt.event.ActionEvent;
 
 public class Identification extends JPanel {
@@ -27,6 +36,9 @@ public class Identification extends JPanel {
 	protected JButton btnAnnuller;
 	protected JLabel lblIdentificationDunlve;
 	private JLabel lblSexe;
+	private JCalendarButton jcalendarbutton;
+
+	public static Eleve dernierIdentifie;
 
 	/**
 	 * Create the panel.
@@ -35,9 +47,9 @@ public class Identification extends JPanel {
 
 		initialize();
 	}
+
 	private void initialize() {
 		setLayout(null);
-
 
 		this.lblNom = new JLabel("Nom");
 		this.lblNom.setBounds(46, 101, 78, 19);
@@ -71,6 +83,7 @@ public class Identification extends JPanel {
 		add(this.lblDateDeNaissace);
 
 		this.textFieldDateNaissance = new JTextField();
+		this.textFieldDateNaissance.addActionListener(new TextFieldDateNaissanceActionListener());
 		this.textFieldDateNaissance.setBounds(180, 208, 248, 19);
 		add(this.textFieldDateNaissance);
 		this.textFieldDateNaissance.setColumns(10);
@@ -78,6 +91,9 @@ public class Identification extends JPanel {
 		this.lblLieuDeNaissance = new JLabel("Lieu de naissance");
 		this.lblLieuDeNaissance.setBounds(46, 253, 127, 15);
 		add(this.lblLieuDeNaissance);
+
+		jcalendarbutton = new JCalendarButton();
+		jcalendarbutton.setBounds(180, 251, 248, 19);
 
 		this.textFieldLieuNaissance = new JTextField();
 		this.textFieldLieuNaissance.setBounds(180, 251, 248, 19);
@@ -111,6 +127,7 @@ public class Identification extends JPanel {
 		lblSexe.setBounds(46, 162, 96, 33);
 		add(lblSexe);
 	}
+
 	private class BtnValiderActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String strNumTable = textFieldNumTable.getText();
@@ -119,12 +136,29 @@ public class Identification extends JPanel {
 			String prenom = textFieldPrenom.getText();
 			String lieuNaissance = textFieldLieuNaissance.getText();
 			String strDate = textFieldDateNaissance.getText();
-			String sexe = "";
+			Calendar dateNaissance = null;
+			try {
+				dateNaissance = Outil.stringToCalendar(strDate);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			char sexe = '0';
+			String etablissement = Connection.getNom();
 
-			if(rdbtnM.isSelected())
-				sexe = "M";
-			else if(rdbtnF.isSelected())
-				sexe = "F";
+			if (rdbtnM.isSelected())
+				sexe = 'M';
+			else if (rdbtnF.isSelected())
+				sexe = 'F';
+
+			Eleve eleve = new Eleve(numTable, nom, prenom, lieuNaissance, dateNaissance, sexe, etablissement);
+			dernierIdentifie = eleve;
+		}
+	}
+
+	private class TextFieldDateNaissanceActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+
 		}
 	}
 }

@@ -9,12 +9,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
 	protected JLabel lblLogin;
 	protected JTextField txtfielLogin;
 	protected JLabel lblMotDePasse;
-	protected JTextField txtPass;
+	protected JPasswordField txtFieldPass;
 	protected JButton btnConnection;
 	protected JButton btnQuitter;
 	protected JLabel lblConnection;
@@ -41,6 +44,7 @@ public class Login extends JFrame {
 	public Login() {
 		initialize();
 	}
+
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -61,21 +65,37 @@ public class Login extends JFrame {
 		this.lblMotDePasse.setBounds(52, 130, 107, 31);
 		content.add(this.lblMotDePasse);
 
-		this.txtPass = new JTextField();
-		this.txtPass.setBounds(177, 130, 220, 31);
-		content.add(this.txtPass);
-		this.txtPass.setColumns(10);
+		this.txtFieldPass = new JPasswordField();
+		this.txtFieldPass.setBounds(177, 130, 220, 31);
+		content.add(this.txtFieldPass);
+		this.txtFieldPass.setColumns(10);
 
 		this.btnConnection = new JButton("Connection");
+		this.btnConnection.addActionListener(new BtnConnectionActionListener());
 		this.btnConnection.setBounds(125, 208, 117, 25);
 		content.add(this.btnConnection);
 
 		this.btnQuitter = new JButton("Quitter");
+		this.btnQuitter.addActionListener(new BtnQuitterActionListener());
 		this.btnQuitter.setBounds(293, 208, 117, 25);
 		content.add(this.btnQuitter);
 
 		this.lblConnection = new JLabel("CONNECTION");
 		this.lblConnection.setBounds(113, 31, 154, 15);
 		content.add(this.lblConnection);
+	}
+
+	private class BtnQuitterActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
+	}
+
+	private class BtnConnectionActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			String login = txtfielLogin.getText();
+			String motDePasse = String.valueOf(txtFieldPass.getPassword());
+			
+		}
 	}
 }

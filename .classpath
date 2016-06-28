@@ -4,5 +4,7 @@
 	<classpathentry kind="src" path="importation"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="importation/mysql-connector-java-5.1.38-bin.jar"/>
+	<classpathentry kind="lib" path="importation/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="importation/jcalendarbutton-1.4.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

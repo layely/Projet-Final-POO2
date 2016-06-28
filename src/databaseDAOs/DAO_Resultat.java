@@ -22,6 +22,8 @@ public class DAO_Resultat {
 
 	static Connection connect = DBConnection.getConnection();
 
+	// **************************
+	// tous les resultats
 	public ArrayList<Resultat> getAllResultats() {
 		try {
 			Statement stm = connect.createStatement();
@@ -34,7 +36,10 @@ public class DAO_Resultat {
 		}
 		return null;
 	}
+	
+	
 
+	// **************************
 	// recuperation d'un resultat
 
 	public static Resultat getOneResultat(int num_table) {
@@ -61,11 +66,25 @@ public class DAO_Resultat {
 		return null;
 	}
 
+	// **************************
+	// ajouter Resultat
+	
+	public void ajoutResultat(double maths, double francais, double svt, double histoGeo, double pc,
+			double moyenneGenerale, int passageExam) {
+		try {
+			Statement stm = connect.createStatement();
+			stm.executeQuery("INSERT INTO " + TABLE_RESULTAT + " VALUES(" + passageExam + ","
+					+ moyenneGenerale + "," + maths + "," + francais + "," + svt + "," + histoGeo + "," + pc);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public static ArrayList<Resultat> commeListResultat(ResultSet resultat) {
 		ArrayList<Resultat> myResultat = new ArrayList<>();
 		try {
 			while (resultat.next()) {
-				int num_result = resultat.getInt(NUM_RESULT);
 				int passable = resultat.getInt(PASSAGE);
 				float moy_general = resultat.getFloat(MOY_GENERAL);
 				float moy_maths = resultat.getFloat(MOY_MATHS);
@@ -79,6 +98,7 @@ public class DAO_Resultat {
 				myResultat.add(res);
 
 			}
+			return myResultat;
 
 		} catch (SQLException e) {
 			e.printStackTrace();

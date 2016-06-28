@@ -1,5 +1,6 @@
 package databaseDAOs;
 
+
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -24,34 +25,42 @@ public class DAO_Eleve {
 
 	Connection connect = (Connection) DBConnection.getConnection();
 
-	public void getAllEleves() throws ParseException {
-		//ArrayList<Eleve> eleve = new ArrayList<>();
+	// **************************
+	// liste de tous les eleves 
+	
+	public ArrayList<Eleve> getAllEleves() throws ParseException {
+		ArrayList<Eleve> eleve = new ArrayList<>();
 		try {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_ELEVE);
-			commeListeEleve(resultSet);
-			
+			eleve = commeListeEleve(resultSet);
+			return eleve ;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return eleve ;
 
 	}
 
-	// insérer eleve
-	public void insertEleve(int num_table, String prenom, String nom, String date_naissance, String lieu_naissance,
-			String sexe, String email) {
+	// **************************
+	// ajouter un eleve
+	
+	public void ajoutEleve(int num_table, String nom, String prenom, String lieu_naissance, Calendar date_naissance,
+			char sexe, String email) {
 		try {
 			Statement stm = connect.createStatement();
-			stm.executeUpdate("INSERTINTO " + TABLE_ELEVE + " VALUES(" + num_table + ",'" + prenom + "','" + nom + "','"
-					+ date_naissance + "','" + lieu_naissance + "','" + sexe + "','" + email + "')");
+			stm.executeUpdate("INSERT INTO " + TABLE_ELEVE + " VALUES(" + num_table + ",'" + prenom + "','" + nom + "','"
+					+ Outil.calendarToString(date_naissance) + "','" + lieu_naissance + "','" + sexe + "','" + email + "')");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
 
+	// **************************
 	//supprimer un eleve
+	
 	public void deleteEleve(int num_table) {
 		try {
 			Statement stm = connect.createStatement();
@@ -61,19 +70,32 @@ public class DAO_Eleve {
 		}
 	}
 	
+	// **************************
 	// information sur un eleve
-	public void infoEleve(int num_table) throws ParseException{
+	
+	public Eleve infoEleve(int num_table) throws ParseException{
+		ArrayList<Eleve> myEcole = new ArrayList<>() ;
+		Eleve el = null ;
+
 		try{
 			Statement stm = connect.createStatement() ;
 			ResultSet resultSet = stm.executeQuery("SELECT FROM "+TABLE_ELEVE+" WHERE "+COLONNE_NUM_TABLE+"="+num_table) ;
-			commeListeEleve(resultSet);
+			myEcole = commeListeEleve(resultSet);
+			for(int i=0;i<myEcole.size();i++){
+				if(myEcole!=null){
+					el = myEcole.get(i) ;
+				}
+			}
+			return el ;
 		}catch(SQLException e){
 			e.printStackTrace();
 			//TODO
 		}
+		return el ;
 	}
 
-	public void commeListeEleve(ResultSet resultSet) throws ParseException {
+	public ArrayList<Eleve> commeListeEleve(ResultSet resultSet) throws ParseException {
+		ArrayList<Eleve> myEcole = new ArrayList<>() ;
 		try {
 			while (resultSet.next()) {
 				int numeroTable = resultSet.getInt(COLONNE_NUM_TABLE);
@@ -89,11 +111,16 @@ public class DAO_Eleve {
 				Calendar dateNaissance = Outil.stringToCalendar(date_Naissance) ;
 				
 				Eleve eleve = new Eleve(numeroTable,nom, prenom,lieu_Naissance, dateNaissance, email, resultat, nom_ecole);
+				char a = sexe.charAt(0);
+				eleve.setSex(a);
+				myEcole.add(eleve) ;
 			}
+			return myEcole ;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return myEcole ;
 	}
 
 }

@@ -162,4 +162,14 @@ public class Eleve {
 		this.dateNaissance = dateNaissance;
 	}
 
+	public char getSex() {
+		return sex;
+	}
+
+	public void setSex(char sex) {
+		this.sex = sex;
+	}
+	
+	
+
 }

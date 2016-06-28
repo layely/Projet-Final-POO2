@@ -7,7 +7,7 @@ import com.mysql.jdbc.Connection;
 
 public class DBConnection {
 
-	public Connection getConnection() {
+	public static Connection getConnection() {
 		try {
 			Connection connect = (Connection) DriverManager.getConnection("jdbc:mysql:localhost:3306/base_de_données",
 					"root", "senegal111");

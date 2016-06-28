@@ -10,11 +10,9 @@ public class Choix extends JPanel {
 	protected JLabel label;
 	protected JLabel label_1;
 	protected JLabel label_2;
-	protected JLabel label_3;
 	protected JTextField textField;
 	protected JTextField textField_1;
 	protected JTextField textField_2;
-	protected JTextField textField_3;
 	protected JButton btnValider;
 	protected JButton btnAnnuler;
 
@@ -44,10 +42,6 @@ public class Choix extends JPanel {
 		this.label_2.setBounds(46, 150, 70, 15);
 		add(this.label_2);
 
-		this.label_3 = new JLabel("4");
-		this.label_3.setBounds(46, 196, 70, 15);
-		add(this.label_3);
-
 		this.textField = new JTextField();
 		this.textField.setBounds(98, 61, 180, 19);
 		add(this.textField);
@@ -62,11 +56,6 @@ public class Choix extends JPanel {
 		this.textField_2.setBounds(98, 148, 114, 19);
 		add(this.textField_2);
 		this.textField_2.setColumns(10);
-
-		this.textField_3 = new JTextField();
-		this.textField_3.setBounds(98, 194, 114, 19);
-		add(this.textField_3);
-		this.textField_3.setColumns(10);
 
 		this.btnValider = new JButton("Valider");
 		this.btnValider.setBounds(176, 263, 117, 25);

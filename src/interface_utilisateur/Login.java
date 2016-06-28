@@ -17,6 +17,7 @@ public class Login extends JFrame {
 	protected JTextField txtPass;
 	protected JButton btnConnection;
 	protected JButton btnQuitter;
+	protected JLabel lblConnection;
 
 	/**
 	 * Launch the application.
@@ -48,11 +49,11 @@ public class Login extends JFrame {
 		content.setLayout(null);
 
 		this.lblLogin = new JLabel("Login");
-		this.lblLogin.setBounds(52, 50, 107, 31);
+		this.lblLogin.setBounds(52, 76, 107, 31);
 		content.add(this.lblLogin);
 
 		this.txtfielLogin = new JTextField();
-		this.txtfielLogin.setBounds(177, 50, 220, 31);
+		this.txtfielLogin.setBounds(177, 76, 220, 31);
 		content.add(this.txtfielLogin);
 		this.txtfielLogin.setColumns(10);
 
@@ -72,5 +73,9 @@ public class Login extends JFrame {
 		this.btnQuitter = new JButton("Quitter");
 		this.btnQuitter.setBounds(293, 208, 117, 25);
 		content.add(this.btnQuitter);
+
+		this.lblConnection = new JLabel("CONNECTION");
+		this.lblConnection.setBounds(113, 31, 154, 15);
+		content.add(this.lblConnection);
 	}
 }

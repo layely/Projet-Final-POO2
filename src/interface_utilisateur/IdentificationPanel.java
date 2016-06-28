@@ -1,7 +1,16 @@
 package interface_utilisateur;
 
-import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.Calendar;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import org.jbundle.thin.base.screen.jcalendarbutton.JCalendarButton;
@@ -9,14 +18,6 @@ import org.jbundle.thin.base.screen.jcalendarbutton.JCalendarButton;
 import objet.Eleve;
 import utilitaire.Connection;
 import utilitaire.Outil;
-
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.util.Calendar;
-import java.awt.event.ActionEvent;
 
 public class IdentificationPanel extends JPanel {
 	protected JLabel lblNom;
@@ -40,11 +41,13 @@ public class IdentificationPanel extends JPanel {
 
 	public static Eleve dernierIdentifie;
 
+	private JFrame parentframe;
+
 	/**
 	 * Create the panel.
 	 */
-	public IdentificationPanel() {
-
+	public IdentificationPanel(JFrame parent) {
+		parentframe = parent;
 		initialize();
 	}
 
@@ -101,6 +104,7 @@ public class IdentificationPanel extends JPanel {
 		this.textFieldLieuNaissance.setColumns(10);
 
 		this.rdbtnM = new JRadioButton("M");
+		this.rdbtnM.setSelected(true);
 		this.buttonGroup.add(this.rdbtnM);
 		this.rdbtnM.setBounds(211, 173, 68, 23);
 		add(this.rdbtnM);
@@ -116,6 +120,7 @@ public class IdentificationPanel extends JPanel {
 		add(this.btnValider);
 
 		this.btnAnnuller = new JButton("Annuler");
+		this.btnAnnuller.addActionListener(new BtnAnnullerActionListener());
 		this.btnAnnuller.setBounds(311, 295, 117, 25);
 		add(this.btnAnnuller);
 
@@ -153,12 +158,18 @@ public class IdentificationPanel extends JPanel {
 
 			Eleve eleve = new Eleve(numTable, nom, prenom, lieuNaissance, dateNaissance, sexe, etablissement);
 			dernierIdentifie = eleve;
+			((IdentificationFrame) parentframe).suivant();
 		}
 	}
 
 	private class TextFieldDateNaissanceActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
+		}
+	}
+	private class BtnAnnullerActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			parentframe.dispose();
 		}
 	}
 }

@@ -20,7 +20,7 @@ public class EleveModel extends AbstractTableModel {
 
 	public EleveModel(String serie) {
 		this.serie = serie;
-		listEleves = new DAO_Eleve().getAllEleves();
+		listEleves =  new ArrayList<>(); //new DAO_Eleve().getAllEleves(); //TODO
 	}
 
 	@Override

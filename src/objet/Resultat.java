@@ -42,21 +42,34 @@ public class Resultat {
 		return moyenneChoix(noteMaths, notePC);
 	}
 
+	public Double moyenneChoix(String serie) {
+		switch (serie.toUpperCase()) {
+		case "L":
+			return moyenneChoixSerieL();
+		case "S":
+			return moyenneChoixSerieS();
+		case "G":
+			return moyenneChoixSerieG();
+
+		case "T":
+			return moyenneChoixSerieT();
+		default:
+			return null; //TODO
+		}
+	}
+
 	private Double moyenneChoix(double d1, double d2) {
 		double coefficient = 0;
 
-		if (passageExam == 0) //A échoué au bfem
+		if (passageExam == 0) // A échoué au bfem
 			coefficient = 0.75;
-		if (passageExam == 1) //A réussi au premier tour
+		if (passageExam == 1) // A réussi au premier tour
 			coefficient = 2.5;
-		if (passageExam == 2) //A réussi au second tour
+		if (passageExam == 2) // A réussi au second tour
 			coefficient = 1.25;
 
 		return moyenneGenerale + d1 + d2 + coefficient;
 	}
-
-
-
 
 	////////////////////////////////////////////
 	// Getters and Setters

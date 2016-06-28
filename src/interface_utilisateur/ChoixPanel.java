@@ -1,11 +1,13 @@
 package interface_utilisateur;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class ChoixPanel extends JPanel {
 	protected JLabel lblChoix;
@@ -26,11 +28,13 @@ public class ChoixPanel extends JPanel {
 	protected JTextField txtFieldChoix4;
 	protected JButton buttonUPX;
 
+	JFrame parentframe;
+
 	/**
 	 * Create the panel.
 	 */
-	public ChoixPanel() {
-
+	public ChoixPanel(JFrame parent) {
+		parentframe = parent;
 		initialize();
 	}
 
@@ -77,6 +81,7 @@ public class ChoixPanel extends JPanel {
 		add(this.btnValider);
 
 		this.btnAnnuler = new JButton("Precendent");
+		this.btnAnnuler.addActionListener(new BtnAnnulerActionListener());
 		this.btnAnnuler.setBounds(308, 263, 117, 25);
 		add(this.btnAnnuler);
 
@@ -129,7 +134,8 @@ public class ChoixPanel extends JPanel {
 
 			String choix = choix1 + choix2 + choix3;
 			IdentificationPanel.dernierIdentifie.setChoix(choix);
-
+			System.out.println(IdentificationPanel.dernierIdentifie);
+			parentframe.dispose();
 		}
 	}
 
@@ -190,6 +196,11 @@ public class ChoixPanel extends JPanel {
 
 			textFieldChoix3.setText(s4);
 			txtFieldChoix4.setText(s3);
+		}
+	}
+	private class BtnAnnulerActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			((IdentificationFrame) parentframe).precedent();
 		}
 	}
 }

@@ -65,7 +65,7 @@ public class MainFrame extends JFrame {
 		this.btnIdentifierUnEleve.addActionListener(new BtnIdentifierUnEleveActionListener());
 		this.panel.add(this.btnIdentifierUnEleve);
 
-		this.btnModifierUnEleve = new JButton("Modifier un eleve");
+		this.btnModifierUnEleve = new JButton("Rechercher un(e) eleve");
 		this.panel.add(this.btnModifierUnEleve);
 
 		this.btnListeDeTous = new JButton("Liste de tous les eleves");

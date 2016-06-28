@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import objet.Lycee;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -127,7 +130,7 @@ public class AjouterLycee extends JFrame {
 			int nbPlaces_G = Integer.parseInt(strNbPlaces_G);
 			int nbPlaces_T = Integer.parseInt(strNbPlaces_T);
 
-
+			Lycee lycee = new Lycee(nomLycee, nbPlaces_S, nbPlaces_L, nbPlaces_G, nbPlaces_T);
 		}
 	}
 }

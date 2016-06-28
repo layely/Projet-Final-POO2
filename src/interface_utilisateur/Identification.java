@@ -6,18 +6,20 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Identification extends JPanel {
 	protected JLabel lblNom;
-	protected JTextField textField;
+	protected JTextField textFieldNom;
 	protected JLabel lblPrenom;
-	protected JTextField textField_1;
+	protected JTextField textFieldPrenom;
 	protected JLabel lblNumroDeTable;
-	protected JTextField textField_2;
+	protected JTextField textFieldNumTable;
 	protected JLabel lblDateDeNaissace;
-	protected JTextField textField_3;
+	protected JTextField textFieldDateNaissance;
 	protected JLabel lblLieuDeNaissance;
-	protected JTextField textField_4;
+	protected JTextField textFieldLieuNaissance;
 	protected JRadioButton rdbtnM;
 	protected JRadioButton rdbtnF;
 	protected final ButtonGroup buttonGroup = new ButtonGroup();
@@ -41,46 +43,46 @@ public class Identification extends JPanel {
 		this.lblNom.setBounds(46, 101, 78, 19);
 		add(this.lblNom);
 
-		this.textField = new JTextField();
-		this.textField.setBounds(180, 101, 248, 19);
-		add(this.textField);
-		this.textField.setColumns(10);
+		this.textFieldNom = new JTextField();
+		this.textFieldNom.setBounds(180, 101, 248, 19);
+		add(this.textFieldNom);
+		this.textFieldNom.setColumns(10);
 
 		this.lblPrenom = new JLabel("Prenom");
 		this.lblPrenom.setBounds(46, 137, 78, 33);
 		add(this.lblPrenom);
 
-		this.textField_1 = new JTextField();
-		this.textField_1.setBounds(180, 144, 248, 19);
-		add(this.textField_1);
-		this.textField_1.setColumns(10);
+		this.textFieldPrenom = new JTextField();
+		this.textFieldPrenom.setBounds(180, 144, 248, 19);
+		add(this.textFieldPrenom);
+		this.textFieldPrenom.setColumns(10);
 
 		this.lblNumroDeTable = new JLabel("Numero de table");
 		this.lblNumroDeTable.setBounds(46, 60, 127, 15);
 		add(this.lblNumroDeTable);
 
-		this.textField_2 = new JTextField();
-		this.textField_2.setBounds(180, 58, 248, 19);
-		add(this.textField_2);
-		this.textField_2.setColumns(10);
+		this.textFieldNumTable = new JTextField();
+		this.textFieldNumTable.setBounds(180, 58, 248, 19);
+		add(this.textFieldNumTable);
+		this.textFieldNumTable.setColumns(10);
 
 		this.lblDateDeNaissace = new JLabel("Date de Naissace");
 		this.lblDateDeNaissace.setBounds(46, 210, 127, 15);
 		add(this.lblDateDeNaissace);
 
-		this.textField_3 = new JTextField();
-		this.textField_3.setBounds(180, 208, 248, 19);
-		add(this.textField_3);
-		this.textField_3.setColumns(10);
+		this.textFieldDateNaissance = new JTextField();
+		this.textFieldDateNaissance.setBounds(180, 208, 248, 19);
+		add(this.textFieldDateNaissance);
+		this.textFieldDateNaissance.setColumns(10);
 
 		this.lblLieuDeNaissance = new JLabel("Lieu de naissance");
 		this.lblLieuDeNaissance.setBounds(46, 253, 127, 15);
 		add(this.lblLieuDeNaissance);
 
-		this.textField_4 = new JTextField();
-		this.textField_4.setBounds(180, 251, 248, 19);
-		add(this.textField_4);
-		this.textField_4.setColumns(10);
+		this.textFieldLieuNaissance = new JTextField();
+		this.textFieldLieuNaissance.setBounds(180, 251, 248, 19);
+		add(this.textFieldLieuNaissance);
+		this.textFieldLieuNaissance.setColumns(10);
 
 		this.rdbtnM = new JRadioButton("M");
 		this.buttonGroup.add(this.rdbtnM);
@@ -93,6 +95,7 @@ public class Identification extends JPanel {
 		add(this.rdbtnF);
 
 		this.btnValider = new JButton("Valider");
+		this.btnValider.addActionListener(new BtnValiderActionListener());
 		this.btnValider.setBounds(150, 295, 117, 25);
 		add(this.btnValider);
 
@@ -103,9 +106,25 @@ public class Identification extends JPanel {
 		this.lblIdentificationDunlve = new JLabel("IDENTIFICATION D'UN ELEVE");
 		this.lblIdentificationDunlve.setBounds(230, 12, 148, 36);
 		add(this.lblIdentificationDunlve);
-		
+
 		lblSexe = new JLabel("Sexe");
 		lblSexe.setBounds(46, 162, 96, 33);
 		add(lblSexe);
+	}
+	private class BtnValiderActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			String strNumTable = textFieldNumTable.getText();
+			int numTable = Integer.parseInt(strNumTable);
+			String nom = textFieldNom.getText();
+			String prenom = textFieldPrenom.getText();
+			String lieuNaissance = textFieldLieuNaissance.getText();
+			String strDate = textFieldDateNaissance.getText();
+			String sexe = "";
+
+			if(rdbtnM.isSelected())
+				sexe = "M";
+			else if(rdbtnF.isSelected())
+				sexe = "F";
+		}
 	}
 }

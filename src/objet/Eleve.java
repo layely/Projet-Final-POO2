@@ -23,19 +23,19 @@ public class Eleve {
 			Resultat resultat, String etablissement) {
 		super();
 		this.numTable = numTable;
-		
+
 		this.nom = nom;
-		
+
 		this.prenom = prenom;
-		
+
 		this.lieuNaissance = lieuNaissance;
-		
+
 		this.dateNaissance = dateNaissance;
-		
+
 		this.email = email;
-		
+
 		this.resultat = resultat;
-		
+
 		this.etablissement = etablissement;
 	}
 

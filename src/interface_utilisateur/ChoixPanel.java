@@ -198,6 +198,7 @@ public class ChoixPanel extends JPanel {
 			txtFieldChoix4.setText(s3);
 		}
 	}
+
 	private class BtnAnnulerActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			((IdentificationFrame) parentframe).precedent();

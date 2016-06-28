@@ -34,7 +34,6 @@ public class IdentificationFrame extends JFrame {
 		setTitle("Identification");
 		setBounds(100, 100, 700, 400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(new CardLayout());
 		add(PAGE_IDENFTICATION, panelIdentif);
 		add(PAGE_RESULTAT, panelResutat);

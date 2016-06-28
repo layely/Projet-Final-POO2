@@ -3,6 +3,8 @@ package objet;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import utilitaire.Outil;
+
 public class Eleve {
 
 	int numTable;
@@ -73,13 +75,12 @@ public class Eleve {
 		str.append("Nom : " + this.nom + "\n");
 		str.append("Prénom : " + this.prenom + "\n");
 		str.append("Lieu de naissance : " + this.lieuNaissance + "\n");
-		str.append("Date de naissance : " + this.dateNaissance + "\n");
+		str.append("Date de naissance : " + Outil.calendarToString(this.dateNaissance) + "\n");
 		str.append("Sexe : " + this.sex + "\n");
-		str.append("Etablissement" + this.etablissement + "\n");
+		str.append("Etablissement : " + this.etablissement + "\n");
 		str.append("Email : " + this.email + "\n");
 		str.append("Choix : " + this.choix + "\n");
-		str.append(this.resultat);
-
+		str.append(this.resultat.toString());
 		return str.toString();
 	}
 

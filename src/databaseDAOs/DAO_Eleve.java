@@ -1,9 +1,14 @@
 package databaseDAOs;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
+import objet.Ecole;
 import objet.Eleve;
+import objet.Resultat;
+import utilitaire.Outil;
 
 public class DAO_Eleve {
 	public final static String TABLE_ELEVE = "Eleve";
@@ -14,10 +19,12 @@ public class DAO_Eleve {
 	public final static String COLONNE_LIEU_NAISSANCE = "lieu_Naissance";
 	public final static String COLONNE_SEXE = "sexe";
 	public final static String COLONNE_EMAIL = "email";
+	public final static String COLONNE_NOM_ECOLE = "nom_ecole" ;
+	
 
 	Connection connect = (Connection) DBConnection.getConnection();
 
-	public void getAllEleves() {
+	public void getAllEleves() throws ParseException {
 		//ArrayList<Eleve> eleve = new ArrayList<>();
 		try {
 			Statement stm = connect.createStatement();
@@ -55,7 +62,7 @@ public class DAO_Eleve {
 	}
 	
 	// information sur un eleve
-	public void infoEleve(int num_table){
+	public void infoEleve(int num_table) throws ParseException{
 		try{
 			Statement stm = connect.createStatement() ;
 			ResultSet resultSet = stm.executeQuery("SELECT FROM "+TABLE_ELEVE+" WHERE "+COLONNE_NUM_TABLE+"="+num_table) ;
@@ -66,7 +73,7 @@ public class DAO_Eleve {
 		}
 	}
 
-	public void commeListeEleve(ResultSet resultSet) {
+	public void commeListeEleve(ResultSet resultSet) throws ParseException {
 		try {
 			while (resultSet.next()) {
 				int numeroTable = resultSet.getInt(COLONNE_NUM_TABLE);
@@ -76,8 +83,12 @@ public class DAO_Eleve {
 				String lieu_Naissance = resultSet.getString(COLONNE_LIEU_NAISSANCE);
 				String sexe = resultSet.getString(COLONNE_SEXE);
 				String email = resultSet.getString(COLONNE_EMAIL);
+				Resultat resultat = DAO_Resultat.getOneResultat(numeroTable) ;
+				Ecole ecole = DAO_Ecole.getOneEcole(COLONNE_NOM_ECOLE) ;
+				String nom_ecole = ecole.getNom() ;
+				Calendar dateNaissance = Outil.stringToCalendar(date_Naissance) ;
 				
-				//Eleve eleve = new Eleve(numeroTable, prenom, nom, date_Naissance, dateNaissance, email, resultat, etablissement);
+				Eleve eleve = new Eleve(numeroTable,nom, prenom,lieu_Naissance, dateNaissance, email, resultat, nom_ecole);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

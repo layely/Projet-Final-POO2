@@ -20,39 +20,49 @@ public class DAO_Resultat {
 	public final static String MOY_PC = "moyenne_PC";
 	public final static String NUM_TABLE_ELEVE = "eleve_numerotable";
 
-	Connection connect = DBConnection.getConnection();
+	static Connection connect = DBConnection.getConnection();
 
 	public ArrayList<Resultat> getAllResultats() {
 		try {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_RESULTAT);
-			
+
 			return commeListResultat(resultSet);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null ;
+		return null;
 	}
 
 	// recuperation d'un resultat
 
-	public ArrayList<Resultat> getOneResultat(int num_table) {
-		
+	public static Resultat getOneResultat(int num_table) {
+		Resultat res = null;
+		ArrayList<Resultat> myResultat = new ArrayList<>();
+
 		try {
 			Statement stm = connect.createStatement();
-			ResultSet resultat =  stm
+			ResultSet resultat = stm
 					.executeQuery("SELECT FROM " + TABLE_RESULTAT + " WHERE " + NUM_TABLE_ELEVE + "=" + num_table);
-			return commeListResultat(resultat);
-			 
+			myResultat = commeListResultat(resultat);
+
+			for (int i = 0; i < myResultat.size(); i++) {
+				if (myResultat != null) {
+					res = myResultat.get(i);
+				}
+
+			}
+			return res;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null ;
+		return null;
 	}
 
-	public ArrayList<Resultat> commeListResultat(ResultSet resultat) {
-		ArrayList<Resultat> myResultat = new ArrayList<>() ;
+	public static ArrayList<Resultat> commeListResultat(ResultSet resultat) {
+		ArrayList<Resultat> myResultat = new ArrayList<>();
 		try {
 			while (resultat.next()) {
 				int num_result = resultat.getInt(NUM_RESULT);
@@ -63,16 +73,17 @@ public class DAO_Resultat {
 				float moy_svt = resultat.getFloat(MOY_SVT);
 				float moy_histogeo = resultat.getFloat(MOY_HISTO_GEO);
 				float moy_pc = resultat.getFloat(MOY_PC);
-				
-				Resultat res = new Resultat(moy_maths, moy_francais, moy_svt, moy_histogeo, moy_pc, moy_general, passable) ;
-				myResultat.add(res) ;
+
+				Resultat res = new Resultat(moy_maths, moy_francais, moy_svt, moy_histogeo, moy_pc, moy_general,
+						passable);
+				myResultat.add(res);
 
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return myResultat ;
+		return myResultat;
 	}
 
 }

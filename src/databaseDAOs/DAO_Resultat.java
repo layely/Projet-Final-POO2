@@ -73,7 +73,7 @@ public class DAO_Resultat {
 			double moyenneGenerale, int passageExam) {
 		try {
 			Statement stm = connect.createStatement();
-			stm.executeQuery("INSERT INTO " + TABLE_RESULTAT + " VALUES(" + passageExam + ","
+			stm.executeUpdate("INSERT INTO " + TABLE_RESULTAT + " VALUES(" + passageExam + ","
 					+ moyenneGenerale + "," + maths + "," + francais + "," + svt + "," + histoGeo + "," + pc);
 		} catch (SQLException e) {
 			e.printStackTrace();

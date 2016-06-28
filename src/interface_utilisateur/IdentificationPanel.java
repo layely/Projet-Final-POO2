@@ -18,7 +18,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 
-public class Identification extends JPanel {
+public class IdentificationPanel extends JPanel {
 	protected JLabel lblNom;
 	protected JTextField textFieldNom;
 	protected JLabel lblPrenom;
@@ -43,7 +43,7 @@ public class Identification extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Identification() {
+	public IdentificationPanel() {
 
 		initialize();
 	}

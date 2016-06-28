@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Login extends JFrame {
+public class LoginFrame extends JFrame {
 	protected JLabel lblLogin;
 	protected JTextField txtfielLogin;
 	protected JLabel lblMotDePasse;
@@ -29,7 +29,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					LoginFrame frame = new LoginFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +41,7 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public LoginFrame() {
 		initialize();
 	}
 

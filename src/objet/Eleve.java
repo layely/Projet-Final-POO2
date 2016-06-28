@@ -13,15 +13,14 @@ public class Eleve {
 	char sex;
 	String email;
 	Resultat resultat;
+	String choix; // Format : LSG, LST, LGS ....
 	String etablissement;
-
 
 	/////////////////////////////////////////
 	// Constructeur
 
-
-	public Eleve(int numTable, String nom, String prenom, String lieuNaissance, Calendar dateNaissance,
-			String email, Resultat resultat, String etablissement) {
+	public Eleve(int numTable, String nom, String prenom, String lieuNaissance, Calendar dateNaissance, String email,
+			Resultat resultat, String etablissement) {
 		super();
 		this.numTable = numTable;
 		this.nom = nom;
@@ -33,10 +32,8 @@ public class Eleve {
 		this.etablissement = etablissement;
 	}
 
-
-
-	public Eleve(int numTable, String nom, String prenom, String lieuNaissance, Calendar dateNaissance,
-			char sex, String etablissement) {
+	public Eleve(int numTable, String nom, String prenom, String lieuNaissance, Calendar dateNaissance, char sex,
+			String etablissement) {
 		super();
 		this.numTable = numTable;
 		this.nom = nom;
@@ -46,8 +43,6 @@ public class Eleve {
 		this.sex = sex;
 		this.etablissement = etablissement;
 	}
-
-
 
 	public Eleve(int numTable, String nom, String prenom, String lieuNaissance, Calendar dateNaissance,
 			String etablissement) {
@@ -60,13 +55,26 @@ public class Eleve {
 		this.etablissement = etablissement;
 	}
 
-
-
 	public Eleve() {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("Numero de Table : " + this.numTable + "\n");
+		str.append("Nom : " + this.nom + "\n");
+		str.append("Prénom : " + this.prenom + "\n");
+		str.append("Lieu de naissance : " + this.lieuNaissance + "\n");
+		str.append("Date de naissance : " + this.dateNaissance + "\n");
+		str.append("Sexe : " + this.sex + "\n");
+		str.append("Etablissement" + this.etablissement + "\n");
+		str.append("Email : " + this.email + "\n");
+		str.append("Choix : " + this.choix + "\n");
+		str.append(this.resultat);
 
+		return str.toString();
+	}
 
 	////////////////////////////////
 	// Getters and Setters
@@ -74,15 +82,19 @@ public class Eleve {
 	public int getNumTable() {
 		return numTable;
 	}
+
 	public void setNumTable(int numTable) {
 		this.numTable = numTable;
 	}
+
 	public String getNom() {
 		return nom;
 	}
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
 	public String getPrenom() {
 		return prenom;
 	}
@@ -90,35 +102,57 @@ public class Eleve {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+
 	public String getLieuNaissance() {
 		return lieuNaissance;
 	}
+
 	public void setLieuNaissance(String lieuNaissance) {
 		this.lieuNaissance = lieuNaissance;
 	}
+
 	public Calendar getDateNaissance() {
 		return dateNaissance;
 	}
+
 	public void setDateNaissance(GregorianCalendar dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public Resultat getResultat() {
 		return resultat;
 	}
+
 	public void setResultat(Resultat resultat) {
 		this.resultat = resultat;
 	}
+
 	public String getEtablissement() {
 		return etablissement;
 	}
+
 	public void setEtablissement(String etablissement) {
 		this.etablissement = etablissement;
+	}
+
+	public String getChoix() {
+		return choix;
+	}
+
+	public void setChoix(String choix) {
+		this.choix = choix;
+	}
+
+	public void setDateNaissance(Calendar dateNaissance) {
+		this.dateNaissance = dateNaissance;
 	}
 
 }

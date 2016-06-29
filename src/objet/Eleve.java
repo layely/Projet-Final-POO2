@@ -15,7 +15,7 @@ public class Eleve {
 	char sex;
 	String email;
 	Resultat resultat;
-	String choix; // Format : LSG, LST, LGS ....
+	String choix; // Format :o LSG, LST, LGS ....
 	String etablissement;
 
 	/////////////////////////////////////////
@@ -170,7 +170,7 @@ public class Eleve {
 	public void setSex(char sex) {
 		this.sex = sex;
 	}
-	
-	
+
+
 
 }

@@ -21,6 +21,8 @@ public class DAO_Eleve {
 	public final static String COLONNE_SEXE = "sexe";
 	public final static String COLONNE_EMAIL = "email";
 	public final static String COLONNE_NOM_ECOLE = "nom_ecole" ;
+	public final static String COLONNE_CHOIX = "choix" ;
+
 	
 
 	Connection connect = (Connection) DBConnection.getConnection();
@@ -109,10 +111,12 @@ public class DAO_Eleve {
 				Ecole ecole = DAO_Ecole.getOneEcole(COLONNE_NOM_ECOLE) ;
 				String nom_ecole = ecole.getNom() ;
 				Calendar dateNaissance = Outil.stringToCalendar(date_Naissance) ;
+				String choix = resultSet.getString(COLONNE_CHOIX) ;
 				
 				Eleve eleve = new Eleve(numeroTable,nom, prenom,lieu_Naissance, dateNaissance, email, resultat, nom_ecole);
 				char a = sexe.charAt(0);
 				eleve.setSex(a);
+				eleve.setChoix(choix);
 				myEcole.add(eleve) ;
 			}
 			return myEcole ;

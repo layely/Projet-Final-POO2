@@ -144,6 +144,7 @@ public class DAO_Eleve {
 				eleve.setChoix(choix);
 				myEcole.add(eleve);
 			}
+			resultSet.close();
 			return myEcole;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

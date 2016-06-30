@@ -145,7 +145,9 @@ public class DAO_Eleve {
 				myEcole.add(eleve);
 			}
 			resultSet.close();
+
 			return myEcole;
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

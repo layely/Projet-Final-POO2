@@ -13,7 +13,7 @@ public class DAO_Resultat {
 	public final static String TABLE_RESULTAT = "Resultat";
 	public final static String NUM_RESULT = "num_result";
 	public final static String PASSAGE = "passage";
-	public final static String MOY_GENERAL = "Moyennne_General";
+	public final static String MOY_GENERAL = "Moyenne_General";
 	public final static String MOY_MATHS = "moyenne_Maths";
 	public final static String MOY_FRANCAIS = "moyenne_Francais";
 	public final static String MOY_SVT = "moyenne_SVT";
@@ -71,21 +71,20 @@ public class DAO_Resultat {
 	public void ajoutResultat(Resultat resultat, int num_table_eleve) {
 		try {
 			Statement stm = connect.createStatement();
-			stm.executeUpdate("INSERT INTO " + TABLE_RESULTAT + " VALUES(" + resultat.getPassageExam() + ","
-					+ resultat.getMoyenneGenerale() + "," + resultat.getNoteMaths() + "," + resultat.getNoteFrancais()
-					+ "," + resultat.getNoteSVT() + "," + resultat.getNoteHistoGeo() + "," + resultat.getNotePC() + ","
-					+ num_table_eleve + ")");
+			stm.executeUpdate("INSERT INTO " + TABLE_RESULTAT + " (" + PASSAGE + "," + MOY_GENERAL + "," + MOY_MATHS
+					+ "," + MOY_FRANCAIS + "," + MOY_SVT + "," + MOY_HISTO_GEO + "," + MOY_PC + "," + NUM_TABLE_ELEVE
+					+ ") VALUES(" + resultat.getPassageExam() + "," + resultat.getMoyenneGenerale() + ","
+					+ resultat.getNoteMaths() + "," + resultat.getNoteFrancais() + "," + resultat.getNoteSVT() + ","
+					+ resultat.getNoteHistoGeo() + "," + resultat.getNotePC() + "," + num_table_eleve + ")");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
-	
 
 	// **************************
-		// ajouter Resultat
-	
+	// ajouter Resultat
+
 	public void ModifierResultat(int num_table, Resultat resultat) {
 		try {
 			Statement stm = connect.createStatement();
@@ -93,21 +92,21 @@ public class DAO_Resultat {
 					+ MOY_GENERAL + "=" + resultat.getMoyenneGenerale() + "," + MOY_MATHS + "="
 					+ resultat.getNoteMaths() + "," + MOY_FRANCAIS + "=" + resultat.getNoteFrancais() + "," + MOY_SVT
 					+ "=" + resultat.getNoteSVT() + "," + MOY_HISTO_GEO + "=" + resultat.getNoteHistoGeo() + ","
-					+ MOY_PC + "=" + resultat.getNotePC() + "WHERE "+NUM_TABLE_ELEVE+"="+num_table);
+					+ MOY_PC + "=" + resultat.getNotePC() + "WHERE " + NUM_TABLE_ELEVE + "=" + num_table);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	// **************************
-			// Supprimer Resultat
-	public void supprimerResultat(int num_table){
-		try{
-			Statement stm = connect.createStatement() ;
-			stm.executeUpdate("DELETE FROM "+TABLE_RESULTAT+" WHERE "+NUM_TABLE_ELEVE+"="+num_table) ;
-		}catch(SQLException e){
+	// Supprimer Resultat
+	public void supprimerResultat(int num_table) {
+		try {
+			Statement stm = connect.createStatement();
+			stm.executeUpdate("DELETE FROM " + TABLE_RESULTAT + " WHERE " + NUM_TABLE_ELEVE + "=" + num_table);
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

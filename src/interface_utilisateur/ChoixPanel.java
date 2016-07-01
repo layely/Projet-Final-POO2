@@ -34,6 +34,7 @@ public class ChoixPanel extends JPanel {
 	JFrame parentframe;
 	DAO_Eleve eleveDAO;
 	DAO_Resultat resultatDAO;
+
 	/**
 	 * Create the panel.
 	 */
@@ -142,7 +143,9 @@ public class ChoixPanel extends JPanel {
 			IdentificationPanel.dernierIdentifie.setChoix(choix);
 
 			eleveDAO.ajoutEleve(IdentificationPanel.dernierIdentifie);
-			//TODO enregistrement du resultat aussi
+			// TODO enregistrement du resultat aussi
+			resultatDAO.ajoutResultat(IdentificationPanel.dernierIdentifie.getResultat(),
+					IdentificationPanel.dernierIdentifie.getNumTable());
 			System.out.println(IdentificationPanel.dernierIdentifie);
 			parentframe.dispose();
 		}

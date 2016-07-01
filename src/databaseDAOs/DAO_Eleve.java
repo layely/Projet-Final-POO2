@@ -51,7 +51,7 @@ public class DAO_Eleve {
 			stm.executeUpdate("INSERT INTO " + TABLE_ELEVE + " VALUES(" + eleve.getNumTable() + ",'" + eleve.getPrenom()
 					+ "','" + eleve.getNom() + "','" + Outil.calendarToString(eleve.getDateNaissance()) + "','"
 					+ eleve.getLieuNaissance() + "','" + eleve.getSex() + "','" + eleve.getEmail() + "','"
-					+ eleve.getChoix() + "')");
+					+ eleve.getChoix() +"','"+eleve.getEtablissement() + "')");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

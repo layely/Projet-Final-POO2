@@ -105,7 +105,7 @@ public class DAO_Eleve {
 		try {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm
-					.executeQuery("SELECT FROM " + TABLE_ELEVE + " WHERE " + COLONNE_NUM_TABLE + "=" + num_table);
+					.executeQuery("SELECT * FROM " + TABLE_ELEVE + " WHERE " + COLONNE_NUM_TABLE + "=" + num_table);
 			myEcole = commeListeEleve(resultSet);
 			for (int i = 0; i < myEcole.size(); i++) {
 				if (myEcole != null) {

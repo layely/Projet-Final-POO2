@@ -18,7 +18,7 @@ public class DAO_Ecole {
 	static Connection connect = DBConnection.getConnection();
 
 	public ArrayList<Ecole> getAllEcole() {
-		//ArrayList<Ecole> ecole = new ArrayList<>();
+		// ArrayList<Ecole> ecole = new ArrayList<>();
 		try {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_ECOLE);
@@ -28,8 +28,6 @@ public class DAO_Ecole {
 		}
 		return null;
 	}
-	
-	
 
 	public static Ecole getOneEcole(String nom_ecole) {
 		ArrayList<Ecole> ecole = new ArrayList<>();
@@ -37,7 +35,7 @@ public class DAO_Ecole {
 		try {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm
-					.executeQuery("SELECT FROM " + TABLE_ECOLE + " WHERE " + NOM_ECOLE + "=" + nom_ecole);
+					.executeQuery("SELECT * FROM " + TABLE_ECOLE + " WHERE " + NOM_ECOLE + "=" + nom_ecole);
 			ecole = commeListEcole(resultSet);
 			for (int i = 0; i < ecole.size(); i++) {
 				if (ecole != null) {
@@ -51,19 +49,20 @@ public class DAO_Ecole {
 		return ec;
 
 	}
-	
+
 	// **************************
-		//Ajout Ecole
-	
-	public void ajoutEcole(String nom, String motDePasse){
-		try{
-			Statement stm = connect.createStatement() ;
-			stm.executeQuery("INSERT INTO "+TABLE_ECOLE+" VALUES('"+nom+"','"+motDePasse+"')") ;
-		}catch(SQLException e){
-			
+	// Ajout Ecole
+
+	public void ajoutEcole(Ecole ecole, String nom_inspection) {
+		try {
+			Statement stm = connect.createStatement();
+			stm.executeQuery("INSERT INTO " + TABLE_ECOLE + " VALUES('" + ecole.getNom() + "','" + ecole.getMotDePasse()
+					+ "','" + nom_inspection + "')");
+		} catch (SQLException e) {
+
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static ArrayList<Ecole> commeListEcole(ResultSet resultat) {
@@ -74,10 +73,10 @@ public class DAO_Ecole {
 				String password = resultat.getString(PASSWORD);
 
 				Ecole ecole = new Ecole(nom_ecole, password);
-				 myEcole.add(ecole);
+				myEcole.add(ecole);
 			}
-			
-			return myEcole ;
+
+			return myEcole;
 
 		} catch (SQLException e) {
 			e.printStackTrace();

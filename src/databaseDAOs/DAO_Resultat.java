@@ -36,8 +36,6 @@ public class DAO_Resultat {
 		}
 		return null;
 	}
-	
-	
 
 	// **************************
 	// recuperation d'un resultat
@@ -49,7 +47,7 @@ public class DAO_Resultat {
 		try {
 			Statement stm = connect.createStatement();
 			ResultSet resultat = stm
-					.executeQuery("SELECT FROM " + TABLE_RESULTAT + " WHERE " + NUM_TABLE_ELEVE + "=" + num_table);
+					.executeQuery("SELECT * FROM " + TABLE_RESULTAT + " WHERE " + NUM_TABLE_ELEVE + "=" + num_table);
 			myResultat = commeListResultat(resultat);
 
 			for (int i = 0; i < myResultat.size(); i++) {
@@ -68,13 +66,14 @@ public class DAO_Resultat {
 
 	// **************************
 	// ajouter Resultat
-	
-	public void ajoutResultat(double maths, double francais, double svt, double histoGeo, double pc,
-			double moyenneGenerale, int passageExam) {
+
+	public void ajoutResultat(Resultat resultat, int num_table_eleve) {
 		try {
 			Statement stm = connect.createStatement();
-			stm.executeUpdate("INSERT INTO " + TABLE_RESULTAT + " VALUES(" + passageExam + ","
-					+ moyenneGenerale + "," + maths + "," + francais + "," + svt + "," + histoGeo + "," + pc);
+			stm.executeUpdate("INSERT INTO " + TABLE_RESULTAT + " VALUES(" + resultat.getPassageExam() + ","
+					+ resultat.getMoyenneGenerale() + "," + resultat.getNoteMaths() + "," + resultat.getNoteFrancais()
+					+ "," + resultat.getNoteSVT() + "," + resultat.getNoteHistoGeo() + "," + resultat.getNotePC() + ","
+					+ num_table_eleve + ")");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

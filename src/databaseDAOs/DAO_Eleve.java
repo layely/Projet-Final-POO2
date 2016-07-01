@@ -51,7 +51,7 @@ public class DAO_Eleve {
 			stm.executeUpdate("INSERT INTO " + TABLE_ELEVE + " VALUES(" + eleve.getNumTable() + ",'" + eleve.getPrenom()
 					+ "','" + eleve.getNom() + "','" + Outil.calendarToString(eleve.getDateNaissance()) + "','"
 					+ eleve.getLieuNaissance() + "','" + eleve.getSex() + "','" + eleve.getEmail() + "','"
-					+ eleve.getChoix() +"','"+eleve.getEtablissement() + "')");
+					+ eleve.getChoix() + "','" + eleve.getEtablissement() + "')");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -78,17 +78,17 @@ public class DAO_Eleve {
 	public void modifierEleve(int num_table, Eleve eleve) throws ParseException {
 		try {
 			Statement stm = connect.createStatement();
-			for (int i = 0; i < this.getAllEleves().size(); i++) {
-				if (eleve.getNumTable() == num_table) {
-					stm.executeUpdate("UPDATE " + TABLE_ELEVE + " SET " + COLONNE_NUM_TABLE + "=" + eleve.getNumTable()
-							+ "," + COLONNE_PRENOM + "='" + eleve.getPrenom() + "'," + COLONNE_NOM + "='" + eleve.getNom()
-							+ "'," + COLONNE_DATE_NAISSANCE + "='" + Outil.calendarToString(eleve.getDateNaissance())
-							+ "'," + COLONNE_LIEU_NAISSANCE + "='" + eleve.getLieuNaissance() + "'," + COLONNE_SEXE + "='"
-							+ eleve.getSex() + "'," + COLONNE_EMAIL + "='" + eleve.getEmail() + "'," + COLONNE_CHOIX + "='"
-							+ eleve.getChoix()+"',"+COLONNE_NOM_ECOLE+"='"+eleve.getEtablissement()+"')");
-				}
-			}
-		} catch (SQLException e) {
+			stm.executeUpdate("UPDATE " + TABLE_ELEVE + " SET " + COLONNE_NUM_TABLE + "=" + eleve.getNumTable() + ","
+					+ COLONNE_PRENOM + "='" + eleve.getPrenom() + "'," + COLONNE_NOM + "='" + eleve.getNom() + "',"
+					+ COLONNE_DATE_NAISSANCE + "='" + Outil.calendarToString(eleve.getDateNaissance()) + "',"
+					+ COLONNE_LIEU_NAISSANCE + "='" + eleve.getLieuNaissance() + "'," + COLONNE_SEXE + "='"
+					+ eleve.getSex() + "'," + COLONNE_EMAIL + "='" + eleve.getEmail() + "'," + COLONNE_CHOIX + "='"
+					+ eleve.getChoix() + "'," + COLONNE_NOM_ECOLE + "='" + eleve.getEtablissement() + "') WHERE "
+					+ COLONNE_NUM_TABLE + "=" + num_table);
+
+		} catch (
+
+		SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

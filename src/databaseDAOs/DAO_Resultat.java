@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import objet.Eleve;
 import objet.Resultat;
 
 public class DAO_Resultat {
@@ -78,6 +79,37 @@ public class DAO_Resultat {
 			e.printStackTrace();
 		}
 
+	}
+	
+	
+
+	// **************************
+		// ajouter Resultat
+	
+	public void ModifierResultat(int num_table, Resultat resultat) {
+		try {
+			Statement stm = connect.createStatement();
+			stm.executeUpdate("UPDATE " + TABLE_RESULTAT + "SET " + PASSAGE + "=" + resultat.getPassageExam() + ","
+					+ MOY_GENERAL + "=" + resultat.getMoyenneGenerale() + "," + MOY_MATHS + "="
+					+ resultat.getNoteMaths() + "," + MOY_FRANCAIS + "=" + resultat.getNoteFrancais() + "," + MOY_SVT
+					+ "=" + resultat.getNoteSVT() + "," + MOY_HISTO_GEO + "=" + resultat.getNoteHistoGeo() + ","
+					+ MOY_PC + "=" + resultat.getNotePC() + "WHERE "+NUM_TABLE_ELEVE+"="+num_table);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	// **************************
+			// Supprimer Resultat
+	public void supprimerResultat(int num_table){
+		try{
+			Statement stm = connect.createStatement() ;
+			stm.executeUpdate("DELETE FROM "+TABLE_RESULTAT+" WHERE "+NUM_TABLE_ELEVE+"="+num_table) ;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
 	}
 
 	public static ArrayList<Resultat> commeListResultat(ResultSet resultat) {

@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import databaseDAOs.DAO_Eleve;
+
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -25,6 +28,8 @@ public class MainFrame extends JFrame {
 	protected JButton btnNewButton;
 	protected JButton btnAjouterUnLyce;
 	protected JButton btnQuitter;
+
+	DAO_Eleve eleveDAO;
 
 	/**
 	 * Launch the application.
@@ -64,8 +69,8 @@ public class MainFrame extends JFrame {
 		this.btnIdentifierUnEleve = new JButton("Identifier un eleve");
 		this.btnIdentifierUnEleve.addActionListener(new BtnIdentifierUnEleveActionListener());
 
-				this.btnModifierUnEleve = new JButton("Rechercher un(e) eleve");
-				this.panel.add(this.btnModifierUnEleve);
+		this.btnModifierUnEleve = new JButton("Rechercher un(e) eleve");
+		this.panel.add(this.btnModifierUnEleve);
 		this.panel.add(this.btnIdentifierUnEleve);
 
 		this.btnListeDeTous = new JButton("Liste de tous les eleves");

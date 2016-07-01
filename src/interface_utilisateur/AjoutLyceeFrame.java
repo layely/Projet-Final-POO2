@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import databaseDAOs.DAO_Lycee;
 import objet.Lycee;
 
 import javax.swing.JLabel;
@@ -32,7 +33,7 @@ public class AjoutLyceeFrame extends JFrame {
 	protected JButton btnAjouter;
 	protected JButton btnAnnuler;
 
-
+	private DAO_Lycee lyceeDAO;
 	private JFrame parent;
 	/**
 	 * Launch the application.
@@ -55,6 +56,7 @@ public class AjoutLyceeFrame extends JFrame {
 	 */
 	public AjoutLyceeFrame(JFrame parent) {
 		this.parent = parent;
+		lyceeDAO = new DAO_Lycee();
 		initialize();
 	}
 
@@ -135,6 +137,7 @@ public class AjoutLyceeFrame extends JFrame {
 			int nbrePlacesT = Integer.parseInt(strNbrT);
 
 			Lycee lycee = new Lycee(nomLycee, nbrePlacesL, nbrePlacesS, nbrePlacesG, nbrePlacesT);
+			lyceeDAO.ajoutLycee(lycee, "Inspection");
 		}
 	}
 }

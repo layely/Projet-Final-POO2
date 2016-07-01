@@ -53,7 +53,7 @@ public class DAO_Lycee {
 	public void ajoutLycee(Lycee lycee, String nom_inspection) {
 		try {
 			Statement stm = connect.createStatement();
-			stm.executeUpdate("INSERT INTO " + TABLE_LYCEE + " VALUES('" + lycee.getNom() + ","
+			stm.executeUpdate("INSERT INTO " + TABLE_LYCEE + " VALUES('" + lycee.getNom() + "',"
 					+ lycee.getNbPlacesSerieS() + "," + lycee.getNbPlacesSerieL() + "," + lycee.getNbPlacesSerieG()
 					+ "," + lycee.getNbPlacesSerieT()+",'"+nom_inspection+"')");
 		} catch (SQLException e) {

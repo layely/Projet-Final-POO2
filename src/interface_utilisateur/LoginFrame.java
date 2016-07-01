@@ -95,7 +95,7 @@ public class LoginFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			String login = txtfielLogin.getText();
 			String motDePasse = String.valueOf(txtFieldPass.getPassword());
-			
+
 		}
 	}
 }

@@ -120,7 +120,7 @@ public class DAO_Eleve {
 		return el;
 	}
 
-	public ArrayList<Eleve> commeListeEleve(ResultSet resultSet) throws ParseException {
+	private ArrayList<Eleve> commeListeEleve(ResultSet resultSet) throws ParseException {
 		ArrayList<Eleve> myEcole = new ArrayList<>();
 		try {
 			while (resultSet.next()) {

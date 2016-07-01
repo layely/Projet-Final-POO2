@@ -56,7 +56,7 @@ public class DAO_Ecole {
 	public void ajoutEcole(Ecole ecole, String nom_inspection) {
 		try {
 			Statement stm = connect.createStatement();
-			stm.executeQuery("INSERT INTO " + TABLE_ECOLE + " VALUES('" + ecole.getNom() + "','" + ecole.getMotDePasse()
+			stm.executeUpdate("INSERT INTO " + TABLE_ECOLE + " VALUES('" + ecole.getNom() + "','" + ecole.getMotDePasse()
 					+ "','" + nom_inspection + "')");
 		} catch (SQLException e) {
 

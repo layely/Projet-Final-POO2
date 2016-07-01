@@ -1,21 +1,20 @@
 package interface_utilisateur;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import databaseDAOs.DAO_Ecole;
 import objet.Ecole;
 
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class AjouterEcole extends JFrame {
+public class AjouterEcoleFrame extends JFrame {
 
 	private JPanel contentPane;
 	protected JLabel lblNomDeLecole;
@@ -25,6 +24,9 @@ public class AjouterEcole extends JFrame {
 	protected JButton btnAjouter;
 	protected JButton btnAnnuler;
 
+	private DAO_Ecole ecoleDAO;
+	private JFrame parent;
+
 	/**
 	 * Launch the application.
 	 */
@@ -32,7 +34,7 @@ public class AjouterEcole extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AjouterEcole frame = new AjouterEcole();
+					AjouterEcoleFrame frame = new AjouterEcoleFrame(new JFrame());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,12 +46,14 @@ public class AjouterEcole extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AjouterEcole() {
+	public AjouterEcoleFrame(JFrame parent) {
+		this.parent = parent;
+		this.ecoleDAO = new DAO_Ecole();
 		initialize();
 	}
 
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -91,11 +95,12 @@ public class AjouterEcole extends JFrame {
 			String pass = textfieldPass.getText();
 
 			Ecole ecole = new Ecole(nomEcole, pass);
+			ecoleDAO.ajoutEcole(ecole, "inspection de thiaroye");
 		}
 	}
 	private class BtnAnnulerActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			AjouterEcole.this.dispose();
+			AjouterEcoleFrame.this.dispose();
 		}
 	}
 }

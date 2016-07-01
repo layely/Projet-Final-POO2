@@ -1,5 +1,6 @@
 package tablemodels;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
@@ -9,18 +10,29 @@ import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import databaseDAOs.DAO_Eleve;
 import objet.Eleve;
+import utilitaire.Outil;
 
 public class EleveModel extends AbstractTableModel {
 
 	private final String[] entetes = { "Numero de Table", "Prenom", "Nom", "Date de naissance", "Lieu de naissance",
 			"Moyenne choix" };
 
+	private DAO_Eleve eleveDAO;
+
 	ArrayList<Eleve> listEleves;
 	String serie;
 
 	public EleveModel(String serie) {
+		this.eleveDAO = new DAO_Eleve();
 		this.serie = serie;
-		listEleves =  new ArrayList<>(); //new DAO_Eleve().getAllEleves(); //TODO
+
+		try {
+			listEleves = eleveDAO.getAllEleves();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // new DAO_Eleve().getAllEleves();
+										// //TODO
 	}
 
 	@Override
@@ -31,6 +43,11 @@ public class EleveModel extends AbstractTableModel {
 	@Override
 	public int getColumnCount() {
 		return entetes.length;
+	}
+
+	@Override
+	public String getColumnName(int column) {
+		return entetes[column];
 	}
 
 	@Override
@@ -46,7 +63,7 @@ public class EleveModel extends AbstractTableModel {
 			return listEleves.get(rowIndex).getNom();
 
 		case 3:
-			return listEleves.get(rowIndex).getDateNaissance().toString();
+			return Outil.calendarToString(listEleves.get(rowIndex).getDateNaissance());
 
 		case 4:
 			return listEleves.get(rowIndex).getLieuNaissance();
@@ -80,6 +97,5 @@ public class EleveModel extends AbstractTableModel {
 			return Object.class;
 		}
 	}
-
 
 }

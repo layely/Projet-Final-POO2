@@ -74,6 +74,7 @@ public class MainFrame extends JFrame {
 		this.panel.add(this.btnIdentifierUnEleve);
 
 		this.btnListeDeTous = new JButton("Liste de tous les eleves");
+		this.btnListeDeTous.addActionListener(new BtnListeDeTousActionListener());
 		this.panel.add(this.btnListeDeTous);
 
 		this.btnListeDesOrientes_1 = new JButton("Liste des orientes en L");
@@ -89,6 +90,7 @@ public class MainFrame extends JFrame {
 		this.panel.add(this.btnListeDesOrientes_3);
 
 		this.btnNewButton = new JButton("Ajouter une ecole");
+		this.btnNewButton.addActionListener(new BtnNewButtonActionListener());
 		this.panel.add(this.btnNewButton);
 
 		this.btnAjouterUnLyce = new JButton("Ajouter un lycée");
@@ -107,6 +109,16 @@ public class MainFrame extends JFrame {
 	private class BtnAjouterUnLyceActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			new AjoutLyceeFrame(MainFrame.this).setVisible(true);
+		}
+	}
+	private class BtnNewButtonActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			new AjouterEcoleFrame(MainFrame.this).setVisible(true);
+		}
+	}
+	private class BtnListeDeTousActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			new ListFrame(MainFrame.this).setVisible(true);
 		}
 	}
 }

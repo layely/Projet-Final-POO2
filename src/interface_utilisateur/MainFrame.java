@@ -92,6 +92,7 @@ public class MainFrame extends JFrame {
 		this.panel.add(this.btnNewButton);
 
 		this.btnAjouterUnLyce = new JButton("Ajouter un lycée");
+		this.btnAjouterUnLyce.addActionListener(new BtnAjouterUnLyceActionListener());
 		this.panel.add(this.btnAjouterUnLyce);
 
 		this.btnQuitter = new JButton("Quitter");
@@ -101,6 +102,11 @@ public class MainFrame extends JFrame {
 	private class BtnIdentifierUnEleveActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			new IdentificationFrame().setVisible(true);
+		}
+	}
+	private class BtnAjouterUnLyceActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			new AjoutLyceeFrame(MainFrame.this).setVisible(true);
 		}
 	}
 }

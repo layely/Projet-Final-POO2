@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import databaseDAOs.DAO_Eleve;
+import databaseDAOs.DAO_Resultat;
+
 public class ChoixPanel extends JPanel {
 	protected JLabel lblChoix;
 	protected JLabel label;
@@ -29,12 +32,15 @@ public class ChoixPanel extends JPanel {
 	protected JButton buttonUPX;
 
 	JFrame parentframe;
-
+	DAO_Eleve eleveDAO;
+	DAO_Resultat resultatDAO;
 	/**
 	 * Create the panel.
 	 */
 	public ChoixPanel(JFrame parent) {
 		parentframe = parent;
+		eleveDAO = new DAO_Eleve();
+		resultatDAO = new DAO_Resultat();
 		initialize();
 	}
 
@@ -134,6 +140,9 @@ public class ChoixPanel extends JPanel {
 
 			String choix = choix1 + choix2 + choix3;
 			IdentificationPanel.dernierIdentifie.setChoix(choix);
+
+			eleveDAO.ajoutEleve(IdentificationPanel.dernierIdentifie);
+			//TODO enregistrement du resultat aussi
 			System.out.println(IdentificationPanel.dernierIdentifie);
 			parentframe.dispose();
 		}

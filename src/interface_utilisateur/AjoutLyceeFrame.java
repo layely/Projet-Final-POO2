@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
 public class AjoutLyceeFrame extends JFrame {
 
 	private JPanel contentPane;
@@ -31,6 +32,8 @@ public class AjoutLyceeFrame extends JFrame {
 	protected JButton btnAjouter;
 	protected JButton btnAnnuler;
 
+
+	private JFrame parent;
 	/**
 	 * Launch the application.
 	 */
@@ -38,7 +41,7 @@ public class AjoutLyceeFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AjoutLyceeFrame frame = new AjoutLyceeFrame();
+					AjoutLyceeFrame frame = new AjoutLyceeFrame(new JFrame());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +53,8 @@ public class AjoutLyceeFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AjoutLyceeFrame() {
+	public AjoutLyceeFrame(JFrame parent) {
+		this.parent = parent;
 		initialize();
 	}
 

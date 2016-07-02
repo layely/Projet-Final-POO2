@@ -29,7 +29,54 @@ public class DAO_Lycee {
 		return null;
 	}
 
-	public ArrayList<Lycee> commListLycee(ResultSet resultSet) {
+	public int nbPlacesSerie(String serie)  {
+		switch (serie.toUpperCase()) {
+		case "L":
+			return nbPlacesSerieL();
+		case "S":
+			return nbPlacesSerieS();
+		case "G":
+			return nbPlacesSerieG();
+		case "T":
+			return nbPlacesSerieT();
+		default:
+			return -1;
+		}
+	}
+
+	public int nbPlacesSerieL() {
+		int somme = 0;
+		for (Lycee lycee : this.getAllLycee()) {
+			somme += lycee.getNbPlacesSerieL();
+		}
+		return somme;
+	}
+
+	public int nbPlacesSerieS() {
+		int somme = 0;
+		for (Lycee lycee : this.getAllLycee()) {
+			somme += lycee.getNbPlacesSerieS();
+		}
+		return somme;
+	}
+
+	public int nbPlacesSerieG() {
+		int somme = 0;
+		for (Lycee lycee : this.getAllLycee()) {
+			somme += lycee.getNbPlacesSerieG();
+		}
+		return somme;
+	}
+
+	public int nbPlacesSerieT() {
+		int somme = 0;
+		for (Lycee lycee : this.getAllLycee()) {
+			somme += lycee.getNbPlacesSerieT();
+		}
+		return somme;
+	}
+
+	private ArrayList<Lycee> commListLycee(ResultSet resultSet) {
 		ArrayList<Lycee> listLycee = new ArrayList<>();
 		try {
 			while (resultSet.next()) {
@@ -55,7 +102,7 @@ public class DAO_Lycee {
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("INSERT INTO " + TABLE_LYCEE + " VALUES('" + lycee.getNom() + "',"
 					+ lycee.getNbPlacesSerieS() + "," + lycee.getNbPlacesSerieL() + "," + lycee.getNbPlacesSerieG()
-					+ "," + lycee.getNbPlacesSerieT()+",'"+nom_inspection+"')");
+					+ "," + lycee.getNbPlacesSerieT() + ",'" + nom_inspection + "')");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

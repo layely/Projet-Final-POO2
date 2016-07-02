@@ -58,6 +58,14 @@ public class Resultat {
 		}
 	}
 
+	public int compareTo(Resultat autreResultat, String serie) {
+		if(this.moyenneChoix(serie) > autreResultat.moyenneChoix(serie))
+			return 1;
+		if(this.moyenneChoix(serie) < autreResultat.moyenneChoix(serie))
+			return -1;
+		return 0;
+	}
+
 	private Double moyenneChoix(double d1, double d2) {
 		double coefficient = 0;
 

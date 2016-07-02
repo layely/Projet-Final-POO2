@@ -68,6 +68,22 @@ public class Eleve {
 		// TODO Auto-generated constructor stub
 	}
 
+	public int compareCumul(Eleve autreEleve, String serie) {
+		return this.getResultat().compareTo(autreEleve.getResultat(), serie);
+	}
+
+	public String getChoix1() {
+		return String.valueOf(this.choix.charAt(0));
+	}
+
+	public String getChoix2() {
+		return String.valueOf(this.choix.charAt(1));
+	}
+
+	public String getChoix3() {
+		return String.valueOf(this.choix.charAt(2));
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();
@@ -170,7 +186,5 @@ public class Eleve {
 	public void setSex(char sex) {
 		this.sex = sex;
 	}
-
-
 
 }

@@ -106,16 +106,19 @@ public class MainFrame extends JFrame {
 			new IdentificationFrame().setVisible(true);
 		}
 	}
+
 	private class BtnAjouterUnLyceActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			new AjoutLyceeFrame(MainFrame.this).setVisible(true);
 		}
 	}
+
 	private class BtnNewButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			new AjouterEcoleFrame(MainFrame.this).setVisible(true);
 		}
 	}
+
 	private class BtnListeDeTousActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			new ListFrame(MainFrame.this).setVisible(true);

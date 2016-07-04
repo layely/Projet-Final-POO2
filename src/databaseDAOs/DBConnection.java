@@ -9,8 +9,8 @@ public class DBConnection {
 
 	public static Connection getConnection() {
 		try {
-			Connection connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/base_de_données",
-					"root", "fondouly");
+			Connection connect = (Connection) DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/orientation",
+					"orientation", "42c1c3");
 			return connect;
 		} catch (SQLException e) {
 			e.printStackTrace();

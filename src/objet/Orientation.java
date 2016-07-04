@@ -17,7 +17,7 @@ public class Orientation {
 
 	private static LinkedList<Eleve> listDesNonOrientes = new LinkedList<>();
 
-	public LinkedList<Eleve> getListCompletDesOrientes(String serie) throws ParseException {
+	public static LinkedList<Eleve> getListCompletDesOrientes(String serie) throws ParseException {
 		genererListDesOrientes();
 		switch (serie.toUpperCase()) {
 		case "L":
@@ -33,7 +33,7 @@ public class Orientation {
 		}
 	}
 
-	public LinkedList<Eleve> getListCompletDesNonOrientes() throws ParseException {
+	public static LinkedList<Eleve> getListCompletDesNonOrientes() throws ParseException {
 		genererListDesOrientes();
 		return listDesNonOrientes;
 
@@ -51,6 +51,9 @@ public class Orientation {
 	}
 
 	private static void oriente(Eleve eleve) {
+		if(eleve == null) {
+			return;
+		}
 		// TODO Auto-generated method stub
 		String choix1 = eleve.getChoix1();
 		String choix2 = eleve.getChoix2();

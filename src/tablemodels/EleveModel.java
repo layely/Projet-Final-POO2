@@ -2,6 +2,7 @@ package tablemodels;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -10,6 +11,7 @@ import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import databaseDAOs.DAO_Eleve;
 import objet.Eleve;
+import objet.Orientation;
 import utilitaire.Outil;
 
 public class EleveModel extends AbstractTableModel {
@@ -19,7 +21,7 @@ public class EleveModel extends AbstractTableModel {
 
 	private DAO_Eleve eleveDAO;
 
-	ArrayList<Eleve> listEleves;
+	LinkedList<Eleve> listEleves;
 	String serie;
 
 	public EleveModel(String serie) {
@@ -27,7 +29,8 @@ public class EleveModel extends AbstractTableModel {
 		this.serie = serie;
 
 		try {
-			listEleves = eleveDAO.getAllEleves();
+//			listEleves = eleveDAO.getAllEleves();
+			listEleves = Orientation.getListCompletDesOrientes("S");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

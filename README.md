@@ -9,7 +9,7 @@ Gestion Des Orientations du BFEM
 1.0
 
 ## Author
-Fatou Samb BA --
+Fatou Samb BA
 
 Abdoulaye Oumar LY
 
@@ -20,5 +20,3 @@ Yatma SY
 ## Description
 
 Ceci est notre projet du module Programation orientée objet 2 (POO2) 
-
-fatou ba a fait klk modif

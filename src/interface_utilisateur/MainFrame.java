@@ -117,6 +117,11 @@ public class MainFrame extends JFrame {
 		this.panel.add(this.btnAjouterUnLyce);
 
 		this.btnQuitter = new JButton("Quitter");
+		btnQuitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		this.panel.add(this.btnQuitter);
 	}
 

@@ -30,7 +30,7 @@ public class EleveModel extends AbstractTableModel {
 
 		try {
 //			listEleves = eleveDAO.getAllEleves();
-			listEleves = Orientation.getListCompletDesOrientes("S");
+			listEleves = Orientation.getListCompletDesOrientes(serie);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

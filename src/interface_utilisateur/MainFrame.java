@@ -66,7 +66,7 @@ public class MainFrame extends JFrame {
 		this.contentPane.add(this.panel, BorderLayout.CENTER);
 		this.panel.setLayout(new GridLayout(10, 1, 0, 0));
 
-		this.btnIdentifierUnEleve = new JButton("Identifier un eleve");
+		this.btnIdentifierUnEleve = new JButton("Identifier un(e) eleve");
 		this.btnIdentifierUnEleve.addActionListener(new BtnIdentifierUnEleveActionListener());
 
 		this.btnModifierUnEleve = new JButton("Rechercher un(e) eleve");
@@ -74,19 +74,38 @@ public class MainFrame extends JFrame {
 		this.panel.add(this.btnIdentifierUnEleve);
 
 		this.btnListeDeTous = new JButton("Liste de tous les eleves");
-		this.btnListeDeTous.addActionListener(new BtnListeDeTousActionListener());
 		this.panel.add(this.btnListeDeTous);
 
 		this.btnListeDesOrientes_1 = new JButton("Liste des orientes en L");
+		btnListeDesOrientes_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ListFrame(MainFrame.this, "L").setVisible(true);
+			}
+		});
 		this.panel.add(this.btnListeDesOrientes_1);
 
 		this.btnListeDesOrientes = new JButton("Liste des Orientes en S");
+		btnListeDesOrientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ListFrame(MainFrame.this, "S").setVisible(true);
+			}
+		});
 		this.panel.add(this.btnListeDesOrientes);
 
 		this.btnListeDesOrientes_2 = new JButton("Liste des orientes en G");
+		btnListeDesOrientes_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ListFrame(MainFrame.this, "G").setVisible(true);
+			}
+		});
 		this.panel.add(this.btnListeDesOrientes_2);
 
 		this.btnListeDesOrientes_3 = new JButton("Liste des orientes en T");
+		btnListeDesOrientes_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ListFrame(MainFrame.this, "T").setVisible(true);
+			}
+		});
 		this.panel.add(this.btnListeDesOrientes_3);
 
 		this.btnNewButton = new JButton("Ajouter une ecole");
@@ -119,9 +138,4 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	private class BtnListeDeTousActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			new ListFrame(MainFrame.this).setVisible(true);
-		}
-	}
 }

@@ -3,6 +3,8 @@ package objet;
 import java.text.ParseException;
 import java.util.LinkedList;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import databaseDAOs.DAO_Eleve;
 import databaseDAOs.DAO_Lycee;
 
@@ -51,7 +53,7 @@ public class Orientation {
 	}
 
 	private static void oriente(Eleve eleve) {
-		if(eleve == null) {
+		if (eleve == null) {
 			return;
 		}
 		// TODO Auto-generated method stub
@@ -67,21 +69,28 @@ public class Orientation {
 	}
 
 	private static boolean oriente(Eleve eleve, String choix) {
-
+		System.out.println("\n\n\n\n\n");
 		// Oriente dans son choix numero 1 si possible
+		System.out.println("*************************************");
+		System.out.println(eleve.toString());
+		System.out.println("choix de l'eleve : " + eleve.getChoix1() + eleve.getChoix2() + eleve.getChoix3());
+		System.out.println("Choix en cours : " + choix);
 		if (getListDesOrientes(choix).size() < lyceeDAO.nbPlacesSerie(choix)) {
 			getListDesOrientes(choix).add(eleve);
+			System.out.println("yes 1 : liste pas encore pleine");
 			return true;
 		} else { // Liste pleine
 			Eleve plusFaible = plusFaibleCumul(choix);
 			// dispose d'un meilleur cumul
-			if (plusFaible == null || eleve.compareCumul(plusFaible, choix) > 0) {
+			if (plusFaible != null && eleve.compareCumul(plusFaible, choix) > 0) {
 				getListDesOrientes(choix).remove(plusFaible);
 				getListDesOrientes(choix).add(eleve);
+				System.out.println("yes 2 : liste pleine mais a un meilleur cumul");
 				oriente(plusFaible);
 				return true;
 			} else
-				return false;
+				System.out.println("no : ne peut etre orienté dans ce choix");
+			return false;
 		}
 	}
 

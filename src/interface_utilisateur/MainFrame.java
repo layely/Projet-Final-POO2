@@ -8,11 +8,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import databaseDAOs.DAO_Eleve;
+import tablemodels.EcoleModel;
+import tablemodels.LyceeModel;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class MainFrame extends JFrame {
 
@@ -30,6 +33,9 @@ public class MainFrame extends JFrame {
 	protected JButton btnQuitter;
 
 	DAO_Eleve eleveDAO;
+	private JButton btnListeDesEcoles;
+	private JButton btnListeDesLycees;
+	private JTextField txtEntrezLeNumero;
 
 	/**
 	 * Launch the application.
@@ -56,7 +62,7 @@ public class MainFrame extends JFrame {
 
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 465, 386);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(new BorderLayout(0, 0));
@@ -64,10 +70,15 @@ public class MainFrame extends JFrame {
 
 		this.panel = new JPanel();
 		this.contentPane.add(this.panel, BorderLayout.CENTER);
-		this.panel.setLayout(new GridLayout(10, 1, 0, 0));
+		this.panel.setLayout(new GridLayout(15, 1, 0, 0));
 
 		this.btnIdentifierUnEleve = new JButton("Identifier un(e) eleve");
 		this.btnIdentifierUnEleve.addActionListener(new BtnIdentifierUnEleveActionListener());
+		
+		txtEntrezLeNumero = new JTextField();
+		txtEntrezLeNumero.setText("Entrez le numero de table");
+		panel.add(txtEntrezLeNumero);
+		txtEntrezLeNumero.setColumns(10);
 
 		this.btnModifierUnEleve = new JButton("Rechercher un(e) eleve");
 		this.panel.add(this.btnModifierUnEleve);
@@ -115,14 +126,30 @@ public class MainFrame extends JFrame {
 		this.btnAjouterUnLyce = new JButton("Ajouter un lycée");
 		this.btnAjouterUnLyce.addActionListener(new BtnAjouterUnLyceActionListener());
 		this.panel.add(this.btnAjouterUnLyce);
-
-		this.btnQuitter = new JButton("Quitter");
-		btnQuitter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+		
+		btnListeDesEcoles = new JButton("Liste des ecoles");
+		btnListeDesEcoles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ListFrame(MainFrame.this, new EcoleModel()).setVisible(true);
 			}
 		});
-		this.panel.add(this.btnQuitter);
+		panel.add(btnListeDesEcoles);
+		
+		btnListeDesLycees = new JButton("Liste des lycees");
+		btnListeDesLycees.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ListFrame(MainFrame.this, new LyceeModel()).setVisible(true);;
+			}
+		});
+		panel.add(btnListeDesLycees);
+		
+				this.btnQuitter = new JButton("Quitter");
+				btnQuitter.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						System.exit(0);
+					}
+				});
+				this.panel.add(this.btnQuitter);
 	}
 
 	private class BtnIdentifierUnEleveActionListener implements ActionListener {

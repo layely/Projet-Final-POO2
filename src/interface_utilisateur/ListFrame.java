@@ -2,6 +2,7 @@ package interface_utilisateur;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -40,17 +41,16 @@ public class ListFrame extends JFrame {
 		setLayout(new BorderLayout(0, 0));
 		this.table = new JTable();
 		table.setModel(tableModel);
-		table.setIntercellSpacing(new Dimension(10, 10));
+		table.setIntercellSpacing(new Dimension(10, 0));
 		table.setAutoCreateRowSorter(true);
+		table.setRowHeight(30);
+		table.setFont(new Font(table.getFont().getName(), table.getFont().getStyle(), (int) (table.getFont().getSize() * 1.2)));
 		add(new JScrollPane(table), BorderLayout.CENTER);
 	}
 	
 	private void initialize() {
-		setLayout(new BorderLayout(0, 0));
-		this.table = new JTable();
 		eleveModel = new EleveModel(serie);
-		table.setModel(eleveModel);
-		add(new JScrollPane(table), BorderLayout.CENTER);
+		initialize(eleveModel);
 	}
 
 	public static void main(String[] args) {

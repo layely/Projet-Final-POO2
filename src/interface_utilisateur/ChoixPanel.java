@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -141,12 +140,8 @@ public class ChoixPanel extends JPanel {
 
 			String choix = choix1 + choix2 + choix3;
 			IdentificationPanel.dernierIdentifie.setChoix(choix);
+			((IdentificationFrame) parentPanel).suivant();
 
-			eleveDAO.ajoutEleve(IdentificationPanel.dernierIdentifie);
-			// TODO enregistrement du resultat aussi
-			resultatDAO.ajoutResultat(IdentificationPanel.dernierIdentifie.getResultat(),
-					IdentificationPanel.dernierIdentifie.getNumTable());
-			System.out.println(IdentificationPanel.dernierIdentifie);
 //			parentPanel.dispose();
 		}
 	}

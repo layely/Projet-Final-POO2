@@ -16,12 +16,14 @@ public class IdentificationFrame extends JPanel {
 	final String PAGE_IDENFTICATION = "identification";
 	final String PAGE_RESULTAT = "resultat";
 	final String PAGE_CHOIX = "choix";
+	final String PAGE_INFO_ELEVE = "infoEleve";
 
 	ArrayList<String> pages = new ArrayList<>(3);
 
 	JPanel panelIdentif = new IdentificationPanel(this);
 	JPanel panelResutat = new ResultatPanel(this);
 	JPanel panelChoix = new ChoixPanel(this);
+	JPanel panelInfoEleve = new InfoElevePanel(this);
 
 	int currentPage = 0;
 
@@ -38,6 +40,7 @@ public class IdentificationFrame extends JPanel {
 		add(PAGE_IDENFTICATION, panelIdentif);
 		add(PAGE_RESULTAT, panelResutat);
 		add(PAGE_CHOIX, panelChoix);
+		add(PAGE_INFO_ELEVE, panelInfoEleve);
 
 	}
 

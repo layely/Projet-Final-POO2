@@ -48,6 +48,7 @@ public class DAO_Eleve {
 	public void ajoutEleve(Eleve eleve) {
 		try {
 			Statement stm = connect.createStatement();
+
 			stm.executeUpdate("INSERT INTO " + TABLE_ELEVE + " VALUES(" + eleve.getNumTable() + ",'" + eleve.getPrenom()
 					+ "','" + eleve.getNom() + "','" + Outil.calendarToString(eleve.getDateNaissance()) + "','"
 					+ eleve.getLieuNaissance() + "','" + eleve.getSex() + "','" + eleve.getEmail() + "','"

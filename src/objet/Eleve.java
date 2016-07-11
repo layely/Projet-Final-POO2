@@ -12,7 +12,7 @@ public class Eleve {
 	String prenom;
 	String lieuNaissance;
 	Calendar dateNaissance;
-	char sex;
+	char sex; // M or F
 	String email;
 	Resultat resultat;
 	String choix; // Format :o LSG, LST, LGS ....
@@ -187,4 +187,19 @@ public class Eleve {
 		this.sex = sex;
 	}
 
+	public String getSexToString() {
+		if (this.estMaculin())
+			return "Masculin";
+		else if (this.estFeminin())
+			return "Feminin";
+		return null;
+	}
+
+	public boolean estMaculin() {
+		return (this.sex == 'M' || this.sex == 'm') ? true : false;
+	}
+
+	public boolean estFeminin() {
+		return (this.sex == 'F' || this.sex == 'f') ? true : false;
+	}
 }

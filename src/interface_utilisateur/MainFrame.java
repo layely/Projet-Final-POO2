@@ -1,5 +1,6 @@
 package interface_utilisateur;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -16,6 +17,8 @@ import databaseDAOs.DAO_Eleve;
 import tablemodels.EcoleModel;
 import tablemodels.EleveModel;
 import tablemodels.LyceeModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
 
 public class MainFrame extends JFrame {
 
@@ -51,6 +54,7 @@ public class MainFrame extends JFrame {
 	private static final String PANEL_AJOUT_LYCEE_NAME = "panelAjoutLycee";
 	private static final String PANEL_IDENTFICATION_NAME = "panelIdentificationEleve";
 	private static final String PANEL_LIST_NAME = "panelList";
+	private JMenuBar menuBar;
 	/**
 	 * Launch the application.
 	 */
@@ -76,12 +80,20 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initialize() {
+		JPanel parentPane = new JPanel(new BorderLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 928, 581);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnAide = new JMenu("Aide");
+		menuBar.add(mnAide);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(null);
-		setContentPane(this.contentPane);
+		setContentPane(parentPane);
+		parentPane.add(this.contentPane, BorderLayout.CENTER);
 
 		initialiseCenterPanel();
 		

@@ -138,4 +138,14 @@ public class Resultat {
 		this.passageExam = passageExam;
 	}
 
+	public String getBfemResutatString() {
+		if(this.passageExam == ECHEC)
+			return "ECHEC";
+		if(this.passageExam == TOUR_1)
+			return "1er TOUR";
+		if(this.passageExam == TOUR_2)
+			return "2nd TOUR";
+		return null;
+	}
+
 }

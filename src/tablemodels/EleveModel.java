@@ -2,6 +2,7 @@ package tablemodels;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import javax.swing.table.AbstractTableModel;
@@ -18,24 +19,38 @@ public class EleveModel extends AbstractTableModel {
 
 	private final String[] entetes = { "Numero de Table", "Prenom", "Nom", "Date de naissance", "Lieu de naissance",
 			"Moyenne choix" };
-
+	
+	private final String[] entetes2 = { "Numero de Table", "Prenom", "Nom", "Date de naissance", "Lieu de naissance",
+	"Moyenne général" };
+	
 	private DAO_Eleve eleveDAO;
 
-	LinkedList<Eleve> listEleves;
-	String serie;
+	ArrayList<Eleve> listEleves;
+	String serie = null;
 
 	public EleveModel(String serie) {
 		this.eleveDAO = new DAO_Eleve();
 		this.serie = serie;
 
 		try {
-//			listEleves = eleveDAO.getAllEleves();
-			listEleves = Orientation.getListCompletDesOrientes(serie);
+			listEleves = new ArrayList<>();
+			listEleves.addAll(Orientation.getListCompletDesOrientes(serie));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} // new DAO_Eleve().getAllEleves();
-										// //TODO
+			// //TODO
+	}
+
+	public EleveModel() {
+		this.eleveDAO = new DAO_Eleve();
+
+		try {
+			listEleves = eleveDAO.getAllEleves();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -50,6 +65,8 @@ public class EleveModel extends AbstractTableModel {
 
 	@Override
 	public String getColumnName(int column) {
+		if(serie == null)
+			return entetes2[column];
 		return entetes[column];
 	}
 
@@ -72,6 +89,8 @@ public class EleveModel extends AbstractTableModel {
 			return listEleves.get(rowIndex).getLieuNaissance();
 
 		case 5:
+			if(serie == null)
+				return listEleves.get(rowIndex).getResultat().getMoyenneGenerale();
 			return listEleves.get(rowIndex).getResultat().moyenneChoix(serie);
 		default:
 			throw new IllegalArgumentException();

@@ -1,23 +1,21 @@
 package interface_utilisateur;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import databaseDAOs.DAO_Lycee;
 import objet.Lycee;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-
-public class AjoutLyceeFrame extends JFrame {
+public class AjoutLyceePanel extends JPanel {
 
 	private JPanel contentPane;
 	protected JLabel lblNomDuLycee;
@@ -42,7 +40,7 @@ public class AjoutLyceeFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AjoutLyceeFrame frame = new AjoutLyceeFrame(new JFrame());
+					AjoutLyceePanel frame = new AjoutLyceePanel(new JFrame());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,18 +52,18 @@ public class AjoutLyceeFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AjoutLyceeFrame(JFrame parent) {
+	public AjoutLyceePanel(JFrame parent) {
 		this.parent = parent;
 		lyceeDAO = new DAO_Lycee();
 		initialize();
 	}
 
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 614, 418);
-		this.contentPane = new JPanel();
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		setBounds(100, 100, 614, 418);
+		this.contentPane = this; //this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(this.contentPane);
+//		setContentPane(this.contentPane);
 		this.contentPane.setLayout(null);
 
 		this.lblNomDuLycee = new JLabel("Nom du lycee");

@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 import databaseDAOs.DAO_Ecole;
 import objet.Ecole;
 
-public class AjouterEcoleFrame extends JFrame {
+public class AjouterEcolePanel extends JPanel {
 
 	private JPanel contentPane;
 	protected JLabel lblNomDeLecole;
@@ -34,7 +34,7 @@ public class AjouterEcoleFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AjouterEcoleFrame frame = new AjouterEcoleFrame(new JFrame());
+					AjouterEcolePanel frame = new AjouterEcolePanel(new JFrame());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,18 +46,18 @@ public class AjouterEcoleFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AjouterEcoleFrame(JFrame parent) {
+	public AjouterEcolePanel(JFrame parent) {
 		this.parent = parent;
 		this.ecoleDAO = new DAO_Ecole();
 		initialize();
 	}
 
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		this.contentPane = new JPanel();
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		setBounds(100, 100, 450, 300);
+		this.contentPane = this; //this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(this.contentPane);
+//		setContentPane(this.contentPane);
 		this.contentPane.setLayout(null);
 
 		this.lblNomDeLecole = new JLabel("Nom de l'ecole");
@@ -98,9 +98,10 @@ public class AjouterEcoleFrame extends JFrame {
 			ecoleDAO.ajoutEcole(ecole, "inspection de thiaroye");
 		}
 	}
+
 	private class BtnAnnulerActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			AjouterEcoleFrame.this.dispose();
+//			AjouterEcoleFrame.this.dispose();
 		}
 	}
 }

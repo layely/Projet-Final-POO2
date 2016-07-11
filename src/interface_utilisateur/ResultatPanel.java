@@ -36,13 +36,13 @@ public class ResultatPanel extends JPanel {
 	protected JTextField textFieldPC;
 	protected final ButtonGroup buttonGroup = new ButtonGroup();
 
-	private JFrame parentframe;
+	private JPanel parentPanel;
 
 	/**
 	 * Create the panel.
 	 */
-	public ResultatPanel(JFrame parent) {
-		parentframe = parent;
+	public ResultatPanel(JPanel parent) {
+		parentPanel = parent;
 		initialize();
 	}
 
@@ -164,12 +164,12 @@ public class ResultatPanel extends JPanel {
 			Resultat resultat = new Resultat(noteMaths, noteFr, noteSVT, noteHistoGeo, notePC, moyGenerale,
 					passageExam);
 			IdentificationPanel.dernierIdentifie.setResultat(resultat);
-			((IdentificationFrame) parentframe).suivant();
+			((IdentificationFrame) parentPanel).suivant();
 		}
 	}
 	private class BtnPrcdentActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			((IdentificationFrame) parentframe).precedent();
+			((IdentificationFrame) parentPanel).precedent();
 		}
 	}
 }

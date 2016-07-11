@@ -31,15 +31,15 @@ public class ChoixPanel extends JPanel {
 	protected JTextField txtFieldChoix4;
 	protected JButton buttonUPX;
 
-	JFrame parentframe;
+	JPanel parentPanel;
 	DAO_Eleve eleveDAO;
 	DAO_Resultat resultatDAO;
 
 	/**
 	 * Create the panel.
 	 */
-	public ChoixPanel(JFrame parent) {
-		parentframe = parent;
+	public ChoixPanel(JPanel parent) {
+		parentPanel = parent;
 		eleveDAO = new DAO_Eleve();
 		resultatDAO = new DAO_Resultat();
 		initialize();
@@ -147,7 +147,7 @@ public class ChoixPanel extends JPanel {
 			resultatDAO.ajoutResultat(IdentificationPanel.dernierIdentifie.getResultat(),
 					IdentificationPanel.dernierIdentifie.getNumTable());
 			System.out.println(IdentificationPanel.dernierIdentifie);
-			parentframe.dispose();
+//			parentPanel.dispose();
 		}
 	}
 
@@ -213,7 +213,7 @@ public class ChoixPanel extends JPanel {
 
 	private class BtnAnnulerActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			((IdentificationFrame) parentframe).precedent();
+			((IdentificationFrame) parentPanel).precedent();
 		}
 	}
 }

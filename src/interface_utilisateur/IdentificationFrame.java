@@ -7,7 +7,7 @@ import java.util.Collections;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class IdentificationFrame extends JFrame {
+public class IdentificationFrame extends JPanel {
 
 	/**
 	 * Create the panel
@@ -31,10 +31,10 @@ public class IdentificationFrame extends JFrame {
 	}
 
 	private void initialize() {
-		setTitle("Identification");
+//		setTitle("Identification");
 		setBounds(100, 100, 700, 400);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new CardLayout());
+//		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setLayout(new CardLayout());
 		add(PAGE_IDENFTICATION, panelIdentif);
 		add(PAGE_RESULTAT, panelResutat);
 		add(PAGE_CHOIX, panelChoix);
@@ -42,13 +42,13 @@ public class IdentificationFrame extends JFrame {
 	}
 
 	public void suivant() {
-		CardLayout layout = (CardLayout) this.getContentPane().getLayout();
-		layout.next(this.getContentPane());
+		CardLayout layout = (CardLayout) this.getLayout();
+		layout.next(this);
 	}
 
 	public void precedent() {
-		CardLayout layout = (CardLayout) this.getContentPane().getLayout();
-		layout.previous(this.getContentPane());
+		CardLayout layout = (CardLayout) this.getLayout();
+		layout.previous(this);
 	}
 
 	public static void main(String[] args) {

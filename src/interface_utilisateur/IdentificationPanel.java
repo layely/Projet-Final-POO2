@@ -41,12 +41,17 @@ public class IdentificationPanel extends JPanel {
 
 	public static Eleve dernierIdentifie;
 
-	private JFrame parentframe;
+	private JPanel parentframe = null;
 
 	/**
 	 * Create the panel.
 	 */
 	public IdentificationPanel(JFrame parent) {
+//		parentframe = parent;
+		initialize();
+	}
+	
+	public IdentificationPanel(JPanel parent) {
 		parentframe = parent;
 		initialize();
 	}
@@ -169,7 +174,7 @@ public class IdentificationPanel extends JPanel {
 	}
 	private class BtnAnnullerActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			parentframe.dispose();
+//			parentframe.dispose();
 		}
 	}
 }

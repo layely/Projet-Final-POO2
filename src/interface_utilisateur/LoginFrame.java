@@ -12,15 +12,21 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import net.miginfocom.swing.MigLayout;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class LoginFrame extends JFrame {
-	protected JLabel lblLogin;
-	protected JTextField txtfielLogin;
+	protected JPanel panelTop;
+	protected JPanel panelCenter;
+	protected JPanel panelBottom;
+	protected JLabel lblEcoleOuInspection;
 	protected JLabel lblMotDePasse;
-	protected JPasswordField txtFieldPass;
-	protected JButton btnConnection;
-	protected JButton btnQuitter;
-	protected JLabel lblConnection;
+	protected JTextField textFieldlogin;
+	protected JPasswordField textFieldPassword;
+	protected JPanel panel;
+	protected JButton btnSeConnecter;
+	protected JButton btnAnnuler;
 
 	/**
 	 * Launch the application.
@@ -47,55 +53,54 @@ public class LoginFrame extends JFrame {
 
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 719, 420);
 		JPanel content = new JPanel();
+		content.setForeground(Color.WHITE);
 		setContentPane(content);
-		content.setLayout(null);
+		content.setLayout(new MigLayout("", "[grow]", "[60px,fill][grow,center][60px,fill]"));
 
-		this.lblLogin = new JLabel("Login");
-		this.lblLogin.setBounds(52, 76, 107, 31);
-		content.add(this.lblLogin);
+		this.panelTop = new JPanel();
+		content.add(this.panelTop, "cell 0 0,grow");
 
-		this.txtfielLogin = new JTextField();
-		this.txtfielLogin.setBounds(177, 76, 220, 31);
-		content.add(this.txtfielLogin);
-		this.txtfielLogin.setColumns(10);
+		this.panelCenter = new JPanel();
+		content.add(this.panelCenter, "cell 0 1,growx,aligny center");
+		this.panelCenter.setLayout(new MigLayout("", "[grow,right][10px:n][100px,grow,fill][grow]", "[][][40px]"));
 
-		this.lblMotDePasse = new JLabel("Mot de passe");
-		this.lblMotDePasse.setBounds(52, 130, 107, 31);
-		content.add(this.lblMotDePasse);
+		this.lblEcoleOuInspection = new JLabel("Ecole/Inspection :");
+		this.panelCenter.add(this.lblEcoleOuInspection, "cell 0 0,alignx trailing");
 
-		this.txtFieldPass = new JPasswordField();
-		this.txtFieldPass.setBounds(177, 130, 220, 31);
-		content.add(this.txtFieldPass);
-		this.txtFieldPass.setColumns(10);
+		this.textFieldlogin = new JTextField();
+		this.panelCenter.add(this.textFieldlogin, "cell 2 0");
+		this.textFieldlogin.setColumns(10);
 
-		this.btnConnection = new JButton("Connection");
-		this.btnConnection.addActionListener(new BtnConnectionActionListener());
-		this.btnConnection.setBounds(125, 208, 117, 25);
-		content.add(this.btnConnection);
+		this.lblMotDePasse = new JLabel("Mot de passe :");
+		this.panelCenter.add(this.lblMotDePasse, "cell 0 1,alignx trailing");
 
-		this.btnQuitter = new JButton("Quitter");
-		this.btnQuitter.addActionListener(new BtnQuitterActionListener());
-		this.btnQuitter.setBounds(293, 208, 117, 25);
-		content.add(this.btnQuitter);
+		this.textFieldPassword = new JPasswordField();
+		this.panelCenter.add(this.textFieldPassword, "cell 2 1");
+		this.textFieldPassword.setColumns(10);
 
-		this.lblConnection = new JLabel("CONNECTION");
-		this.lblConnection.setBounds(113, 31, 154, 15);
-		content.add(this.lblConnection);
+		this.panel = new JPanel();
+		this.panelCenter.add(this.panel, "cell 0 2 4 1,alignx center");
+		this.panel.setLayout(new MigLayout("", "[fill][fill]", "[]"));
+
+		this.btnSeConnecter = new JButton("Connextion");
+		this.btnSeConnecter.addActionListener(new ButtonActionListener());
+		this.panel.add(this.btnSeConnecter, "cell 0 0");
+
+		this.btnAnnuler = new JButton("Annuler");
+		this.btnAnnuler.addActionListener(new BtnAnnulerActionListener());
+		this.panel.add(this.btnAnnuler, "cell 1 0");
+
+		this.panelBottom = new JPanel();
+		content.add(this.panelBottom, "cell 0 2,growx");
 	}
-
-	private class BtnQuitterActionListener implements ActionListener {
+	private class ButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
 		}
 	}
-
-	private class BtnConnectionActionListener implements ActionListener {
+	private class BtnAnnulerActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			String login = txtfielLogin.getText();
-			String motDePasse = String.valueOf(txtFieldPass.getPassword());
-
 		}
 	}
 }

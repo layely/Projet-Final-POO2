@@ -113,7 +113,7 @@ public class InfoElevePanel extends JPanel {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "R\u00E9sultat Scolaire",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		add(panel_1, "cell 1 0,grow");
+		add(panel_1, "cell 1 0,growy");
 		panel_1.setLayout(new MigLayout("", "[][]", "[][][][][][][][][][][]"));
 
 		JLabel lblFranais = new JLabel("Français :");

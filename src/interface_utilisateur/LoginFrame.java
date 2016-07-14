@@ -13,6 +13,8 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import net.miginfocom.swing.MigLayout;
+import utilitaire.Outil;
+
 import java.awt.Color;
 import java.awt.SystemColor;
 
@@ -97,6 +99,15 @@ public class LoginFrame extends JFrame {
 	}
 	private class ButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			String login = textFieldlogin.getText();
+			String pass = textFieldPassword.getText();
+
+			if(Outil.getConnection(login, pass)) {
+				Outil.openHome();
+				LoginFrame.this.dispose();
+			} else {
+
+			}
 		}
 	}
 	private class BtnAnnulerActionListener implements ActionListener {

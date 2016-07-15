@@ -102,12 +102,12 @@ public class LoginFrame extends JFrame {
 			String login = textFieldlogin.getText();
 			String pass = textFieldPassword.getText();
 
-			if(Outil.getConnection(login, pass)) {
-				Outil.openHome();
-				LoginFrame.this.dispose();
-			} else {
-
-			}
+//			if(Outil.getConnection(login, pass)) {
+//				Outil.openHome();
+//				LoginFrame.this.dispose();
+//			} else {
+//
+//			}
 		}
 	}
 	private class BtnAnnulerActionListener implements ActionListener {

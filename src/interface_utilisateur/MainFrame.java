@@ -2,32 +2,49 @@ package interface_utilisateur;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.AbstractTableModel;
 
-import databaseDAOs.DAO_Eleve;
 import net.miginfocom.swing.MigLayout;
+
+import org.jdesktop.swingx.JXImageView;
+import org.jdesktop.swingx.JXTitledPanel;
+
 import tablemodels.EcoleModel;
 import tablemodels.EleveModel;
 import tablemodels.LyceeModel;
-import javax.swing.UIManager;
-import java.awt.Color;
-import javax.swing.JLabel;
-import java.awt.Component;
-import javax.swing.JTextField;
+import databaseDAOs.DAO_Eleve;
+
+import java.awt.Dimension;
+import java.io.IOException;
+import java.net.URL;
 
 public class MainFrame extends JFrame {
-
+	
+	final Color COLOR_THEME = Color.BLUE;
+	
+	String imageName = "icon.jpg";
+	URL uriIcon = getClass().getResource(imageName);
+	
 	private JPanel contentPane;
 	protected JPanel panelLeft;
 	protected JButton btnIdentifierUnEleve;
@@ -41,9 +58,9 @@ public class MainFrame extends JFrame {
 	protected JButton btnAjouterUnLyce;
 	protected JButton btnQuitter;
 
-
+	JPanel panelCenterContainer = new JPanel(new BorderLayout());
 	JPanel panelCenter = new JPanel();
-
+	JXTitledPanel panelTitled ;
 	DAO_Eleve eleveDAO;
 	private JButton btnListeDesEcoles;
 	private JButton btnListeDesLycees;
@@ -62,8 +79,8 @@ public class MainFrame extends JFrame {
 	private static final String PANEL_LIST_NAME = "panelList";
 	private JMenuBar menuBar;
 	private JPanel panelTop;
-	private JPanel panel_1;
-	protected JPanel panel;
+	private JPanel panelBottom;
+	protected JXImageView panelIcon;
 	protected JPanel panel_2;
 	protected JPanel panel_3;
 	protected JLabel lblProfile;
@@ -74,7 +91,7 @@ public class MainFrame extends JFrame {
 	protected JPanel panel_4;
 	protected JTextField txtRecherche;
 	protected JButton btnRec;
-	protected JLabel labelIcon;
+	private JXTitledPanel titledPanel;
 	/**
 	 * Launch the application.
 	 */
@@ -108,7 +125,6 @@ public class MainFrame extends JFrame {
 		JPanel parentPane = new JPanel(new BorderLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 855, 530);
-
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
@@ -123,7 +139,7 @@ public class MainFrame extends JFrame {
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(parentPane);
-		parentPane.add(this.contentPane, BorderLayout.NORTH);
+		parentPane.add(this.contentPane, BorderLayout.CENTER);
 
 		initialiseCenterPanel();
 
@@ -133,6 +149,12 @@ public class MainFrame extends JFrame {
 
 		this.btnIdentifierUnEleve = new JButton("Identifier un(e) eleve");
 		this.btnIdentifierUnEleve.addActionListener(new BtnIdentifierUnEleveActionListener());
+		
+		titledPanel = new JXTitledPanel("Hello Every body");
+		titledPanel.setTitle("Menu\r\n");
+		titledPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 102, 204)));
+		titledPanel.setBackground(Color.BLUE);
+		panelLeft.add(titledPanel);
 
 		this.btnModifierUnEleve = new JButton("Rechercher un(e) eleve");
 		this.panelLeft.add(this.btnModifierUnEleve);
@@ -223,32 +245,40 @@ public class MainFrame extends JFrame {
 		});
 		this.panelLeft.add(this.btnQuitter);
 
-		this.panel_1 = new JPanel();
-		this.contentPane.add(this.panel_1, "cell 0 2 2 1,growx");
+		this.panelBottom = new JPanel();
+		this.contentPane.add(this.panelBottom, "cell 0 2 2 1,growx");
+		this.panelBottom.setLayout(new GridLayout(1,1));
+		JXTitledPanel tpanel = new JXTitledPanel("All right reserved");
+		tpanel.setBackground(COLOR_THEME);
+		this.getContentPane().add(tpanel, BorderLayout.SOUTH);
 
 
 	}
 
 	private void initialiseCenterPanel() {
-		this.contentPane.setLayout(new MigLayout("debug", "[leading][grow]", "[50px:n][500px][grow]"));
-
+		this.contentPane.setLayout(new MigLayout("debug", "[leading][grow]", "[50px:n][grow,top][20px:n]"));
+		panelCenterContainer.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 102, 204), null, null, null));
+		
+		panelCenterContainer.add(panelCenter, BorderLayout.CENTER);
+		panelTitled = new JXTitledPanel("Hello Every body");
+		panelTitled.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 102, 204)));
+		panelTitled.setBackground(COLOR_THEME);
+		panelCenterContainer.add(panelTitled, BorderLayout.NORTH);
+		
 		this.panelTop = new JPanel();
 		this.contentPane.add(this.panelTop, "cell 0 0 2 1,grow");
-		this.panelTop.setLayout(new MigLayout("", "[220px,fill][grow]", "[grow]"));
+		this.panelTop.setLayout(new MigLayout("", "[:180px:180px,fill][grow]", "[fill]"));
 
-		this.panel = new JPanel();
-		this.panelTop.add(this.panel, "cell 0 0,grow");
-		this.panel.setLayout(new BorderLayout(0, 0));
-
-		this.labelIcon = new JLabel("Nyew label");
-		this.panel.add(this.labelIcon, BorderLayout.CENTER);
+		this.panelIcon = new JXImageView();
+		this.panelTop.add(this.panelIcon, "cell 0 0");
+		panelIcon.setLayout(new MigLayout("", "[299px]", "[138px]"));
 
 		this.panel_2 = new JPanel();
 		this.panelTop.add(this.panel_2, "cell 1 0,grow");
 		this.panel_2.setLayout(new MigLayout("", "[grow]", "[grow]"));
 
 		this.panel_3 = new JPanel();
-		this.panel_2.add(this.panel_3, "cell 0 0,grow");
+		this.panel_2.add(this.panel_3, "cell 0 0,growx,aligny bottom");
 		this.panel_3.setLayout(new MigLayout("", "[][][][][][][][][][][][][grow]", "[grow]"));
 
 		this.lblProfile = new JLabel("Profile:");
@@ -275,7 +305,7 @@ public class MainFrame extends JFrame {
 		this.btnRec = new JButton("Rec");
 		this.panel_4.add(this.btnRec, "cell 1 0");
 		panelCenter.setLayout(new CardLayout());
-		contentPane.add(panelCenter, "cell 1 1,grow");
+		contentPane.add(panelCenterContainer, "cell 1 1,grow");
 
 		panelAjoutEcole = new AjouterEcolePanel(this);
 		panelAjoutLycee = new AjoutLyceePanel(this);
@@ -287,8 +317,20 @@ public class MainFrame extends JFrame {
 		panelCenter.add(PANEL_AJOUT_LYCEE_NAME, panelAjoutLycee);
 		panelCenter.add(PANEL_IDENTFICATION_NAME, panelIdentificationEleve);
 		panelCenter.add(PANEL_LIST_NAME, panelList);
+		
+		chargerIcon();
 	}
-
+	
+	private void chargerIcon() {
+		try {
+			Image image = ImageIO.read(uriIcon);
+			panelIcon.setImage(image);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	private void showInCenterPanel(String panelName) {
 		CardLayout c = (CardLayout)panelCenter.getLayout();
 		c.show(panelCenter, panelName);

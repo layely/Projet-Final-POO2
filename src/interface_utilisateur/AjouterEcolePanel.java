@@ -1,5 +1,6 @@
 package interface_utilisateur;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import org.jdesktop.swingx.JXTitledPanel;
+
+import com.jgoodies.forms.layout.CellConstraints.Alignment;
 
 import databaseDAOs.DAO_Ecole;
 import objet.Ecole;
@@ -26,7 +31,8 @@ public class AjouterEcolePanel extends JPanel {
 
 	private DAO_Ecole ecoleDAO;
 	private JFrame parent;
-
+	
+	private JXTitledPanel titledPanel;
 	/**
 	 * Launch the application.
 	 */
@@ -49,6 +55,8 @@ public class AjouterEcolePanel extends JPanel {
 	public AjouterEcolePanel(JFrame parent) {
 		this.parent = parent;
 		this.ecoleDAO = new DAO_Ecole();
+		this.titledPanel = new JXTitledPanel("Ajout ecole", this);
+		this.titledPanel.setBackground(Color.red);
 		initialize();
 	}
 

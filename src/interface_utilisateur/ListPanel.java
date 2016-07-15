@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import tablemodels.EleveModel;
+import utilitaire.Outil;
 
 public class ListPanel extends JPanel {
 	protected JTable table;
@@ -34,6 +35,7 @@ public class ListPanel extends JPanel {
 
 	public ListPanel(JFrame parent, AbstractTableModel tableModel) {
 		this.parent = parent;
+		this.setBackground(Outil.CENTER_PANE_COLOR);
 		this.setSize(400, 400);
 		// this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		initialize(tableModel);
@@ -42,6 +44,7 @@ public class ListPanel extends JPanel {
 	private void initialize(AbstractTableModel tableModel) {
 		setLayout(new BorderLayout(0, 0));
 		this.table = new JTable();
+		this.table.setBackground(Outil.CENTER_PANE_COLOR);
 		if (tableModel != null)
 			table.setModel(tableModel);
 		table.setIntercellSpacing(new Dimension(10, 0));

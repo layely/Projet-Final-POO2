@@ -12,7 +12,10 @@ import javax.swing.JFrame;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.ButtonGroup;
+
+import utilitaire.Outil;
 
 public class ResultatPanel extends JPanel {
 	protected JLabel lblSaisieDeNotes;
@@ -43,6 +46,7 @@ public class ResultatPanel extends JPanel {
 	 */
 	public ResultatPanel(JPanel parent) {
 		parentPanel = parent;
+		this.setBackground(Outil.CENTER_PANE_COLOR);
 		initialize();
 	}
 

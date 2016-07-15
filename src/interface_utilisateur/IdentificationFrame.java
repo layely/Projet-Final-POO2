@@ -7,6 +7,8 @@ import java.util.Collections;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import utilitaire.Outil;
+
 public class IdentificationFrame extends JPanel {
 
 	/**
@@ -29,6 +31,7 @@ public class IdentificationFrame extends JPanel {
 
 	public IdentificationFrame() {
 		Collections.addAll(pages, PAGE_IDENFTICATION, PAGE_RESULTAT, PAGE_CHOIX);
+		this.setBackground(Outil.CENTER_PANE_COLOR);
 		initialize();
 	}
 

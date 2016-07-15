@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 import databaseDAOs.DAO_Lycee;
 import objet.Lycee;
+import utilitaire.Outil;
 
 
 public class AjoutLyceePanel extends JPanel {
@@ -53,6 +54,7 @@ public class AjoutLyceePanel extends JPanel {
 	 * Create the frame.
 	 */
 	public AjoutLyceePanel(JFrame parent) {
+		this.setBackground(Outil.CENTER_PANE_COLOR);
 		this.parent = parent;
 		lyceeDAO = new DAO_Lycee();
 		initialize();

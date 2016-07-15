@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import utilitaire.Outil;
 import databaseDAOs.DAO_Eleve;
 import databaseDAOs.DAO_Resultat;
 
@@ -38,6 +39,7 @@ public class ChoixPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public ChoixPanel(JPanel parent) {
+		this.setBackground(Outil.CENTER_PANE_COLOR);
 		parentPanel = parent;
 		eleveDAO = new DAO_Eleve();
 		resultatDAO = new DAO_Resultat();

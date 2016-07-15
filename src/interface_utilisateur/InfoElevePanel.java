@@ -48,6 +48,7 @@ public class InfoElevePanel extends JPanel {
 	 */
 
 	public InfoElevePanel(final JPanel parent) {
+		this.setBackground(Outil.CENTER_PANE_COLOR);
 		this.parent = parent;
 		eleve = IdentificationPanel.dernierIdentifie;
 

@@ -58,7 +58,7 @@ public class IdentificationPanel extends JPanel {
 
 	private void initialize() {
 		setLayout(null);
-
+		this.setBackground(Outil.CENTER_PANE_COLOR);
 		this.lblNom = new JLabel("Nom");
 		this.lblNom.setBounds(46, 101, 78, 19);
 		add(this.lblNom);

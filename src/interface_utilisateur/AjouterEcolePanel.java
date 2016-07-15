@@ -1,6 +1,5 @@
 package interface_utilisateur;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,12 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import objet.Ecole;
+
 import org.jdesktop.swingx.JXTitledPanel;
 
-import com.jgoodies.forms.layout.CellConstraints.Alignment;
-
+import utilitaire.Outil;
 import databaseDAOs.DAO_Ecole;
-import objet.Ecole;
 
 public class AjouterEcolePanel extends JPanel {
 
@@ -53,10 +52,9 @@ public class AjouterEcolePanel extends JPanel {
 	 * Create the frame.
 	 */
 	public AjouterEcolePanel(JFrame parent) {
+		setBackground(Outil.CENTER_PANE_COLOR);
 		this.parent = parent;
 		this.ecoleDAO = new DAO_Ecole();
-		this.titledPanel = new JXTitledPanel("Ajout ecole", this);
-		this.titledPanel.setBackground(Color.red);
 		initialize();
 	}
 

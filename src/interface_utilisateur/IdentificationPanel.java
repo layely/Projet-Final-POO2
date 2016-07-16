@@ -51,6 +51,9 @@ public class IdentificationPanel extends JPanel {
 		initialize();
 	}
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public IdentificationPanel(JPanel parent) {
 		parentframe = parent;
 		initialize();

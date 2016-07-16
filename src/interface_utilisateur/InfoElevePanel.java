@@ -19,6 +19,7 @@ import databaseDAOs.DAO_Resultat;
 import net.miginfocom.swing.MigLayout;
 import objet.Eleve;
 import utilitaire.Outil;
+import javax.swing.SwingConstants;
 
 public class InfoElevePanel extends JPanel {
 
@@ -42,6 +43,9 @@ public class InfoElevePanel extends JPanel {
 	private JLabel labelChoix3;
 	private Eleve eleve;
 	private JLabel labelNoteMaths;
+	private JLabel labelCumulChoix1;
+	private JLabel labelCumulChoix3;
+	private JLabel labelCumulChoix2;
 
 	/**
 	 * Create the panel.
@@ -54,14 +58,16 @@ public class InfoElevePanel extends JPanel {
 
 		setLayout(new MigLayout("", "[510px,grow][grow]", "[266px,grow][grow]"));
 		JPanel panelgauche = new JPanel(new MigLayout("", "", ""));
-
+		panelgauche.setBackground(Outil.CENTER_PANE_COLOR);
+		
 		JPanel panel = new JPanel();
+		panel.setBackground(Outil.CENTER_PANE_COLOR);
 		panel.setBorder(new TitledBorder(null, "Informations personnelles", TitledBorder.LEADING, TitledBorder.TOP,
 				null, null));
-		add(panelgauche, "cell 0 0,grow");
+		add(panelgauche, "cell 0 0,alignx right");
 		panel.setLayout(new MigLayout("", "[150px][300px,shrinkprio 102]", "[][][][][][][][]"));
 
-		panelgauche.add(panel, "cell 0 0,growx");
+		panelgauche.add(panel, "cell 0 0,pushy ,growy");
 
 		JLabel lblNumeroDeTable = new JLabel("Numero de table : ");
 		lblNumeroDeTable.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -112,11 +118,13 @@ public class InfoElevePanel extends JPanel {
 		panel.add(labelLieuDeNaiss, "cell 1 6");
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 204, 255));
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "R\u00E9sultat Scolaire",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		add(panel_1, "cell 1 0,growy");
+		add(panel_1, "cell 1 0");
 		panel_1.setLayout(new MigLayout("", "[][]", "[][][][][][][][][][][]"));
-
+		panel_1.setBackground(Outil.CENTER_PANE_COLOR);
+		
 		JLabel lblFranais = new JLabel("Français :");
 		lblFranais.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		panel_1.add(lblFranais, "cell 0 0");
@@ -174,33 +182,60 @@ public class InfoElevePanel extends JPanel {
 		panel_1.add(labelBFEM, "cell 0 10 2 1,alignx center");
 
 		JPanel panelChoix = new JPanel();
+		panelChoix.setBackground(new Color(255, 204, 255));
 		panelChoix.setBorder(new TitledBorder(null, "Choix", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelgauche.add(panelChoix, "cell 0 1,grow");
-		panelChoix.setLayout(new MigLayout("", "[][][][][][][][]", "[][][]"));
+		panelChoix.setLayout(new MigLayout("", "[][][][][][][][][][][][]", "[][][]"));
 
 		JLabel label = new JLabel("1 :");
+		label.setForeground(new Color(255, 102, 51));
+		label.setBackground(new Color(0, 102, 255));
 		label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panelChoix.add(label, "cell 0 0");
+		panelChoix.add(label, "cell 2 0");
 
 		labelChoix1 = new JLabel("New label");
 		labelChoix1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panelChoix.add(labelChoix1, "cell 1 0");
+		panelChoix.add(labelChoix1, "cell 3 0");
 
 		JLabel label_1 = new JLabel("2 :");
+		label_1.setForeground(new Color(255, 102, 51));
+		label_1.setBackground(new Color(0, 102, 255));
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panelChoix.add(label_1, "cell 3 0");
+		panelChoix.add(label_1, "cell 6 0");
 
 		labelChoix2 = new JLabel("New label");
 		labelChoix2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panelChoix.add(labelChoix2, "cell 4 0");
-
+		panelChoix.add(labelChoix2, "cell 7 0");
+		panelChoix.setBackground(Outil.CENTER_PANE_COLOR);
+		
 		JLabel label_2 = new JLabel("3 :");
+		label_2.setForeground(new Color(255, 102, 51));
+		label_2.setBackground(new Color(0, 102, 255));
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panelChoix.add(label_2, "cell 6 0");
+		panelChoix.add(label_2, "cell 10 0");
 
 		labelChoix3 = new JLabel("New label");
 		labelChoix3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panelChoix.add(labelChoix3, "cell 7 0");
+		panelChoix.add(labelChoix3, "cell 11 0");
+		
+		JLabel lblCumul = new JLabel("Cumul :");
+		lblCumul.setForeground(new Color(255, 102, 51));
+		panelChoix.add(lblCumul, "cell 0 1");
+		
+		labelCumulChoix1 = new JLabel("New label");
+		labelCumulChoix1.setHorizontalAlignment(SwingConstants.RIGHT);
+		labelCumulChoix1.setForeground(new Color(51, 153, 255));
+		panelChoix.add(labelCumulChoix1, "cell 3 1,growx");
+		
+		labelCumulChoix2 = new JLabel("New label");
+		labelCumulChoix2.setHorizontalAlignment(SwingConstants.RIGHT);
+		labelCumulChoix2.setForeground(new Color(51, 153, 255));
+		panelChoix.add(labelCumulChoix2, "cell 7 1,growx");
+		
+		labelCumulChoix3 = new JLabel("New label");
+		labelCumulChoix3.setHorizontalAlignment(SwingConstants.RIGHT);
+		labelCumulChoix3.setForeground(new Color(51, 153, 255));
+		panelChoix.add(labelCumulChoix3, "cell 11 1,growx");
 
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 1 2 1,alignx right,aligny bottom");
@@ -252,6 +287,9 @@ public class InfoElevePanel extends JPanel {
 		labelChoix1.setText("Série " + eleve.getChoix1());
 		labelChoix2.setText("Série " + eleve.getChoix2());
 		labelChoix3.setText("Série " + eleve.getChoix3());
+		labelCumulChoix1.setText(eleve.getResultat().moyenneChoix(eleve.getChoix1()).toString());
+		labelCumulChoix2.setText(eleve.getResultat().moyenneChoix(eleve.getChoix2()).toString());
+		labelCumulChoix3.setText(eleve.getResultat().moyenneChoix(eleve.getChoix3()).toString());
 	}
 
 	@Override

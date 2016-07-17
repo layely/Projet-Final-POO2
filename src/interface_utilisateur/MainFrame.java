@@ -12,12 +12,12 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
@@ -30,6 +30,8 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXImageView;
 import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXLabel.TextAlignment;
+import org.jdesktop.swingx.JXTaskPane;
+import org.jdesktop.swingx.JXTaskPaneContainer;
 import org.jdesktop.swingx.JXTitledPanel;
 
 import tablemodels.EcoleModel;
@@ -38,32 +40,29 @@ import tablemodels.LyceeModel;
 import utilitaire.Outil;
 
 import com.alee.laf.WebLookAndFeel;
-import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 
 import databaseDAOs.DAO_Eleve;
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 
 public class MainFrame extends JFrame {
 
 	final static Color COLOR_THEME = Color.BLUE;
 	static Color DEFAULT_BUTTON_COLOR;
-	
+
 	String imageName = "icon.jpg";
 	URL uriIcon = getClass().getResource(imageName);
 
 	private ArrayList<JButton> allButtons;
 
 	private JPanel contentPane;
-	protected JPanel panelLeft;
+	protected JXTaskPaneContainer panelLeft;
 	protected JButton btnIdentifierUnEleve;
-	protected JButton btnModifierUnEleve;
-	protected JButton btnListeDeTous;
-	protected JButton btnListeDesOrientes;
-	protected JButton btnListeDesOrientes_1;
-	protected JButton btnListeDesOrientes_2;
-	protected JButton btnListeDesOrientes_3;
-	protected JButton btnNewButton;
-	protected JButton btnAjouterUnLyce;
+	protected JButton btnListeDeTousLesEleves;
+	protected JButton btnListeDesOrientes_S;
+	protected JButton btnListeDesOrientes_L;
+	protected JButton btnListeDesOrientes_G;
+	protected JButton btnListeDesOrientes_T;
+	protected JButton btnAjouterEcole;
+	protected JButton btnAjouterUnLycee;
 	protected JButton btnQuitter;
 
 	JPanel panelCenterContainer = new JPanel(new BorderLayout());
@@ -91,7 +90,6 @@ public class MainFrame extends JFrame {
 	protected JMenu mnTest;
 	private JXTitledPanel panelTitledLeft;
 	private JXLabel lblGestion;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -99,35 +97,35 @@ public class MainFrame extends JFrame {
 
 	public static void main(String[] args) {
 		try {
-//			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-//			UIManager.setLookAndFeel(new TinyLookAndFeel());
-//			UIManager.setLookAndFeel(new QuaquaLookAndFeel());
-//			UIManager.setLookAndFeel(new QuaquaLookAndFeel15());
-//			UIManager.setLookAndFeel(new LiquidLookAndFeel());
-//			UIManager.setLookAndFeel(new EaSynthLookAndFeel());
-//			UIManager.setLookAndFeel(new SeaGlassLookAndFeel()); not working
-			
-			//JTatoo
-//			UIManager.setLookAndFeel(new AcrylLookAndFeel());
-//			UIManager.setLookAndFeel(new AeroLookAndFeel());
-//			UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-//			UIManager.setLookAndFeel(new BernsteinLookAndFeel());
-//			UIManager.setLookAndFeel(new FastLookAndFeel());
-//			UIManager.setLookAndFeel(new HiFiLookAndFeel()); //Dark
-//			UIManager.setLookAndFeel(new McWinLookAndFeel());
-//			UIManager.setLookAndFeel(new MintLookAndFeel());
-//			UIManager.setLookAndFeel(new NoireLookAndFeel()); //Dark
-//			UIManager.setLookAndFeel(new TextureLookAndFeel());
-			
-			//JGoodies
-//			UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
-//			UIManager.setLookAndFeel(new PlasticLookAndFeel());
-//			UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
-//			
-//			UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
-			
+			// UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			// UIManager.setLookAndFeel(new TinyLookAndFeel());
+			// UIManager.setLookAndFeel(new QuaquaLookAndFeel());
+			// UIManager.setLookAndFeel(new QuaquaLookAndFeel15());
+			// UIManager.setLookAndFeel(new LiquidLookAndFeel());
+			// UIManager.setLookAndFeel(new EaSynthLookAndFeel());
+			// UIManager.setLookAndFeel(new SeaGlassLookAndFeel()); not working
+
+			// JTatoo
+			// UIManager.setLookAndFeel(new AcrylLookAndFeel());
+			// UIManager.setLookAndFeel(new AeroLookAndFeel());
+			// UIManager.setLookAndFeel(new AluminiumLookAndFeel());
+			// UIManager.setLookAndFeel(new BernsteinLookAndFeel());
+			// UIManager.setLookAndFeel(new FastLookAndFeel());
+			// UIManager.setLookAndFeel(new HiFiLookAndFeel()); //Dark
+			// UIManager.setLookAndFeel(new McWinLookAndFeel());
+			// UIManager.setLookAndFeel(new MintLookAndFeel());
+			// UIManager.setLookAndFeel(new NoireLookAndFeel()); //Dark
+			// UIManager.setLookAndFeel(new TextureLookAndFeel());
+
+			// JGoodies
+			// UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
+			// UIManager.setLookAndFeel(new PlasticLookAndFeel());
+			// UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
+			//
+			// UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+
 			UIManager.setLookAndFeel(new WebLookAndFeel());
-			
+
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -172,11 +170,10 @@ public class MainFrame extends JFrame {
 
 		initialiseCenterPanel();
 
-		this.panelLeft = new JPanel();
-		this.panelLeft.setLayout(new GridLayout(15, 1, 0, 0));
+		this.panelLeft = new JXTaskPaneContainer();
+		// this.panelLeft.setLayout(new GridLayout(15, 1, 0, 0));
 
 		this.btnIdentifierUnEleve = new JButton("Identifier un(e) eleve");
-		buttonGroup.add(btnIdentifierUnEleve);
 		this.btnIdentifierUnEleve
 				.addActionListener(new BtnIdentifierUnEleveActionListener());
 
@@ -185,85 +182,74 @@ public class MainFrame extends JFrame {
 		// titledPanel.setBorder(new MatteBorder(1, 1, 1, 1, COLOR_THEME));
 		// titledPanel.setBackground(Color.BLUE);
 		panelTitledLeft.getContentContainer().setLayout(new BorderLayout());
-		panelTitledLeft.getContentContainer().add(panelLeft, BorderLayout.CENTER);
-		this.contentPane.add(this.panelTitledLeft, "cell 0 1,growx");
+		/*
+		 * new JScrollPane(panelLeft)
+		 */
+		panelTitledLeft.getContentContainer().add(panelLeft,
+				BorderLayout.CENTER);
+		this.contentPane.add(this.panelTitledLeft, "cell 0 1,grow");
+		// this.panelLeft.add(this.btnIdentifierUnEleve);
 
-		this.btnModifierUnEleve = new JButton("Rechercher un(e) eleve");
-		btnModifierUnEleve.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		buttonGroup.add(btnModifierUnEleve);
-		this.panelLeft.add(this.btnModifierUnEleve);
-		this.panelLeft.add(this.btnIdentifierUnEleve);
-
-		this.btnListeDeTous = new JButton("Liste de tous les eleves");
-		buttonGroup.add(btnListeDeTous);
-		btnListeDeTous.addActionListener(new ActionListener() {
+		this.btnListeDeTousLesEleves = new JButton("Liste de tous les eleves");
+		btnListeDeTousLesEleves.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelList.setTableModel(new EleveModel());
 				showInCenterPanel(PANEL_LIST_NAME);
 			}
 		});
-		this.panelLeft.add(this.btnListeDeTous);
+		// this.panelLeft.add(this.btnListeDeTousLesEleves);
 
-		this.btnListeDesOrientes_1 = new JButton("Liste des orientes en L");
-		buttonGroup.add(btnListeDesOrientes_1);
-		btnListeDesOrientes_1.addActionListener(new ActionListener() {
+		this.btnListeDesOrientes_L = new JButton("Liste des orientes en L");
+		btnListeDesOrientes_L.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// new ListPanel(MainFrame.this, "L").setVisible(true);
 				panelList.setTableModel(new EleveModel("L"));
 				showInCenterPanel(PANEL_LIST_NAME);
 			}
 		});
-		this.panelLeft.add(this.btnListeDesOrientes_1);
+		// this.panelLeft.add(this.btnListeDesOrientes_L);
 
-		this.btnListeDesOrientes = new JButton("Liste des Orientes en S");
-		buttonGroup.add(btnListeDesOrientes);
-		btnListeDesOrientes.addActionListener(new ActionListener() {
+		this.btnListeDesOrientes_S = new JButton("Liste des Orientes en S");
+		btnListeDesOrientes_S.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// new ListPanel(MainFrame.this, "S").setVisible(true);
 				panelList.setTableModel(new EleveModel("S"));
 				showInCenterPanel(PANEL_LIST_NAME);
 			}
 		});
-		this.panelLeft.add(this.btnListeDesOrientes);
+		// this.panelLeft.add(this.btnListeDesOrientes_S);
 
-		this.btnListeDesOrientes_2 = new JButton("Liste des orientes en G");
-		buttonGroup.add(btnListeDesOrientes_2);
-		btnListeDesOrientes_2.addActionListener(new ActionListener() {
+		this.btnListeDesOrientes_G = new JButton("Liste des orientes en G");
+		btnListeDesOrientes_G.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// new ListPanel(MainFrame.this, "G").setVisible(true);
 				panelList.setTableModel(new EleveModel("G"));
 				showInCenterPanel(PANEL_LIST_NAME);
 			}
 		});
-		this.panelLeft.add(this.btnListeDesOrientes_2);
+		// this.panelLeft.add(this.btnListeDesOrientes_G);
 
-		this.btnListeDesOrientes_3 = new JButton("Liste des orientes en T");
-		buttonGroup.add(btnListeDesOrientes_3);
-		btnListeDesOrientes_3.addActionListener(new ActionListener() {
+		this.btnListeDesOrientes_T = new JButton("Liste des orientes en T");
+		btnListeDesOrientes_T.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// new ListPanel(MainFrame.this, "T").setVisible(true);
 				panelList.setTableModel(new EleveModel("T"));
 				showInCenterPanel(PANEL_LIST_NAME);
 			}
 		});
-		this.panelLeft.add(this.btnListeDesOrientes_3);
+		// this.panelLeft.add(this.btnListeDesOrientes_T);
 
-		this.btnNewButton = new JButton("Ajouter une ecole");
-		buttonGroup.add(btnNewButton);
-		this.btnNewButton.addActionListener(new BtnNewButtonActionListener());
-		this.panelLeft.add(this.btnNewButton);
+		this.btnAjouterEcole = new JButton("Ajouter une ecole");
+		this.btnAjouterEcole
+				.addActionListener(new BtnNewButtonActionListener());
+		// this.panelLeft.add(this.btnAjouterEcole);
 
-		this.btnAjouterUnLyce = new JButton("Ajouter un lycée");
-		buttonGroup.add(btnAjouterUnLyce);
-		this.btnAjouterUnLyce
+		this.btnAjouterUnLycee = new JButton("Ajouter un lycée");
+		this.btnAjouterUnLycee
 				.addActionListener(new BtnAjouterUnLyceActionListener());
-		this.panelLeft.add(this.btnAjouterUnLyce);
+		// this.panelLeft.add(this.btnAjouterUnLycee);
 
 		btnListeDesEcoles = new JButton("Liste des ecoles");
-		buttonGroup.add(btnListeDesEcoles);
 		btnListeDesEcoles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// new ListPanel(MainFrame.this, new
@@ -272,10 +258,9 @@ public class MainFrame extends JFrame {
 				showInCenterPanel(PANEL_LIST_NAME);
 			}
 		});
-		panelLeft.add(btnListeDesEcoles);
+		// this.panelLeft.add(btnListeDesEcoles);
 
 		btnListeDesLycees = new JButton("Liste des lycees");
-		buttonGroup.add(btnListeDesLycees);
 		btnListeDesLycees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// new ListPanel(MainFrame.this, new
@@ -284,25 +269,27 @@ public class MainFrame extends JFrame {
 				showInCenterPanel(PANEL_LIST_NAME);
 			}
 		});
-		panelLeft.add(btnListeDesLycees);
+		// this.panelLeft.add(btnListeDesLycees);
 
 		this.btnQuitter = new JButton("Quitter");
-		buttonGroup.add(btnQuitter);
 		btnQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		this.panelLeft.add(this.btnQuitter);
+		// this.panelLeft.add(this.btnQuitter);
 
 		this.panelBottom = new JPanel();
 		this.contentPane.add(this.panelBottom, "cell 0 2 2 1,growx");
 		this.panelBottom.setLayout(new GridLayout(1, 1));
 		JXTitledPanel tpanel = new JXTitledPanel("All right reserved");
 		tpanel.setTitle("All right reserved                                                                                                                                  Profile: Inspecteur                                                                                                                                Inspection de Thiaroye                                                                                                                          ");
+
 		// tpanel.setBackground(COLOR_THEME);
 		this.getContentPane().add(tpanel, BorderLayout.SOUTH);
-		
+
+		initPanelLeft();
+		chargerIcon();
 		actionHighlightMenu();
 	}
 
@@ -315,12 +302,13 @@ public class MainFrame extends JFrame {
 
 		// panelCenterContainer.add(panelCenter, BorderLayout.CENTER);
 		panelTitledCenter = new JXTitledPanel("Hello Every body");
-		panelTitledCenter.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
-				0, 204)));
+		panelTitledCenter.setBorder(new MatteBorder(1, 1, 1, 1,
+				(Color) new Color(0, 0, 204)));
 		// panelTitled.setBackground(COLOR_THEME);
 		panelTitledCenter.getContentContainer().setLayout(new BorderLayout());
 		panelCenterContainer.add(panelTitledCenter, BorderLayout.CENTER);
-		panelTitledCenter.getContentContainer().add(panelCenter, BorderLayout.CENTER);
+		panelTitledCenter.getContentContainer().add(panelCenter,
+				BorderLayout.CENTER);
 		this.panelIcon = new JXImageView();
 		contentPane.add(panelIcon, "cell 0 0");
 		panelIcon.setLayout(new MigLayout("", "[299px]", "[138px]"));
@@ -351,13 +339,12 @@ public class MainFrame extends JFrame {
 		panelCenter.add(PANEL_IDENTFICATION_NAME, panelIdentificationEleve);
 		panelCenter.add(PANEL_LIST_NAME, panelList);
 
-		chargerIcon();
 	}
 
 	private void chargerIcon() {
 		try {
-//			Image image = ImageIO.read(uriIcon);
-//			panelIcon.setImage(image);
+			// Image image = ImageIO.read(uriIcon);
+			// panelIcon.setImage(image);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -392,37 +379,81 @@ public class MainFrame extends JFrame {
 
 	private void initializeAllButtons() {
 		allButtons = new ArrayList<>();
-			allButtons.add(btnIdentifierUnEleve);
-			allButtons.add(btnModifierUnEleve);
-			allButtons.add(btnListeDeTous);
-			allButtons.add(btnListeDesOrientes);
-			allButtons.add(btnListeDesOrientes_1);
-			allButtons.add(btnListeDesOrientes_2);
-			allButtons.add(btnListeDesOrientes_3);
-			allButtons.add(btnNewButton);
-			allButtons.add(btnAjouterUnLyce);
-			allButtons.add(btnQuitter);
-			allButtons.add(btnListeDesEcoles);
-			allButtons.add(btnListeDesLycees);
-			
-			DEFAULT_BUTTON_COLOR = allButtons.get(0).getBackground();
+		allButtons.add(btnIdentifierUnEleve);
+		allButtons.add(btnListeDeTousLesEleves);
+		allButtons.add(btnListeDesOrientes_S);
+		allButtons.add(btnListeDesOrientes_L);
+		allButtons.add(btnListeDesOrientes_G);
+		allButtons.add(btnListeDesOrientes_T);
+		allButtons.add(btnAjouterEcole);
+		allButtons.add(btnAjouterUnLycee);
+		allButtons.add(btnQuitter);
+		allButtons.add(btnListeDesEcoles);
+		allButtons.add(btnListeDesLycees);
+
+		DEFAULT_BUTTON_COLOR = allButtons.get(0).getBackground();
 	}
-	
+
+	// JXTaskPaneContainer
+	private void initPanelLeft() {
+		// TaskPane Eleve
+		JXTaskPane eleveTaskPane = new JXTaskPane();
+		eleveTaskPane.setTitle("Eleve");
+		eleveTaskPane.setSpecial(true);
+		eleveTaskPane.add(this.btnIdentifierUnEleve);
+		eleveTaskPane.add(this.btnListeDeTousLesEleves);
+		this.panelLeft.add(eleveTaskPane);
+
+		// TaskPane Ecole
+		JXTaskPane ecoleTaskPane = new JXTaskPane();
+		ecoleTaskPane.setTitle("Ecole");
+		ecoleTaskPane.setSpecial(true);
+		ecoleTaskPane.add(this.btnAjouterEcole);
+		ecoleTaskPane.add(this.btnListeDesEcoles);
+		this.panelLeft.add(ecoleTaskPane);
+
+		// TaskPane Lycee
+		JXTaskPane lyceeTaskPane = new JXTaskPane();
+		lyceeTaskPane.setTitle("Lycee");
+		lyceeTaskPane.setSpecial(true);
+		lyceeTaskPane.add(this.btnAjouterUnLycee);
+		lyceeTaskPane.add(this.btnListeDesLycees);
+		this.panelLeft.add(lyceeTaskPane);
+
+		// TaskPane orientation
+		JXTaskPane orientationTaskPane = new JXTaskPane();
+		orientationTaskPane.setTitle("Orientation");
+		orientationTaskPane.setSpecial(true);
+		orientationTaskPane.add(this.btnListeDesOrientes_L);
+		orientationTaskPane.add(this.btnListeDesOrientes_S);
+		orientationTaskPane.add(this.btnListeDesOrientes_G);
+		orientationTaskPane.add(this.btnListeDesOrientes_T);
+		this.panelLeft.add(orientationTaskPane);
+
+		// TaskPane Autre
+		JXTaskPane autreTaskPane = new JXTaskPane();
+		autreTaskPane.setTitle("Autre");
+		autreTaskPane.setSpecial(true);
+		autreTaskPane.add(this.btnQuitter);
+		// autreTaskPane.add(this.btnListeDesLycees);
+		this.panelLeft.add(autreTaskPane);
+	}
+
 	private void restoreAllButtonsColor() {
-		for(JButton button : allButtons)
+		for (JButton button : allButtons)
 			button.setBackground(DEFAULT_BUTTON_COLOR);
 	}
-	
+
 	private void highLight(JButton button) {
 		restoreAllButtonsColor();
 		button.setBackground(Outil.CENTER_PANE_COLOR);
 	}
-	
+
 	private void actionHighlightMenu() {
 		initializeAllButtons();
-		for(JButton b : allButtons) {
+		for (JButton b : allButtons) {
 			b.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					restoreAllButtonsColor();

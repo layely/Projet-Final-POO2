@@ -10,11 +10,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import org.jdesktop.swingx.JXTable;
+
 import tablemodels.EleveModel;
 import utilitaire.Outil;
 
 public class ListPanel extends JPanel {
-	protected JTable table;
+	protected JXTable table;
 
 	private JFrame parent;
 	private EleveModel eleveModel;
@@ -43,7 +45,8 @@ public class ListPanel extends JPanel {
 
 	private void initialize(AbstractTableModel tableModel) {
 		setLayout(new BorderLayout(0, 0));
-		this.table = new JTable();
+		this.table = new JXTable();
+		this.table.setColumnControlVisible(true);
 		this.table.setBackground(Outil.CENTER_PANE_COLOR);
 		if (tableModel != null)
 			table.setModel(tableModel);
@@ -52,6 +55,7 @@ public class ListPanel extends JPanel {
 		table.setRowHeight(30);
 		table.setFont(new Font(table.getFont().getName(), table.getFont().getStyle(),
 				(int) (table.getFont().getSize() * 1.2)));
+		table.packAll();
 		add(new JScrollPane(table), BorderLayout.CENTER);
 	}
 
@@ -64,5 +68,6 @@ public class ListPanel extends JPanel {
 		if (table != null)
 			table.setModel(tableModel);
 		table.repaint();
+		table.packAll();
 	}
 }

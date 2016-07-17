@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Connection;
 
 public class DBConnection {
-
+	
 	public static Connection getConnection() {
 		try {
 			Connection connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/orientation",
@@ -14,7 +14,6 @@ public class DBConnection {
 			return connect;
 		} catch (SQLException e) {
 			e.printStackTrace();
-
 		}
 		return null;
 	}

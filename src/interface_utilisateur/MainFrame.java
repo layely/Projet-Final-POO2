@@ -6,15 +6,12 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,7 +36,12 @@ import tablemodels.EcoleModel;
 import tablemodels.EleveModel;
 import tablemodels.LyceeModel;
 import utilitaire.Outil;
+
+import com.alee.laf.WebLookAndFeel;
+import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
+
 import databaseDAOs.DAO_Eleve;
+import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 
 public class MainFrame extends JFrame {
 
@@ -97,7 +99,35 @@ public class MainFrame extends JFrame {
 
 	public static void main(String[] args) {
 		try {
-			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+//			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+//			UIManager.setLookAndFeel(new TinyLookAndFeel());
+//			UIManager.setLookAndFeel(new QuaquaLookAndFeel());
+//			UIManager.setLookAndFeel(new QuaquaLookAndFeel15());
+//			UIManager.setLookAndFeel(new LiquidLookAndFeel());
+//			UIManager.setLookAndFeel(new EaSynthLookAndFeel());
+//			UIManager.setLookAndFeel(new SeaGlassLookAndFeel()); not working
+			
+			//JTatoo
+//			UIManager.setLookAndFeel(new AcrylLookAndFeel());
+//			UIManager.setLookAndFeel(new AeroLookAndFeel());
+//			UIManager.setLookAndFeel(new AluminiumLookAndFeel());
+//			UIManager.setLookAndFeel(new BernsteinLookAndFeel());
+//			UIManager.setLookAndFeel(new FastLookAndFeel());
+//			UIManager.setLookAndFeel(new HiFiLookAndFeel()); //Dark
+//			UIManager.setLookAndFeel(new McWinLookAndFeel());
+//			UIManager.setLookAndFeel(new MintLookAndFeel());
+//			UIManager.setLookAndFeel(new NoireLookAndFeel()); //Dark
+//			UIManager.setLookAndFeel(new TextureLookAndFeel());
+			
+			//JGoodies
+//			UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
+//			UIManager.setLookAndFeel(new PlasticLookAndFeel());
+//			UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
+//			
+//			UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+			
+			UIManager.setLookAndFeel(new WebLookAndFeel());
+			
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -277,7 +307,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initialiseCenterPanel() {
-		this.contentPane.setLayout(new MigLayout("debug",
+		this.contentPane.setLayout(new MigLayout("",
 				"[180px:n:180px,leading][grow]",
 				"[50px:n:50px][grow,top][20px:n]"));
 		panelCenterContainer.setBorder(new BevelBorder(BevelBorder.LOWERED,

@@ -4,12 +4,22 @@
  * and open the template in the editor.
  */
 package interface_utilisateur;
+import javax.swing.JTextField;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JSeparator;
+import javax.swing.UIManager;
 
 /**
  *
  * @author layely
  */
 public class NewJFrame extends javax.swing.JFrame {
+	private JTextField textField;
+	private JLabel lblHi;
+	private JButton btnYes;
 
     /**
      * Creates new form NewJFrame
@@ -28,17 +38,39 @@ public class NewJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        
+        this.textField = new JTextField();
+        this.textField.setColumns(10);
+        
+        this.lblHi = new JLabel("hi");
+        
+        this.btnYes = new JButton("yes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+        			.addContainerGap(225, Short.MAX_VALUE)
+        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(this.btnYes)
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(this.lblHi)
+        					.addGap(45)
+        					.addComponent(this.textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        			.addGap(155))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(60)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(this.textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(this.lblHi))
+        			.addGap(40)
+        			.addComponent(this.btnYes)
+        			.addContainerGap(267, Short.MAX_VALUE))
         );
+        getContentPane().setLayout(layout);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -55,7 +87,7 @@ public class NewJFrame extends javax.swing.JFrame {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
                     break;
                 }
             }
@@ -77,7 +109,4 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
 }

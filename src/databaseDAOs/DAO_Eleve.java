@@ -29,7 +29,9 @@ public class DAO_Eleve {
 
 	public ArrayList<Eleve> getAllEleves() throws ParseException {
 		ArrayList<Eleve> eleve = new ArrayList<>();
+		Connection connect = null;
 		try {
+			connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_ELEVE);
 			eleve = commeListeEleve(resultSet);
@@ -37,9 +39,15 @@ public class DAO_Eleve {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			if(connect != null)
+				try {
+					connect.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		}
 		return eleve;
-
 	}
 
 	// **************************

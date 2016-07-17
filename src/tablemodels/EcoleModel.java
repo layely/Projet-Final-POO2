@@ -29,7 +29,7 @@ public class EcoleModel extends AbstractTableModel {
 	}
 
 	@Override
-	public int getRowCount() {
+	public int getRowCount() {	
 		return listeEcoles.size();
 	}
 

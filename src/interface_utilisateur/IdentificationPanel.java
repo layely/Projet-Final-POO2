@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -14,10 +15,15 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import org.jbundle.thin.base.screen.jcalendarbutton.JCalendarButton;
+import org.jdesktop.swingx.JXDatePicker;
 
 import objet.Eleve;
 import utilitaire.Connection;
 import utilitaire.Outil;
+import net.miginfocom.swing.MigLayout;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import org.jdesktop.swingx.JXTitledSeparator;
 
 public class IdentificationPanel extends JPanel {
 	protected JLabel lblNom;
@@ -27,7 +33,7 @@ public class IdentificationPanel extends JPanel {
 	protected JLabel lblNumroDeTable;
 	protected JTextField textFieldNumTable;
 	protected JLabel lblDateDeNaissace;
-	protected JTextField textFieldDateNaissance;
+	protected JXDatePicker textFieldDateNaissance;
 	protected JLabel lblLieuDeNaissance;
 	protected JTextField textFieldLieuNaissance;
 	protected JRadioButton rdbtnM;
@@ -42,6 +48,7 @@ public class IdentificationPanel extends JPanel {
 	public static Eleve dernierIdentifie;
 
 	private JPanel parentframe = null;
+	private JXTitledSeparator titledSeparator;
 
 	/**
 	 * Create the panel.
@@ -60,85 +67,89 @@ public class IdentificationPanel extends JPanel {
 	}
 
 	private void initialize() {
-		setLayout(null);
 		this.setBackground(Outil.CENTER_PANE_COLOR);
-		this.lblNom = new JLabel("Nom");
-		this.lblNom.setBounds(46, 101, 78, 19);
-		add(this.lblNom);
+		setLayout(new MigLayout("", "[grow,right][139px][][10px][139px][grow]", "[30px][:50px:50px,grow][30px:n,top][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][25][25px]"));
+		
+		this.titledSeparator = new JXTitledSeparator();
+		this.titledSeparator.setTitle("");
+		add(this.titledSeparator, "cell 0 2 6 1,growx,aligny top");
+		this.lblNom = new JLabel("Nom :");
+		this.lblNom.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(this.lblNom, "cell 0 4");
 
 		this.textFieldNom = new JTextField();
-		this.textFieldNom.setBounds(180, 101, 248, 19);
-		add(this.textFieldNom);
+		this.textFieldNom.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldNom.setFont(new Font("Arial", Font.PLAIN, 15));
+		add(this.textFieldNom, "cell 1 4 4 1,grow");
 		this.textFieldNom.setColumns(10);
 
-		this.lblPrenom = new JLabel("Prenom");
-		this.lblPrenom.setBounds(46, 137, 78, 33);
-		add(this.lblPrenom);
+		this.lblPrenom = new JLabel("Prenom :");
+		this.lblPrenom.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(this.lblPrenom, "cell 0 5");
 
 		this.textFieldPrenom = new JTextField();
-		this.textFieldPrenom.setBounds(180, 144, 248, 19);
-		add(this.textFieldPrenom);
+		this.textFieldPrenom.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldPrenom.setFont(new Font("Arial", Font.PLAIN, 15));
+		add(this.textFieldPrenom, "cell 1 5 4 1,growx,aligny center");
 		this.textFieldPrenom.setColumns(10);
 
-		this.lblNumroDeTable = new JLabel("Numero de table");
-		this.lblNumroDeTable.setBounds(46, 60, 127, 15);
-		add(this.lblNumroDeTable);
+		this.lblNumroDeTable = new JLabel("Numero de table :");
+		this.lblNumroDeTable.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(this.lblNumroDeTable, "cell 0 3");
 
 		this.textFieldNumTable = new JTextField();
-		this.textFieldNumTable.setBounds(180, 58, 248, 19);
-		add(this.textFieldNumTable);
+		this.textFieldNumTable.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldNumTable.setFont(new Font("Arial", Font.PLAIN, 15));
+		add(this.textFieldNumTable, "cell 1 3 4 1,grow");
 		this.textFieldNumTable.setColumns(10);
+		
+				lblSexe = new JLabel("Sexe :");
+				this.lblSexe.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+				add(lblSexe, "cell 0 6");
 
-		this.lblDateDeNaissace = new JLabel("Date de Naissace");
-		this.lblDateDeNaissace.setBounds(46, 210, 127, 15);
-		add(this.lblDateDeNaissace);
+		this.lblDateDeNaissace = new JLabel("Date de Naissace :");
+		this.lblDateDeNaissace.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(this.lblDateDeNaissace, "cell 0 7");
 
-		this.textFieldDateNaissance = new JTextField();
+		this.textFieldDateNaissance = new JXDatePicker();
+		this.textFieldDateNaissance.getEditor().setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldDateNaissance.getEditor().setFont(new Font("Arial", Font.PLAIN, 15));
 		this.textFieldDateNaissance.addActionListener(new TextFieldDateNaissanceActionListener());
-		this.textFieldDateNaissance.setBounds(180, 208, 248, 19);
-		add(this.textFieldDateNaissance);
-		this.textFieldDateNaissance.setColumns(10);
+		add(this.textFieldDateNaissance, "cell 1 7 4 1,grow");
 
-		this.lblLieuDeNaissance = new JLabel("Lieu de naissance");
-		this.lblLieuDeNaissance.setBounds(46, 253, 127, 15);
-		add(this.lblLieuDeNaissance);
+		this.lblLieuDeNaissance = new JLabel("Lieu de naissance :");
+		this.lblLieuDeNaissance.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(this.lblLieuDeNaissance, "cell 0 8");
 
 		jcalendarbutton = new JCalendarButton();
 		jcalendarbutton.setBounds(180, 251, 248, 19);
 
 		this.textFieldLieuNaissance = new JTextField();
-		this.textFieldLieuNaissance.setBounds(180, 251, 248, 19);
-		add(this.textFieldLieuNaissance);
+		this.textFieldLieuNaissance.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldLieuNaissance.setFont(new Font("Arial", Font.PLAIN, 15));
+		add(this.textFieldLieuNaissance, "cell 1 8 4 1,grow");
 		this.textFieldLieuNaissance.setColumns(10);
 
 		this.rdbtnM = new JRadioButton("M");
 		this.rdbtnM.setSelected(true);
 		this.buttonGroup.add(this.rdbtnM);
-		this.rdbtnM.setBounds(211, 173, 68, 23);
-		add(this.rdbtnM);
+		add(this.rdbtnM, "cell 1 6,alignx right,aligny top");
 
 		this.rdbtnF = new JRadioButton("F");
 		this.buttonGroup.add(this.rdbtnF);
-		this.rdbtnF.setBounds(289, 173, 78, 23);
-		add(this.rdbtnF);
-
-		this.btnValider = new JButton("Valider");
-		this.btnValider.addActionListener(new BtnValiderActionListener());
-		this.btnValider.setBounds(150, 295, 117, 25);
-		add(this.btnValider);
+		add(this.rdbtnF, "cell 4 6,alignx left,aligny top");
 
 		this.btnAnnuller = new JButton("Annuler");
 		this.btnAnnuller.addActionListener(new BtnAnnullerActionListener());
-		this.btnAnnuller.setBounds(311, 295, 117, 25);
-		add(this.btnAnnuller);
+		
+				this.btnValider = new JButton("Suivant");
+				this.btnValider.addActionListener(new BtnValiderActionListener());
+				add(this.btnValider, "cell 1 10,grow");
+		add(this.btnAnnuller, "cell 4 10,grow");
 
-		this.lblIdentificationDunlve = new JLabel("IDENTIFICATION D'UN ELEVE");
-		this.lblIdentificationDunlve.setBounds(230, 12, 148, 36);
-		add(this.lblIdentificationDunlve);
-
-		lblSexe = new JLabel("Sexe");
-		lblSexe.setBounds(46, 162, 96, 33);
-		add(lblSexe);
+		this.lblIdentificationDunlve = new JLabel("INFORMATIONS PERSONNELLES (1/4)");
+		this.lblIdentificationDunlve.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(this.lblIdentificationDunlve, "cell 1 1 4 1,alignx center,growy");
 	}
 
 	private class BtnValiderActionListener implements ActionListener {
@@ -148,11 +159,12 @@ public class IdentificationPanel extends JPanel {
 			String nom = textFieldNom.getText();
 			String prenom = textFieldPrenom.getText();
 			String lieuNaissance = textFieldLieuNaissance.getText();
-			String strDate = textFieldDateNaissance.getText();
+			Date date = textFieldDateNaissance.getDate();
 			Calendar dateNaissance = null;
 			try {
-				dateNaissance = Outil.stringToCalendar(strDate);
-			} catch (ParseException e1) {
+				dateNaissance = Calendar.getInstance();
+				dateNaissance.setTime(date);
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

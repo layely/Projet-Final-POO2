@@ -326,9 +326,9 @@ public class MainFrame extends JFrame {
 
 	private void chargerIcon() {
 		try {
-			Image image = ImageIO.read(uriIcon);
-			panelIcon.setImage(image);
-		} catch (IOException e) {
+//			Image image = ImageIO.read(uriIcon);
+//			panelIcon.setImage(image);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

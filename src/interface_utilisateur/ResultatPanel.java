@@ -56,16 +56,16 @@ public class ResultatPanel extends JPanel {
 	}
 
 	private void initialize() {
-		setLayout(new MigLayout("", "[grow][20px:n][180px][70px][180px][grow]", "[50px:n][31px][50px,top][30px][30px][30px][30px][30px][][30px][30px][23px][20px:50px:100px,grow][30px]"));
+		setLayout(new MigLayout("", "[grow][20px:n][180px][70px][180px][grow]", "[50px:n][31px][50px,top][30px][30px][30px][30px][30px][][30px][30px][23px][20px:50px][30px]"));
 
 		this.lblSaisieDeNotes = new JLabel("Résultat scolaire (2/4)");
 		this.lblSaisieDeNotes.setHorizontalAlignment(SwingConstants.CENTER);
 		this.lblSaisieDeNotes.setFont(new Font("Footlight MT Light", Font.PLAIN, 26));
 		add(this.lblSaisieDeNotes, "cell 0 1 2097051 1,grow");
 		
-		this.titledSeparator = new JXTitledSeparator();
-		this.titledSeparator.setTitle("");
-		add(this.titledSeparator, "cell 0 2 2097051 1,growx,aligny top");
+//		this.titledSeparator = new JXTitledSeparator();
+//		this.titledSeparator.setTitle("");
+//		add(this.titledSeparator, "cell 0 2 2097051 1,growx,aligny top");
 
 		this.lblD = new JLabel("Moyenne Français :");
 		this.lblD.setFont(new Font("Footlight MT Light", Font.PLAIN, 17));

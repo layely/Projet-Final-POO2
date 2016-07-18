@@ -74,7 +74,7 @@ public class AjouterEcolePanel extends JPanel {
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		// setContentPane(this.contentPane);
 		this.contentPane.setLayout(null);
-		setLayout(new MigLayout("", "[grow,right][20px:n][230px:270px,fill][grow]", "[100px:n][30px][30px][20px:n][50px][grow]"));
+		setLayout(new MigLayout("", "[grow,right][20px:n][230px:270px,fill][grow]", "[100px:n][30px][15px:n][30px][20px:40px][50px][grow]"));
 
 		this.lblNomDeLecole = new JLabel("Nom de l'ecole :");
 		this.lblNomDeLecole.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -92,17 +92,17 @@ public class AjouterEcolePanel extends JPanel {
 		this.lblMotDePasse = new JLabel("Mot de Passe :");
 		this.lblMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		this.lblMotDePasse.setBounds(62, 132, 110, 36);
-		this.contentPane.add(this.lblMotDePasse, "cell 0 2,alignx right,growy");
+		this.contentPane.add(this.lblMotDePasse, "cell 0 3,alignx right,growy");
 
 		this.textfieldPass = new JTextField();
 		this.textfieldPass.setHorizontalAlignment(SwingConstants.CENTER);
 		this.textfieldPass.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		this.textfieldPass.setBounds(193, 132, 243, 46);
-		this.contentPane.add(this.textfieldPass, "cell 2 2,grow");
+		this.contentPane.add(this.textfieldPass, "cell 2 3,grow");
 		this.textfieldPass.setColumns(10);
 
 		this.panel = new JPanel();
-		add(this.panel, "cell 0 4 4 1,push ,alignx center,aligny bottom");
+		add(this.panel, "cell 0 5 2097051 1,push ,alignx center,aligny bottom");
 		this.panel.setLayout(new MigLayout("", "[190px,fill][20px][190px,fill]", "[30px:n]"));
 		this.panel.setBackground(Outil.CENTER_PANE_COLOR);
 		

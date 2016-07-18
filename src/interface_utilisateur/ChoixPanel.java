@@ -11,15 +11,16 @@ import javax.swing.JTextField;
 import utilitaire.Outil;
 import databaseDAOs.DAO_Eleve;
 import databaseDAOs.DAO_Resultat;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class ChoixPanel extends JPanel {
-	protected JLabel lblChoix;
 	protected JLabel label;
 	protected JLabel label_1;
 	protected JLabel label_2;
-	protected JTextField textFieldChoix1;
-	protected JTextField textFieldChoix2;
-	protected JTextField textFieldChoix3;
+	protected JLabel textFieldChoix1;
+	protected JLabel textFieldChoix2;
+	protected JLabel textFieldChoix3;
 	protected JButton btnValider;
 	protected JButton btnAnnuler;
 	protected JButton btnDown1;
@@ -28,7 +29,7 @@ public class ChoixPanel extends JPanel {
 	protected JButton btnUp3;
 	protected JButton btnDown3;
 	protected JLabel lblX;
-	protected JTextField txtFieldChoix4;
+	protected JLabel txtFieldChoix4;
 	protected JButton buttonUPX;
 
 	JPanel parentPanel;
@@ -49,10 +50,6 @@ public class ChoixPanel extends JPanel {
 	private void initialize() {
 		setLayout(null);
 
-		this.lblChoix = new JLabel("CHOIX");
-		this.lblChoix.setBounds(98, 12, 70, 15);
-		add(this.lblChoix);
-
 		this.label = new JLabel("1");
 		this.label.setBounds(44, 63, 45, 31);
 		add(this.label);
@@ -65,23 +62,26 @@ public class ChoixPanel extends JPanel {
 		this.label_2.setBounds(46, 150, 45, 32);
 		add(this.label_2);
 
-		this.textFieldChoix1 = new JTextField();
-		this.textFieldChoix1.setText("L");
+		this.textFieldChoix1 = new JLabel();
+		this.textFieldChoix1.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldChoix1.setBackground(new Color(0, 153, 255));
+		this.textFieldChoix1.setText("Série L");
 		this.textFieldChoix1.setBounds(98, 61, 90, 33);
 		add(this.textFieldChoix1);
-		this.textFieldChoix1.setColumns(10);
 
-		this.textFieldChoix2 = new JTextField();
-		this.textFieldChoix2.setText("S");
+		this.textFieldChoix2 = new JLabel();
+		this.textFieldChoix2.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldChoix2.setBackground(new Color(0, 153, 255));
+		this.textFieldChoix2.setText("Série S");
 		this.textFieldChoix2.setBounds(98, 106, 90, 33);
 		add(this.textFieldChoix2);
-		this.textFieldChoix2.setColumns(10);
 
-		this.textFieldChoix3 = new JTextField();
-		this.textFieldChoix3.setText("G");
+		this.textFieldChoix3 = new JLabel();
+		this.textFieldChoix3.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldChoix3.setBackground(new Color(0, 153, 255));
+		this.textFieldChoix3.setText("Série G");
 		this.textFieldChoix3.setBounds(98, 148, 90, 33);
 		add(this.textFieldChoix3);
-		this.textFieldChoix3.setColumns(10);
 
 		this.btnValider = new JButton("Valider");
 		this.btnValider.addActionListener(new BtnValiderActionListener());
@@ -122,11 +122,12 @@ public class ChoixPanel extends JPanel {
 		this.lblX.setBounds(44, 205, 36, 15);
 		add(this.lblX);
 
-		this.txtFieldChoix4 = new JTextField();
-		this.txtFieldChoix4.setText("T");
+		this.txtFieldChoix4 = new JLabel();
+		this.txtFieldChoix4.setHorizontalAlignment(SwingConstants.CENTER);
+		this.txtFieldChoix4.setBackground(new Color(0, 153, 255));
+		this.txtFieldChoix4.setText("Série T");
 		this.txtFieldChoix4.setBounds(98, 193, 90, 32);
 		add(this.txtFieldChoix4);
-		this.txtFieldChoix4.setColumns(10);
 
 		this.buttonUPX = new JButton("up");
 		this.buttonUPX.addActionListener(new ButtonUPXActionListener());

@@ -68,7 +68,7 @@ public class IdentificationPanel extends JPanel {
 
 	private void initialize() {
 		this.setBackground(Outil.CENTER_PANE_COLOR);
-		setLayout(new MigLayout("", "[grow,right][139px][][10px][139px][grow]", "[30px][:50px:50px,grow][30px:n,top][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][25][25px]"));
+		setLayout(new MigLayout("", "[grow,right][139px][][10px][139px][grow]", "[30px][:50px:50px,grow][30px:n,top][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][25px][30px]"));
 		
 //		this.titledSeparator = new JXTitledSeparator();
 //		this.titledSeparator.setTitle("");

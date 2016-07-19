@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -17,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
@@ -38,10 +36,8 @@ import tablemodels.EcoleModel;
 import tablemodels.EleveModel;
 import tablemodels.LyceeModel;
 import utilitaire.Outil;
-
-import com.alee.laf.WebLookAndFeel;
-
 import databaseDAOs.DAO_Eleve;
+import de.muntjak.tinylookandfeel.TinyLookAndFeel;
 
 public class MainFrame extends JFrame {
 
@@ -97,9 +93,9 @@ public class MainFrame extends JFrame {
 
 	public static void main(String[] args) {
 		try {
-			// UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-			// UIManager.setLookAndFeel(new TinyLookAndFeel());
-			// UIManager.setLookAndFeel(new QuaquaLookAndFeel());
+//			 UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			 UIManager.setLookAndFeel(new TinyLookAndFeel()); //statisfation : 5
+//			 UIManager.setLookAndFeel(new QuaquaLookAndFeel());
 			// UIManager.setLookAndFeel(new QuaquaLookAndFeel15());
 			// UIManager.setLookAndFeel(new LiquidLookAndFeel());
 			// UIManager.setLookAndFeel(new EaSynthLookAndFeel());
@@ -124,7 +120,7 @@ public class MainFrame extends JFrame {
 			//
 			// UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
 
-			UIManager.setLookAndFeel(new WebLookAndFeel());
+//			UIManager.setLookAndFeel(new WebLookAndFeel());
 
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -314,11 +310,12 @@ public class MainFrame extends JFrame {
 		panelIcon.setLayout(new MigLayout("", "[299px]", "[138px]"));
 
 		this.panelTop = new JPanel();
-		panelTop.setBackground(SystemColor.activeCaption);
+		panelTop.setBackground(Color.BLUE);
 		this.contentPane.add(this.panelTop, "flowx,cell 1 0,grow");
 		this.panelTop.setLayout(new BorderLayout());
 
 		lblGestion = new JXLabel();
+		this.lblGestion.setBackground(Color.BLUE);
 		lblGestion.setForeground(new Color(248, 248, 255));
 		lblGestion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGestion.setTextAlignment(TextAlignment.CENTER);

@@ -29,6 +29,10 @@ public class LyceeModel extends AbstractTableModel {
 			// //TODO
 	}
 
+	public Object get(int rowIndex){
+		return listLycee.get(rowIndex);
+	} 
+	
 	@Override
 	public int getRowCount() {
 		return listLycee.size();

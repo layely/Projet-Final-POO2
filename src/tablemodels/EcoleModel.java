@@ -27,7 +27,11 @@ public class EcoleModel extends AbstractTableModel {
 		} // new DAO_Eleve().getAllEleves();
 			// //TODO
 	}
-
+	
+	public Object get(int rowIndex){
+		return listeEcoles.get(rowIndex);
+	} 
+	
 	@Override
 	public int getRowCount() {	
 		return listeEcoles.size();

@@ -53,6 +53,10 @@ public class EleveModel extends AbstractTableModel {
 		}
 	}
 
+	public Object get(int rowIndex) {
+		return listEleves.get(rowIndex);
+	}
+	
 	@Override
 	public int getRowCount() {
 		return listEleves.size();

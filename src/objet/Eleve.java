@@ -87,6 +87,8 @@ public class Eleve {
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();
+		str.append("Informations personnelles \n");
+		str.append("----------------------------------------------------------------------------------------------------------------------------\n");
 		str.append("Numero de Table : " + this.numTable + "\n");
 		str.append("Nom : " + this.nom + "\n");
 		str.append("Prénom : " + this.prenom + "\n");
@@ -95,8 +97,16 @@ public class Eleve {
 		str.append("Sexe : " + this.sex + "\n");
 		str.append("Etablissement : " + this.etablissement + "\n");
 		str.append("Email : " + this.email + "\n");
-		str.append("Choix : " + this.choix + "\n");
-		str.append(this.resultat.toString());
+		str.append("\n\n");
+		
+		str.append(this.getResultat().toString());
+		str.append("\n\n");
+		
+		str.append("Les choix \n");
+		str.append("----------------------------------------------------------------------------------------------------------------------------\n");
+		str.append("Choix n°1: " + this.getChoix1() + "\n");
+		str.append("Choix n°2: " + this.getChoix2() + "\n");
+		str.append("Choix n°3: " + this.getChoix3() + "\n");
 		return str.toString();
 	}
 

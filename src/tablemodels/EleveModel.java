@@ -124,4 +124,10 @@ public class EleveModel extends AbstractTableModel {
 		}
 	}
 
+	public void delete(int rowIndex) {
+		eleveDAO.deleteEleve(listEleves.get(rowIndex).getNumTable());
+		listEleves.remove(rowIndex);
+		this.fireTableDataChanged();
+	}
+
 }

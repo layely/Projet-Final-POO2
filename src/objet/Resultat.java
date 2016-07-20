@@ -147,5 +147,20 @@ public class Resultat {
 			return "2nd TOUR";
 		return null;
 	}
-
+	
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("Résulat Scolaire\n");
+		str.append("----------------------------------------------------------------------------------------------------------------------------\n");
+		str.append("Notes :\n");
+		str.append("Français: " + this.noteFrancais + "     ");
+		str.append("Mathématiques: " + this.noteMaths + "     ");
+		str.append("SVT: " + this.noteSVT + "     ");
+		str.append("Histoire-Géographie: " + this.noteHistoGeo + "     ");
+		str.append("Physique-Chimie: " + this.notePC + "\n");
+		str.append("Moyenne Générale :  " + this.getMoyenneGenerale() + "\n");
+		str.append("BFEM :  " + this.getBfemResutatString() + "\n");
+		return str.toString();
+	}
 }

@@ -9,6 +9,7 @@ import java.text.MessageFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable.PrintMode;
@@ -21,6 +22,7 @@ import objet.Lycee;
 
 import org.jdesktop.swingx.JXTable;
 
+import databaseDAOs.DAO_Eleve;
 import tablemodels.EcoleModel;
 import tablemodels.EleveModel;
 import tablemodels.LyceeModel;
@@ -28,7 +30,7 @@ import utilitaire.Outil;
 
 public class ListPanel extends JPanel {
 	protected JXTable table;
-
+	
 	private JFrame parent;
 	private EleveModel eleveModel;
 	private String serie;
@@ -37,7 +39,9 @@ public class ListPanel extends JPanel {
 	private final JButton btnModifier = new JButton("Modifier");
 	private final JButton btnSupprimer = new JButton("Supprimer");
 	private final JButton btnPlusDinfo = new JButton("+ d'info");
-
+	
+	private DAO_Eleve eleveDAO = new DAO_Eleve();
+	
 	/**
 	 * Create the panel.
 	 * 
@@ -91,6 +95,11 @@ public class ListPanel extends JPanel {
 		});
 
 		this.panel.add(this.btnPlusDinfo, "cell 1 0");
+		this.btnSupprimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnSupprimer_actionPerformed(arg0);
+			}
+		});
 
 		this.panel.add(this.btnSupprimer, "cell 2 0");
 
@@ -110,6 +119,21 @@ public class ListPanel extends JPanel {
 		table.packAll();
 	}
 
+	protected void do_btnPlusDinfo_actionPerformed(ActionEvent arg0) {
+		getObject();
+	}
+
+	protected void do_btnImprimer_actionPerformed(ActionEvent arg0) {
+		try {
+			boolean complete = table.print(PrintMode.FIT_WIDTH,
+					new MessageFormat("Bon just un test pour l'instant"),
+					new MessageFormat("Page - {0}"), true, null, true, null);
+		} catch (PrinterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public Object getObject() {
 		Object model = table.getModel();
 		if (model instanceof EleveModel) {
@@ -121,7 +145,8 @@ public class ListPanel extends JPanel {
 			}
 			Eleve eleve = (Eleve) modelEleve.get(table
 					.convertRowIndexToModel(selectedRow));
-
+			
+			JOptionPane.showMessageDialog(this.parent, eleve.toString());
 			// Eleve eleve = (Eleve) model.get(selectedRow);
 			System.out.println("yuppi : on a : " + eleve.getNumTable());
 			return eleve;
@@ -157,19 +182,57 @@ public class ListPanel extends JPanel {
 		System.out.println("pas d'instance");
 		return null;
 	}
-
-	protected void do_btnPlusDinfo_actionPerformed(ActionEvent arg0) {
-		getObject();
-	}
-
-	protected void do_btnImprimer_actionPerformed(ActionEvent arg0) {
-		try {
-			boolean complete = table.print(PrintMode.FIT_WIDTH, new MessageFormat(
-					"Bon just un test pour l'instant"), new MessageFormat(
-					"Page - {0}"), true, null, true, null);
-		} catch (PrinterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	
+	public Object deleteObject() {
+		Object model = table.getModel();
+		if (model instanceof EleveModel) {
+			EleveModel modelEleve = (EleveModel) table.getModel();
+			int selectedRow = table.getSelectedRow();
+			if (selectedRow < 0) {
+				System.out.println("pfff : pas de selection");
+				return null;
+			}
+			Eleve eleve = (Eleve) modelEleve.get(table
+					.convertRowIndexToModel(selectedRow));
+			
+			modelEleve.delete(table.convertRowIndexToModel(selectedRow));
+			
+			// Eleve eleve = (Eleve) model.get(selectedRow);
+			System.out.println("yuppi : on a : " + eleve.getNumTable());
+			return eleve;
 		}
+
+		if (model instanceof EcoleModel) {
+			EcoleModel modelEcole = (EcoleModel) table.getModel();
+			int selectedRow = table.getSelectedRow();
+			if (selectedRow < 0) {
+				System.out.println("pfff : pas de selection");
+				return null;
+			}
+			Ecole ecole = (Ecole) modelEcole.get(table
+					.convertRowIndexToModel(selectedRow));
+
+			System.out.println("yuppi : on a : " + ecole.getNom());
+			return ecole;
+		}
+
+		if (model instanceof LyceeModel) {
+			LyceeModel modelLycee = (LyceeModel) table.getModel();
+			int selectedRow = table.getSelectedRow();
+			if (selectedRow < 0) {
+				System.out.println("pfff : pas de selection");
+				return null;
+			}
+			Lycee lycee = (Lycee) modelLycee.get(table
+					.convertRowIndexToModel(selectedRow));
+			System.out.println("yuppi : on a : " + lycee.getNom());
+			return lycee;
+		}
+
+		System.out.println("pas d'instance");
+		return null;
+	}
+	protected void do_btnSupprimer_actionPerformed(ActionEvent arg0) {
+		this.deleteObject();
 	}
 }

@@ -70,9 +70,9 @@ public class IdentificationPanel extends JPanel {
 		this.setBackground(Outil.CENTER_PANE_COLOR);
 		setLayout(new MigLayout("", "[grow,right][139px][][10px][139px][grow]", "[30px][:50px:50px,grow][30px:n,top][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][25px][30px]"));
 		
-//		this.titledSeparator = new JXTitledSeparator();
-//		this.titledSeparator.setTitle("");
-//		add(this.titledSeparator, "cell 0 2 6 1,growx,aligny top");
+		this.titledSeparator = new JXTitledSeparator();
+		this.titledSeparator.setTitle("");
+		add(this.titledSeparator, "cell 0 2 6 1,growx,aligny top");
 		this.lblNom = new JLabel("Nom :");
 		this.lblNom.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(this.lblNom, "cell 0 4");
@@ -191,5 +191,17 @@ public class IdentificationPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 //			parentframe.dispose();
 		}
+	}
+	public void loadEleve(Eleve eleve) {
+		// TODO Auto-generated method stub
+		textFieldNumTable.setText(String.valueOf(eleve.getNumTable()));
+		textFieldNom.setText(eleve.getNom());
+		textFieldPrenom.setText(eleve.getPrenom());
+		textFieldDateNaissance.setDate(eleve.getDateNaissance().getTime());
+		textFieldLieuNaissance.setText(eleve.getLieuNaissance());
+		if(eleve.estMaculin()) 
+			rdbtnM.setSelected(true);
+		else
+			rdbtnF.setSelected(true);
 	}
 }

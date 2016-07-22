@@ -212,4 +212,16 @@ public class Eleve {
 	public boolean estFeminin() {
 		return (this.sex == 'F' || this.sex == 'f') ? true : false;
 	}
+
+	public String getNonChoisi() {
+		if(!this.getChoix().contains("L"))
+			return "L";
+		if(!this.getChoix().contains("S"))
+			return "S";
+		if(!this.getChoix().contains("G"))
+			return "G";
+		if(!this.getChoix().contains("T"))
+			return "T";
+		return null;
+	}
 }

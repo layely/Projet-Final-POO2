@@ -17,12 +17,12 @@ import utilitaire.Outil;
 
 public class EleveModel extends AbstractTableModel {
 
-	private final String[] entetes = { "Numero de Table", "Prenom", "Nom", "Date de naissance", "Lieu de naissance",
-			"Moyenne choix" };
-	
-	private final String[] entetes2 = { "Numero de Table", "Prenom", "Nom", "Date de naissance", "Lieu de naissance",
-	"Moyenne général" };
-	
+	private final String[] entetes = { "Numero de Table", "Prenom", "Nom",
+			"Date de naissance", "Lieu de naissance", "Moyenne choix" };
+
+	private final String[] entetes2 = { "Numero de Table", "Prenom", "Nom",
+			"Date de naissance", "Lieu de naissance", "Moyenne général" };
+
 	private DAO_Eleve eleveDAO;
 
 	ArrayList<Eleve> listEleves;
@@ -56,7 +56,7 @@ public class EleveModel extends AbstractTableModel {
 	public Object get(int rowIndex) {
 		return listEleves.get(rowIndex);
 	}
-	
+
 	@Override
 	public int getRowCount() {
 		return listEleves.size();
@@ -69,7 +69,7 @@ public class EleveModel extends AbstractTableModel {
 
 	@Override
 	public String getColumnName(int column) {
-		if(serie == null)
+		if (serie == null)
 			return entetes2[column];
 		return entetes[column];
 	}
@@ -87,14 +87,16 @@ public class EleveModel extends AbstractTableModel {
 			return listEleves.get(rowIndex).getNom();
 
 		case 3:
-			return Outil.calendarToString(listEleves.get(rowIndex).getDateNaissance());
+			return Outil.calendarToString(listEleves.get(rowIndex)
+					.getDateNaissance());
 
 		case 4:
 			return listEleves.get(rowIndex).getLieuNaissance();
 
 		case 5:
-			if(serie == null)
-				return listEleves.get(rowIndex).getResultat().getMoyenneGenerale();
+			if (serie == null)
+				return listEleves.get(rowIndex).getResultat()
+						.getMoyenneGenerale();
 			return listEleves.get(rowIndex).getResultat().moyenneChoix(serie);
 		default:
 			throw new IllegalArgumentException();
@@ -130,4 +132,27 @@ public class EleveModel extends AbstractTableModel {
 		this.fireTableDataChanged();
 	}
 
+	public void reload() {
+		listEleves.clear();
+		if (serie == null) {
+			try {
+				listEleves = eleveDAO.getAllEleves();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+		else {
+			listEleves = new ArrayList<>();
+			try {
+				listEleves.addAll(Orientation.getListCompletDesOrientes(serie));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
+		this.fireTableDataChanged();
+	}
+	
 }

@@ -30,7 +30,7 @@ import utilitaire.Outil;
 
 public class ListPanel extends JPanel {
 	protected JXTable table;
-	
+
 	private JFrame parent;
 	private EleveModel eleveModel;
 	private String serie;
@@ -39,9 +39,9 @@ public class ListPanel extends JPanel {
 	private final JButton btnModifier = new JButton("Modifier");
 	private final JButton btnSupprimer = new JButton("Supprimer");
 	private final JButton btnPlusDinfo = new JButton("+ d'info");
-	
+
 	private DAO_Eleve eleveDAO = new DAO_Eleve();
-	
+
 	/**
 	 * Create the panel.
 	 * 
@@ -72,38 +72,54 @@ public class ListPanel extends JPanel {
 		table.setIntercellSpacing(new Dimension(10, 0));
 		table.setAutoCreateRowSorter(true);
 		table.setRowHeight(30);
-		table.setFont(new Font(table.getFont().getName(), table.getFont()
-				.getStyle(), (int) (table.getFont().getSize() * 1.2)));
+		table.setFont(new Font("Footlight MT Light", Font.PLAIN, 17));
 		table.packAll();
 		setLayout(new MigLayout("", "[grow,fill]",
-				"[::400px,grow,fill][40px,grow]"));
+				"[::500px,grow,fill][:40px:40px]"));
 		add(new JScrollPane(table), "cell 0 0,grow");
 
-		add(this.panel, "cell 0 1,grow");
-		this.panel.setLayout(new MigLayout("", "[][][][]", "[]"));
+		add(this.panel, "cell 0 1,growx");
+		this.panel
+				.setLayout(new MigLayout(
+						"",
+						"[grow][40px:190px,fill][40px:190px,fill][40px:190px,fill][40px:190px,fill][grow]",
+						"[29px:29px,fill]"));
+		this.btnImprimer
+				.setFont(new Font("Footlight MT Light", Font.PLAIN, 17));
 		this.btnImprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnImprimer_actionPerformed(arg0);
 			}
 		});
 
-		this.panel.add(this.btnImprimer, "cell 0 0");
+		this.panel.add(this.btnImprimer, "cell 1 0,grow");
+		this.btnPlusDinfo
+				.setFont(new Font("Footlight MT Light", Font.PLAIN, 17));
 		this.btnPlusDinfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnPlusDinfo_actionPerformed(arg0);
 			}
 		});
 
-		this.panel.add(this.btnPlusDinfo, "cell 1 0");
+		this.panel.add(this.btnPlusDinfo, "cell 2 0");
+		this.btnSupprimer
+				.setFont(new Font("Footlight MT Light", Font.PLAIN, 17));
 		this.btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnSupprimer_actionPerformed(arg0);
 			}
 		});
 
-		this.panel.add(this.btnSupprimer, "cell 2 0");
+		this.panel.add(this.btnSupprimer, "cell 3 0");
+		this.btnModifier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnModifier_actionPerformed(arg0);
+			}
+		});
+		this.btnModifier
+				.setFont(new Font("Footlight MT Light", Font.PLAIN, 17));
 
-		this.panel.add(this.btnModifier, "cell 3 0");
+		this.panel.add(this.btnModifier, "cell 4 0");
 	}
 
 	private void initialize() {
@@ -145,7 +161,7 @@ public class ListPanel extends JPanel {
 			}
 			Eleve eleve = (Eleve) modelEleve.get(table
 					.convertRowIndexToModel(selectedRow));
-			
+
 			JOptionPane.showMessageDialog(this.parent, eleve.toString());
 			// Eleve eleve = (Eleve) model.get(selectedRow);
 			System.out.println("yuppi : on a : " + eleve.getNumTable());
@@ -182,7 +198,7 @@ public class ListPanel extends JPanel {
 		System.out.println("pas d'instance");
 		return null;
 	}
-	
+
 	public Object deleteObject() {
 		Object model = table.getModel();
 		if (model instanceof EleveModel) {
@@ -194,9 +210,9 @@ public class ListPanel extends JPanel {
 			}
 			Eleve eleve = (Eleve) modelEleve.get(table
 					.convertRowIndexToModel(selectedRow));
-			
+
 			modelEleve.delete(table.convertRowIndexToModel(selectedRow));
-			
+
 			// Eleve eleve = (Eleve) model.get(selectedRow);
 			System.out.println("yuppi : on a : " + eleve.getNumTable());
 			return eleve;
@@ -232,7 +248,64 @@ public class ListPanel extends JPanel {
 		System.out.println("pas d'instance");
 		return null;
 	}
+
 	protected void do_btnSupprimer_actionPerformed(ActionEvent arg0) {
 		this.deleteObject();
+	}
+
+	protected void do_btnModifier_actionPerformed(ActionEvent arg0) {
+		this.modifierObject();
+	}
+
+	private Object modifierObject() {
+		Object model = table.getModel();
+		if (model instanceof EleveModel) {
+			EleveModel modelEleve = (EleveModel) table.getModel();
+			int selectedRow = table.getSelectedRow();
+			if (selectedRow < 0) {
+				System.out.println("pfff : pas de selection");
+				return null;
+			}
+			Eleve eleve = (Eleve) modelEleve.get(table
+					.convertRowIndexToModel(selectedRow));
+			
+			ModificationEleveDialog modifFrame = new ModificationEleveDialog(this.parent, this, eleve, eleveModel);
+			modifFrame.setVisible(true);
+
+			// Eleve eleve = (Eleve) model.get(selectedRow);
+			System.out.println("yuppi : on a : " + eleve.getNumTable());
+			return eleve;
+		}
+
+		if (model instanceof EcoleModel) {
+			EcoleModel modelEcole = (EcoleModel) table.getModel();
+			int selectedRow = table.getSelectedRow();
+			if (selectedRow < 0) {
+				System.out.println("pfff : pas de selection");
+				return null;
+			}
+			Ecole ecole = (Ecole) modelEcole.get(table
+					.convertRowIndexToModel(selectedRow));
+
+			System.out.println("yuppi : on a : " + ecole.getNom());
+			return ecole;
+		}
+
+		if (model instanceof LyceeModel) {
+			LyceeModel modelLycee = (LyceeModel) table.getModel();
+			int selectedRow = table.getSelectedRow();
+			if (selectedRow < 0) {
+				System.out.println("pfff : pas de selection");
+				return null;
+			}
+			Lycee lycee = (Lycee) modelLycee.get(table
+					.convertRowIndexToModel(selectedRow));
+			System.out.println("yuppi : on a : " + lycee.getNom());
+			return lycee;
+		}
+
+		System.out.println("pas d'instance");
+		return null;
+
 	}
 }

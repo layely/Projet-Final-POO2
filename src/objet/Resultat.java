@@ -163,4 +163,22 @@ public class Resultat {
 		str.append("BFEM :  " + this.getBfemResutatString() + "\n");
 		return str.toString();
 	}
+
+	public boolean aReussiAu1erTour() {
+		if(this.passageExam == Resultat.TOUR_1)
+			return true;
+		return false;
+	}
+
+	public boolean aReussiAu2ndTour() {
+		if(this.passageExam == Resultat.TOUR_2)
+			return true;
+		return false;
+	}
+
+	public boolean aEchoueAuBFEM() {
+		if(this.passageExam == Resultat.ECHEC)
+			return true;
+		return false;
+	}
 }

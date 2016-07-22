@@ -92,7 +92,7 @@ public class DAO_Eleve {
 					+ COLONNE_DATE_NAISSANCE + "='" + Outil.calendarToString(eleve.getDateNaissance()) + "',"
 					+ COLONNE_LIEU_NAISSANCE + "='" + eleve.getLieuNaissance() + "'," + COLONNE_SEXE + "='"
 					+ eleve.getSex() + "'," + COLONNE_EMAIL + "='" + eleve.getEmail() + "'," + COLONNE_CHOIX + "='"
-					+ eleve.getChoix() + "'," + COLONNE_NOM_ECOLE + "='" + eleve.getEtablissement() + "') WHERE "
+					+ eleve.getChoix() + "'," + COLONNE_NOM_ECOLE + "='" + eleve.getEtablissement() + "' WHERE "
 					+ COLONNE_NUM_TABLE + "=" + num_table);
 
 		} catch (

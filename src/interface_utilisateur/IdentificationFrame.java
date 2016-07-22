@@ -4,9 +4,9 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import objet.Eleve;
 import utilitaire.Outil;
 
 public class IdentificationFrame extends JPanel {
@@ -22,11 +22,12 @@ public class IdentificationFrame extends JPanel {
 
 	ArrayList<String> pages = new ArrayList<>(3);
 
-	JPanel panelIdentif = new IdentificationPanel(this);
-	JPanel panelResutat = new ResultatPanel(this);
-	JPanel panelChoix = new ChoixPanel(this);
-	JPanel panelInfoEleve = new InfoElevePanel(this);
-
+	IdentificationPanel panelIdentif = new IdentificationPanel(this);
+	ResultatPanel panelResutat = new ResultatPanel(this);
+	ChoixPanel panelChoix = new ChoixPanel(this);
+	InfoElevePanel panelInfoEleve = new InfoElevePanel(this);
+	
+	
 	int currentPage = 0;
 
 	public IdentificationFrame() {
@@ -34,6 +35,15 @@ public class IdentificationFrame extends JPanel {
 		this.setBackground(Outil.CENTER_PANE_COLOR);
 		initialize();
 	}
+	
+	public IdentificationFrame(Eleve eleve) {
+		this();
+		panelIdentif.loadEleve(eleve);
+		panelResutat.loadEleve(eleve);
+		panelChoix.loadEleve(eleve);
+		panelInfoEleve.setToModify(eleve);
+	}
+	
 
 	private void initialize() {
 //		setTitle("Identification");

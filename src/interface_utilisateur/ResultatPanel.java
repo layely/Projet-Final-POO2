@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import objet.Eleve;
 import objet.Resultat;
 
 import javax.swing.JRadioButton;
@@ -17,8 +18,11 @@ import javax.swing.ButtonGroup;
 
 import utilitaire.Outil;
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.SwingConstants;
+
 import java.awt.Font;
+
 import org.jdesktop.swingx.JXTitledSeparator;
 
 public class ResultatPanel extends JPanel {
@@ -201,5 +205,20 @@ public class ResultatPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			((IdentificationFrame) parentPanel).precedent();
 		}
+	}
+	public void loadEleve(Eleve eleve) {
+		Resultat resulat = eleve.getResultat();
+		textFieldFrancais.setText(resulat.getNoteFrancais().toString());
+		textFieldHistGeo.setText(resulat.getNoteHistoGeo().toString());
+		textFieldMaths.setText(resulat.getNoteMaths().toString());
+		textFieldPC.setText(resulat.getNotePC().toString());
+		textFieldSVT.setText(resulat.getNoteSVT().toString());
+		textFieldMoyGenerale.setText(resulat.getMoyenneGenerale().toString());
+		if(resulat.aReussiAu1erTour()) 
+			rdbtnTour1.setSelected(true);
+		else if(resulat.aReussiAu2ndTour())
+			rdbtnTour2.setSelected(true);
+		else if(resulat.aEchoueAuBFEM())
+			rdbtnEchec.setSelected(true);
 	}
 }

@@ -11,10 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
+import objet.Eleve;
 import utilitaire.Outil;
 import databaseDAOs.DAO_Eleve;
 import databaseDAOs.DAO_Resultat;
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.Font;
 
 public class ChoixPanel extends JPanel {
@@ -195,5 +197,13 @@ public class ChoixPanel extends JPanel {
 	}
 	protected void do_buttonChoix4_actionPerformed(ActionEvent e) {
 		buttonChoixEvent((JToggleButton)e.getSource());
+	}
+
+	public void loadEleve(Eleve eleve) {
+		buttonChoix1.setText("Série " + eleve.getChoix1());
+		buttonChoix2.setText("Série " + eleve.getChoix2());
+		buttonChoix3.setText("Série " + eleve.getChoix3());
+		
+		buttonChoix4.setText("Série " + eleve.getNonChoisi());
 	}
 }

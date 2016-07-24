@@ -38,6 +38,7 @@ public class AjoutLyceePanel extends JPanel {
 	private DAO_Lycee lyceeDAO;
 	private JFrame parent;
 	private JPanel panel;
+	private Lycee lyceeTomodif;
 
 	/**
 	 * Launch the application.
@@ -57,12 +58,29 @@ public class AjoutLyceePanel extends JPanel {
 
 	/**
 	 * Create the frame.
+	 * 
+	 * @wbp.parser.constructor
 	 */
 	public AjoutLyceePanel(JFrame parent) {
 		this.setBackground(Outil.CENTER_PANE_COLOR);
 		this.parent = parent;
 		lyceeDAO = new DAO_Lycee();
 		initialize();
+	}
+
+	public AjoutLyceePanel(JFrame parent2, Lycee lycee) {
+		this(parent2);
+		this.lyceeTomodif = lycee;
+		this.load(lycee);
+	}
+
+	private void load(Lycee lycee) {
+		textFieldNomLycee.setText(lycee.getNom());
+		textFieldNbPlacesL.setText(String.valueOf(lycee.getNbPlacesSerieL()));
+		textFieldNbplacesS.setText(String.valueOf(lycee.getNbPlacesSerieS()));
+		textFieldNbplacesG.setText(String.valueOf(lycee.getNbPlacesSerieG()));
+		textFieldNbplacesT.setText(String.valueOf(lycee.getNbPlacesSerieT()));
+		btnAjouter.setText("Modifier");
 	}
 
 	private void initialize() {
@@ -175,6 +193,7 @@ public class AjoutLyceePanel extends JPanel {
 
 	private class BtnAjouterActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+
 			String nomLycee = textFieldNomLycee.getText();
 			String strNbrL = textFieldNbPlacesL.getText();
 			String strNbrS = textFieldNbplacesS.getText();
@@ -188,7 +207,12 @@ public class AjoutLyceePanel extends JPanel {
 
 			Lycee lycee = new Lycee(nomLycee, nbrePlacesL, nbrePlacesS,
 					nbrePlacesG, nbrePlacesT);
-			lyceeDAO.ajoutLycee(lycee, "Inspection");
+
+			if (lyceeTomodif == null)
+				lyceeDAO.ajoutLycee(lycee, "Inspection");
+			else {
+				//TODO modifier lycee
+			}
 		}
 	}
 }

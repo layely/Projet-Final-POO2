@@ -35,6 +35,8 @@ public class AjouterEcolePanel extends JPanel {
 	protected JButton btnAnnuler;
 
 	private DAO_Ecole ecoleDAO;
+	private Ecole ecoleToModif = null;
+
 	private JFrame parent;
 
 	private JXTitledPanel titledPanel;
@@ -59,12 +61,26 @@ public class AjouterEcolePanel extends JPanel {
 
 	/**
 	 * Create the frame.
+	 * 
+	 * @wbp.parser.constructor
 	 */
 	public AjouterEcolePanel(JFrame parent) {
 		setBackground(Outil.CENTER_PANE_COLOR);
 		this.parent = parent;
 		this.ecoleDAO = new DAO_Ecole();
 		initialize();
+	}
+
+	public AjouterEcolePanel(JFrame parent, Ecole ecole) {
+		this(parent);
+		this.ecoleToModif = ecole;
+		this.load(ecole);
+	}
+
+	private void load(Ecole ecole) {
+		textFieldNom.setText(ecole.getNom());
+		textfieldPass.setText(ecole.getMotDePasse());
+		btnAjouter.setText("Modifier");
 	}
 
 	private void initialize() {
@@ -74,7 +90,9 @@ public class AjouterEcolePanel extends JPanel {
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		// setContentPane(this.contentPane);
 		this.contentPane.setLayout(null);
-		setLayout(new MigLayout("", "[grow,right][20px:n][230px:270px,fill][grow]", "[100px:n][30px][15px:n][30px][20px:40px][50px][grow]"));
+		setLayout(new MigLayout("",
+				"[grow,right][20px:n][230px:270px,fill][grow]",
+				"[100px:n][30px][15px:n][30px][20px:40px][50px][grow]"));
 
 		this.lblNomDeLecole = new JLabel("Nom de l'ecole :");
 		this.lblNomDeLecole.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -84,7 +102,8 @@ public class AjouterEcolePanel extends JPanel {
 
 		this.textFieldNom = new JTextField();
 		this.textFieldNom.setHorizontalAlignment(SwingConstants.CENTER);
-		this.textFieldNom.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+		this.textFieldNom
+				.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		this.textFieldNom.setBounds(190, 70, 246, 46);
 		this.contentPane.add(this.textFieldNom, "cell 2 1,growy");
 		this.textFieldNom.setColumns(10);
@@ -96,16 +115,18 @@ public class AjouterEcolePanel extends JPanel {
 
 		this.textfieldPass = new JTextField();
 		this.textfieldPass.setHorizontalAlignment(SwingConstants.CENTER);
-		this.textfieldPass.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+		this.textfieldPass.setFont(new Font("Microsoft YaHei UI", Font.PLAIN,
+				15));
 		this.textfieldPass.setBounds(193, 132, 243, 46);
 		this.contentPane.add(this.textfieldPass, "cell 2 3,grow");
 		this.textfieldPass.setColumns(10);
 
 		this.panel = new JPanel();
 		add(this.panel, "cell 0 5 2097051 1,push ,alignx center,aligny bottom");
-		this.panel.setLayout(new MigLayout("", "[190px,fill][20px][190px,fill]", "[30px:n]"));
+		this.panel.setLayout(new MigLayout("",
+				"[190px,fill][20px][190px,fill]", "[30px:n]"));
 		this.panel.setBackground(Outil.CENTER_PANE_COLOR);
-		
+
 		this.btnAjouter = new JButton("Ajouter");
 		this.panel.add(this.btnAjouter, "cell 0 0,grow");
 		this.btnAjouter.addActionListener(new BtnAjouterActionListener());
@@ -119,12 +140,20 @@ public class AjouterEcolePanel extends JPanel {
 
 	private class BtnAjouterActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+
 			String nomEcole = textFieldNom.getText();
 			String pass = textfieldPass.getText();
 
 			Ecole ecole = new Ecole(nomEcole, pass);
-			ecoleDAO.ajoutEcole(ecole, "inspection de thiaroye");
-			JOptionPane.showMessageDialog(AjouterEcolePanel.this, "Enregistrement effectué avec succès");
+			if (ecoleToModif == null) {
+				ecoleDAO.ajoutEcole(ecole, "inspection de thiaroye");
+				JOptionPane.showMessageDialog(AjouterEcolePanel.this,
+						"Enregistrement effectué avec succès");
+			} else {
+				//TODO ecoleDAO.modifier(String nomEcoleAModifier, Ecole nvEcole);
+				JOptionPane.showMessageDialog(AjouterEcolePanel.this,
+						"Modification effectuée avec succès");
+			}
 		}
 	}
 

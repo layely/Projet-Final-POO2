@@ -349,7 +349,7 @@ public class InfoElevePanel extends JPanel {
 					IdentificationPanel.dernierIdentifie.getResultat(),
 					IdentificationPanel.dernierIdentifie.getNumTable());
 			showMessageDialog("Modification effectué avec succès");
-			ModificationEleveDialog.modificationEleveDialog.dispose();
+			ModificationDialog.modificationEleveDialog.dispose();
 		} else {
 			eleveDAO.ajoutEleve(IdentificationPanel.dernierIdentifie);
 			showMessageDialog("Enregistrement effectué avec succès");

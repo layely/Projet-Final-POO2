@@ -79,6 +79,7 @@ public class MainFrame extends JFrame {
 	private static final String PANEL_AJOUT_LYCEE_NAME = "panelAjoutLycee";
 	private static final String PANEL_IDENTFICATION_NAME = "panelIdentificationEleve";
 	private static final String PANEL_LIST_NAME = "panelList";
+	private static final String PANEL_BUZY = "panelBuzy";
 	private JMenuBar menuBar;
 	private JPanel panelTop;
 	private JPanel panelBottom;
@@ -86,6 +87,7 @@ public class MainFrame extends JFrame {
 	protected JMenu mnTest;
 	private JXTitledPanel panelTitledLeft;
 	private JXLabel lblGestion;
+	private BuzyPane panelBuzy;
 
 	/**
 	 * Launch the application.
@@ -93,9 +95,9 @@ public class MainFrame extends JFrame {
 
 	public static void main(String[] args) {
 		try {
-//			 UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-			 UIManager.setLookAndFeel(new TinyLookAndFeel()); //statisfation : 5
-//			 UIManager.setLookAndFeel(new QuaquaLookAndFeel());
+			// UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			UIManager.setLookAndFeel(new TinyLookAndFeel()); // statisfation : 5
+			// UIManager.setLookAndFeel(new QuaquaLookAndFeel());
 			// UIManager.setLookAndFeel(new QuaquaLookAndFeel15());
 			// UIManager.setLookAndFeel(new LiquidLookAndFeel());
 			// UIManager.setLookAndFeel(new EaSynthLookAndFeel());
@@ -120,7 +122,7 @@ public class MainFrame extends JFrame {
 			//
 			// UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
 
-//			UIManager.setLookAndFeel(new WebLookAndFeel());
+			// UIManager.setLookAndFeel(new WebLookAndFeel());
 
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -297,7 +299,7 @@ public class MainFrame extends JFrame {
 				new Color(0, 102, 204), null, null, null));
 
 		// panelCenterContainer.add(panelCenter, BorderLayout.CENTER);
-		panelTitledCenter = new JXTitledPanel("Hello Every body");
+		panelTitledCenter = new JXTitledPanel("Identification d'une élève");
 		panelTitledCenter.setBorder(new MatteBorder(1, 1, 1, 1,
 				(Color) new Color(0, 0, 204)));
 		// panelTitled.setBackground(COLOR_THEME);
@@ -327,14 +329,17 @@ public class MainFrame extends JFrame {
 
 		panelAjoutEcole = new AjouterEcolePanel(this);
 		panelAjoutLycee = new AjoutLyceePanel(this);
-		panelIdentificationEleve = new IdentificationFrame();
 		AbstractTableModel tablemodel = null;
 		panelList = new ListPanel(this, tablemodel);
+		panelIdentificationEleve = new IdentificationFrame();
+		panelCenter.add(PANEL_IDENTFICATION_NAME, panelIdentificationEleve);
+
+		panelBuzy = new BuzyPane();
 
 		panelCenter.add(PANEL_AJOUT_ECOLE_NAME, panelAjoutEcole);
 		panelCenter.add(PANEL_AJOUT_LYCEE_NAME, panelAjoutLycee);
-		panelCenter.add(PANEL_IDENTFICATION_NAME, panelIdentificationEleve);
 		panelCenter.add(PANEL_LIST_NAME, panelList);
+		panelCenter.add(PANEL_BUZY, panelBuzy);
 
 	}
 
@@ -348,9 +353,31 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	private void showInCenterPanel(String panelName) {
-		CardLayout c = (CardLayout) panelCenter.getLayout();
-		c.show(panelCenter, panelName);
+	private void showInCenterPanel(final String panelName) {
+		final CardLayout c = (CardLayout) panelCenter.getLayout();
+
+		c.show(panelCenter, PANEL_BUZY);
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				if (panelName.equals(PANEL_LIST_NAME))
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				EventQueue.invokeLater(new Runnable() {
+
+					@Override
+					public void run() {
+						c.show(panelCenter, panelName);
+					}
+				});
+			}
+		});
+
+		t.start();
 	}
 
 	private class BtnIdentifierUnEleveActionListener implements ActionListener {

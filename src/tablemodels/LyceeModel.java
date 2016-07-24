@@ -1,5 +1,6 @@
 package tablemodels;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
@@ -9,8 +10,9 @@ import objet.Lycee;
 
 public class LyceeModel extends MyTableModel {
 
-	private final String[] entetes = { "Nom de Lycee", "Nombre de place en L", "Nombre de place en S",
-			"Nombre de place en G", "Nombre de place en T" };
+	private final String[] entetes = { "Nom de Lycee", "Nombre de place en L",
+			"Nombre de place en S", "Nombre de place en G",
+			"Nombre de place en T" };
 
 	private DAO_Lycee lyceeDAO;
 
@@ -29,10 +31,10 @@ public class LyceeModel extends MyTableModel {
 			// //TODO
 	}
 
-	public Object get(int rowIndex){
+	public Object get(int rowIndex) {
 		return listLycee.get(rowIndex);
-	} 
-	
+	}
+
 	@Override
 	public int getRowCount() {
 		return listLycee.size();
@@ -90,12 +92,19 @@ public class LyceeModel extends MyTableModel {
 			return Object.class;
 		}
 	}
-	
+
 	@Override
 	public boolean delete(int rowIndex) {
 		lyceeDAO.delete(listLycee.get(rowIndex).getNom());
 		listLycee.remove(rowIndex);
 		this.fireTableDataChanged();
 		return true;
+	}
+
+	@Override
+	public void reload() {
+		listLycee.clear();
+		listLycee = lyceeDAO.getAllLycee();
+		this.fireTableDataChanged();
 	}
 }

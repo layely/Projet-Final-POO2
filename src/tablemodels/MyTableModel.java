@@ -6,4 +6,5 @@ public abstract class MyTableModel extends AbstractTableModel {
 	
 	
 	public abstract boolean delete(int rowIndex);
+	public abstract void reload();
 }

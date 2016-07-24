@@ -1,6 +1,7 @@
 package interface_utilisateur;
 
 import java.awt.AWTEvent;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -13,6 +14,7 @@ import java.text.MessageFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,6 +27,8 @@ import objet.Ecole;
 import objet.Eleve;
 import objet.Lycee;
 
+import org.jdesktop.swingx.JXLabel;
+import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.JXTable;
 
 import tablemodels.EcoleModel;
@@ -33,6 +37,8 @@ import tablemodels.LyceeModel;
 import tablemodels.MyTableModel;
 import utilitaire.Outil;
 import databaseDAOs.DAO_Eleve;
+import org.jdesktop.swingx.JXLabel.TextAlignment;
+import javax.swing.SwingConstants;
 
 public class ListPanel extends JPanel {
 	protected JXTable table;
@@ -47,6 +53,8 @@ public class ListPanel extends JPanel {
 	private final JButton btnPlusDinfo = new JButton("+ d'info");
 
 	private DAO_Eleve eleveDAO = new DAO_Eleve();
+
+	private JXLabel labelEmptyTable;
 
 	/**
 	 * Create the panel.
@@ -87,8 +95,18 @@ public class ListPanel extends JPanel {
 		table.packAll();
 		setLayout(new MigLayout("", "[grow,fill]",
 				"[::500px,grow,fill][:40px:40px]"));
-		add(new JScrollPane(table), "cell 0 0,grow");
-
+		
+		JXPanel panelTable = new JXPanel(new BorderLayout());
+		panelTable.add(new JScrollPane(table), BorderLayout.CENTER);
+		labelEmptyTable = new JXLabel();
+		this.labelEmptyTable.setFont(new Font("Footlight MT Light", Font.PLAIN, 20));
+		this.labelEmptyTable.setHorizontalAlignment(SwingConstants.CENTER);
+		this.labelEmptyTable.setVerticalTextPosition(SwingConstants.TOP);
+		this.labelEmptyTable.setVerticalAlignment(SwingConstants.TOP);
+		this.labelEmptyTable.setTextAlignment(TextAlignment.CENTER);
+		panelTable.add(labelEmptyTable, BorderLayout.SOUTH);
+		add(panelTable, "cell 0 0,grow");
+		
 		add(this.panel, "cell 0 1,growx");
 		this.panel
 				.setLayout(new MigLayout(
@@ -142,10 +160,16 @@ public class ListPanel extends JPanel {
 	}
 
 	public void setTableModel(AbstractTableModel tableModel) {
-		if (table != null)
+		if (table != null) {
 			table.setModel(tableModel);
-		table.repaint();
-		table.packAll();
+			table.repaint();
+			table.packAll();
+			labelEmptyTable.setText("");
+		}
+		
+		if(table.getRowCount() <= 0) {
+			labelEmptyTable.setText("Aucun élément à afficher");
+		}
 	}
 
 	protected void do_btnPlusDinfo_actionPerformed(ActionEvent arg0) {
@@ -215,56 +239,13 @@ public class ListPanel extends JPanel {
 	public Object deleteObject() {
 		MyTableModel model = (MyTableModel) table.getModel();
 		int selectedRow = table.getSelectedRow();
-		if(selectedRow < 0) {
+		if (selectedRow < 0) {
 			return null;
 		}
-		model.delete(table.convertRowIndexToModel(selectedRow));
-		
-//		if (model instanceof EleveModel) {
-//			EleveModel modelEleve = (EleveModel) table.getModel();
-//			int selectedRow = table.getSelectedRow();
-//			if (selectedRow < 0) {
-//				System.out.println("pfff : pas de selection");
-//				return null;
-//			}
-//			Eleve eleve = (Eleve) modelEleve.get(table
-//					.convertRowIndexToModel(selectedRow));
-//
-//			modelEleve.delete(table.convertRowIndexToModel(selectedRow));
-//
-//			// Eleve eleve = (Eleve) model.get(selectedRow);
-//			System.out.println("yuppi : on a : " + eleve.getNumTable());
-//			return eleve;
-//		}
-//
-//		if (model instanceof EcoleModel) {
-//			EcoleModel modelEcole = (EcoleModel) table.getModel();
-//			int selectedRow = table.getSelectedRow();
-//			if (selectedRow < 0) {
-//				System.out.println("pfff : pas de selection");
-//				return null;
-//			}
-//			Ecole ecole = (Ecole) modelEcole.get(table
-//					.convertRowIndexToModel(selectedRow));
-//			
-//			System.out.println("yuppi : on a : " + ecole.getNom());
-//			return ecole;
-//		}
-//
-//		if (model instanceof LyceeModel) {
-//			LyceeModel modelLycee = (LyceeModel) table.getModel();
-//			int selectedRow = table.getSelectedRow();
-//			if (selectedRow < 0) {
-//				System.out.println("pfff : pas de selection");
-//				return null;
-//			}
-//			Lycee lycee = (Lycee) modelLycee.get(table
-//					.convertRowIndexToModel(selectedRow));
-//			System.out.println("yuppi : on a : " + lycee.getNom());
-//			return lycee;
-//		}
-		
-		System.out.println("pas d'instance");
+
+		if (Outil.showConfirmationDialog(this)) {
+			model.delete(table.convertRowIndexToModel(selectedRow));
+		}
 		return null;
 	}
 
@@ -288,8 +269,8 @@ public class ListPanel extends JPanel {
 			Eleve eleve = (Eleve) modelEleve.get(table
 					.convertRowIndexToModel(selectedRow));
 
-			ModificationEleveDialog modifFrame = new ModificationEleveDialog(
-					this.parent, this, eleve, modelEleve);
+			ModificationDialog modifFrame = new ModificationDialog(this.parent,
+					this, eleve, modelEleve);
 			modifFrame.setVisible(true);
 
 			// Eleve eleve = (Eleve) model.get(selectedRow);
@@ -307,6 +288,9 @@ public class ListPanel extends JPanel {
 			Ecole ecole = (Ecole) modelEcole.get(table
 					.convertRowIndexToModel(selectedRow));
 
+			ModificationDialog modifFrame = new ModificationDialog(this.parent,
+					this, ecole, modelEcole);
+			modifFrame.setVisible(true);
 			System.out.println("yuppi : on a : " + ecole.getNom());
 			return ecole;
 		}
@@ -320,7 +304,10 @@ public class ListPanel extends JPanel {
 			}
 			Lycee lycee = (Lycee) modelLycee.get(table
 					.convertRowIndexToModel(selectedRow));
-			System.out.println("yuppi : on a : " + lycee.getNom());
+			ModificationDialog modifFrame = new ModificationDialog(this.parent,
+					this, lycee, modelLycee);
+			modifFrame.setVisible(true);
+
 			return lycee;
 		}
 

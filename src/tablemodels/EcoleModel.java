@@ -81,5 +81,12 @@ public class EcoleModel extends MyTableModel {
 		this.fireTableDataChanged();
 		return true;
 	}
+	
+	@Override
+	public void reload() {
+		listeEcoles.clear();
+		listeEcoles = ecoleDAO.getAllEcole();
+		this.fireTableDataChanged();
+	}
 
 }

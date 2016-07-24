@@ -180,12 +180,16 @@ public class LoginFrame extends JFrame {
 
 	private ArrayList<String> getListAutoComplete() {
 		ArrayList<String> list = new ArrayList<>();
-		for(Ecole ecole : listEcoles) {
-			list.add(ecole.getNom());
-		}
-		for(Inspection inspection : listInspection) {
-			list.add(inspection.getNom());
-		}
+//		for(Ecole ecole : listEcoles) {
+//			list.add(ecole.getNom());
+//		}
+//		for(Inspection inspection : listInspection) {
+//			list.add(inspection.getNom());
+//		}
+		list.add("CEM Scat Urbam");
+		list.add("CEM HLM Grand Yoff 2");
+		list.add("CEM HLM Grand Yoff 1");
+		list.add("Les Pedagogues");
 		return list;
 	}
 

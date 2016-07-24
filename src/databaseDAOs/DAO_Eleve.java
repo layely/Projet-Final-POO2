@@ -22,31 +22,25 @@ public class DAO_Eleve {
 	public final static String COLONNE_NOM_ECOLE = "nom_ecole";
 	public final static String COLONNE_CHOIX = "choix";
 
-	Connection connect = (Connection) DBConnection.getConnection();
 
 	// **************************
 	// liste de tous les eleves
 
 	public ArrayList<Eleve> getAllEleves() throws ParseException {
 		ArrayList<Eleve> eleve = new ArrayList<>();
-		Connection connect = null;
+		
+
 		try {
-			connect = (Connection) DBConnection.getConnection();
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_ELEVE);
 			eleve = commeListeEleve(resultSet);
-			connect.close();
+			
 			return eleve;
-            
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-			if(connect != null)
-				try {
-					connect.close();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			
 		}
 		return eleve;
 	}
@@ -56,6 +50,7 @@ public class DAO_Eleve {
 
 	public void ajoutEleve(Eleve eleve) {
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 
 			stm.executeUpdate("INSERT INTO " + TABLE_ELEVE + " VALUES(" + eleve.getNumTable() + ",'" + eleve.getPrenom()
@@ -63,7 +58,6 @@ public class DAO_Eleve {
 					+ eleve.getLieuNaissance() + "','" + eleve.getSex() + "','" + eleve.getEmail() + "','"
 					+ eleve.getChoix() + "','" + eleve.getEtablissement() + "')");
 			
-			connect.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -75,10 +69,11 @@ public class DAO_Eleve {
 
 	public void deleteEleve(int num_table) {
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 
 			stm.executeUpdate("DELETE FROM " + TABLE_ELEVE + " WHERE " + COLONNE_NUM_TABLE + "=" + num_table);
-			connect.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -89,6 +84,7 @@ public class DAO_Eleve {
 
 	public void modifierEleve(int num_table, Eleve eleve) throws ParseException {
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("UPDATE " + TABLE_ELEVE + " SET " + COLONNE_NUM_TABLE + "=" + eleve.getNumTable() + ","
 					+ COLONNE_PRENOM + "='" + eleve.getPrenom() + "'," + COLONNE_NOM + "='" + eleve.getNom() + "',"
@@ -98,7 +94,7 @@ public class DAO_Eleve {
 					+ eleve.getChoix() + "'," + COLONNE_NOM_ECOLE + "='" + eleve.getEtablissement() + "' WHERE "
 					+ COLONNE_NUM_TABLE + "=" + num_table);
 			
-			connect.close();
+			
 		} catch (
 
 		SQLException e) {
@@ -116,6 +112,7 @@ public class DAO_Eleve {
 		Eleve el = null;
 
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm
 					.executeQuery("SELECT * FROM " + TABLE_ELEVE + " WHERE " + COLONNE_NUM_TABLE + "=" + num_table);
@@ -125,7 +122,7 @@ public class DAO_Eleve {
 					el = myEcole.get(i);
 				}
 			}
-			connect.close();
+			
 			return el;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -159,7 +156,6 @@ public class DAO_Eleve {
 				myEcole.add(eleve);
 			}
 			resultSet.close();
-			connect.close();
 			return myEcole;
 
 		} catch (SQLException e) {

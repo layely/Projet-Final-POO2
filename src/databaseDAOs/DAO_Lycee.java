@@ -16,13 +16,13 @@ public class DAO_Lycee {
 	public final static String COLONNE_NB_PLACE_G = "nb_place_G";
 	public final static String COLONNE_NB_PLACE_T = "nb_place_T";
 
-	Connection connect = DBConnection.getConnection();
 
 	public ArrayList<Lycee> getAllLycee() {
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_LYCEE);
-			connect.close();
+		
 			return commListLycee(resultSet);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -90,7 +90,6 @@ public class DAO_Lycee {
 				Lycee lycee = new Lycee(nom, L, S, G, T);
 				listLycee.add(lycee);
 			}
-			connect.close();
 			return listLycee;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,11 +100,12 @@ public class DAO_Lycee {
 
 	public void ajoutLycee(Lycee lycee, String nom_inspection) {
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("INSERT INTO " + TABLE_LYCEE + " VALUES('" + lycee.getNom() + "',"
 					+ lycee.getNbPlacesSerieS() + "," + lycee.getNbPlacesSerieL() + "," + lycee.getNbPlacesSerieG()
 					+ "," + lycee.getNbPlacesSerieT() + ",'" + nom_inspection + "')");
-			connect.close();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -113,10 +113,11 @@ public class DAO_Lycee {
 
 	public void delete(String nom) {
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 
 			stm.executeUpdate("DELETE FROM " + TABLE_LYCEE + " WHERE " + COLONNE_NOM_LYCEE + "='" + nom +"'");
-			connect.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

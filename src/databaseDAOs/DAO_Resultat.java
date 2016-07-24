@@ -21,15 +21,15 @@ public class DAO_Resultat {
 	public final static String MOY_PC = "moyenne_PC";
 	public final static String NUM_TABLE_ELEVE = "eleve_numerotable";
 
-	static Connection connect = DBConnection.getConnection();
 
 	// **************************
 	// tous les resultats
 	public ArrayList<Resultat> getAllResultats() {
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_RESULTAT);
-			connect.close();
+			
 			return commeListResultat(resultSet);
 
 		} catch (SQLException e) {
@@ -46,6 +46,7 @@ public class DAO_Resultat {
 		ArrayList<Resultat> myResultat = new ArrayList<>();
 
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			ResultSet resultat = stm
 					.executeQuery("SELECT * FROM " + TABLE_RESULTAT + " WHERE " + NUM_TABLE_ELEVE + "=" + num_table);
@@ -57,7 +58,7 @@ public class DAO_Resultat {
 				}
 
 			}
-			connect.close();
+			
 			return res;
 
 		} catch (SQLException e) {
@@ -71,6 +72,7 @@ public class DAO_Resultat {
 
 	public void ajoutResultat(Resultat resultat, int num_table_eleve) {
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("INSERT INTO " + TABLE_RESULTAT + " (" + PASSAGE + "," + MOY_GENERAL + "," + MOY_MATHS
 					+ "," + MOY_FRANCAIS + "," + MOY_SVT + "," + MOY_HISTO_GEO + "," + MOY_PC + "," + NUM_TABLE_ELEVE
@@ -78,7 +80,7 @@ public class DAO_Resultat {
 					+ resultat.getNoteMaths() + "," + resultat.getNoteFrancais() + "," + resultat.getNoteSVT() + ","
 					+ resultat.getNoteHistoGeo() + "," + resultat.getNotePC() + "," + num_table_eleve + ")");
 			
-			connect.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -90,6 +92,7 @@ public class DAO_Resultat {
 
 	public void ModifierResultat(int num_table, Resultat resultat) {
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("UPDATE " + TABLE_RESULTAT + "SET " + PASSAGE + "=" + resultat.getPassageExam() + ","
 					+ MOY_GENERAL + "=" + resultat.getMoyenneGenerale() + "," + MOY_MATHS + "="
@@ -97,7 +100,7 @@ public class DAO_Resultat {
 					+ "=" + resultat.getNoteSVT() + "," + MOY_HISTO_GEO + "=" + resultat.getNoteHistoGeo() + ","
 					+ MOY_PC + "=" + resultat.getNotePC() + "WHERE " + NUM_TABLE_ELEVE + "=" + num_table);
 			
-			connect.close();
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,6 +112,7 @@ public class DAO_Resultat {
 	// Supprimer Resultat
 	public void supprimerResultat(int num_table) {
 		try {
+			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("DELETE FROM " + TABLE_RESULTAT + " WHERE " + NUM_TABLE_ELEVE + "=" + num_table);
 			
@@ -135,7 +139,6 @@ public class DAO_Resultat {
 				myResultat.add(res);
 
 			}
-			connect.close();
 			return myResultat;
 
 		} catch (SQLException e) {

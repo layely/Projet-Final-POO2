@@ -15,14 +15,13 @@ public class DAO_Ecole {
 	public final static String NOM_ECOLE = "nom_ecole";
 	public final static String PASSWORD = "Password";
 
-	static Connection connect = DBConnection.getConnection();
 
 	public ArrayList<Ecole> getAllEcole() {
 		// ArrayList<Ecole> ecole = new ArrayList<>();
 		try {
+			Connection connect = DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_ECOLE);
-			connect.close();
 			return commeListEcole(resultSet);
 			
 		} catch (SQLException e) {
@@ -37,6 +36,7 @@ public class DAO_Ecole {
 		ArrayList<Ecole> ecole = new ArrayList<>();
 		Ecole ec = null;
 		try {
+			Connection connect = DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm
 					.executeQuery("SELECT * FROM " + TABLE_ECOLE + " WHERE " + NOM_ECOLE + "=" + nom_ecole);
@@ -46,7 +46,6 @@ public class DAO_Ecole {
 					ec = ecole.get(i);
 				}
 			}
-			connect.close();
 			return ec;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,10 +59,10 @@ public class DAO_Ecole {
 
 	public void ajoutEcole(Ecole ecole, String nom_inspection) {
 		try {
+			Connection connect = DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("INSERT INTO " + TABLE_ECOLE + " VALUES('" + ecole.getNom() + "','" + ecole.getMotDePasse()
 					+ "','" + nom_inspection + "')");
-			connect.close();
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -81,7 +80,6 @@ public class DAO_Ecole {
 				Ecole ecole = new Ecole(nom_ecole, password);
 				myEcole.add(ecole);
 			}
-			connect.close();
 			return myEcole;
             
 		} catch (SQLException e) {
@@ -94,10 +92,10 @@ public class DAO_Ecole {
 
 	public void delete(String nom) {
 		try {
+			Connection connect = DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 
 			stm.executeUpdate("DELETE FROM " + TABLE_ECOLE + " WHERE " + NOM_ECOLE + "='" + nom +"'");
-			connect.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

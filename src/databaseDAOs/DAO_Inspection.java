@@ -22,7 +22,7 @@ public class DAO_Inspection {
 		try {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_INSPECTION);
-
+			connect.close();
 			return commeListeInspection(resultSet);
 
 		} catch (SQLException e) {
@@ -37,6 +37,7 @@ public class DAO_Inspection {
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("INSERT INTO " + TABLE_INSPECTION + " VALUES('" + inspection.getNom() + "','"
 					+ inspection.getMot() + "')");
+			connect.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,6 +55,7 @@ public class DAO_Inspection {
 				myInspection.add(insp);
 
 			}
+			connect.close();
 			return myInspection;
 		} catch (SQLException e) {
 			e.printStackTrace();

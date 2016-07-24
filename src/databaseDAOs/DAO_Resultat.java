@@ -29,7 +29,7 @@ public class DAO_Resultat {
 		try {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_RESULTAT);
-
+			connect.close();
 			return commeListResultat(resultSet);
 
 		} catch (SQLException e) {
@@ -57,6 +57,7 @@ public class DAO_Resultat {
 				}
 
 			}
+			connect.close();
 			return res;
 
 		} catch (SQLException e) {
@@ -76,6 +77,8 @@ public class DAO_Resultat {
 					+ ") VALUES(" + resultat.getPassageExam() + "," + resultat.getMoyenneGenerale() + ","
 					+ resultat.getNoteMaths() + "," + resultat.getNoteFrancais() + "," + resultat.getNoteSVT() + ","
 					+ resultat.getNoteHistoGeo() + "," + resultat.getNotePC() + "," + num_table_eleve + ")");
+			
+			connect.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -93,6 +96,8 @@ public class DAO_Resultat {
 					+ resultat.getNoteMaths() + "," + MOY_FRANCAIS + "=" + resultat.getNoteFrancais() + "," + MOY_SVT
 					+ "=" + resultat.getNoteSVT() + "," + MOY_HISTO_GEO + "=" + resultat.getNoteHistoGeo() + ","
 					+ MOY_PC + "=" + resultat.getNotePC() + "WHERE " + NUM_TABLE_ELEVE + "=" + num_table);
+			
+			connect.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,6 +111,8 @@ public class DAO_Resultat {
 		try {
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("DELETE FROM " + TABLE_RESULTAT + " WHERE " + NUM_TABLE_ELEVE + "=" + num_table);
+			
+			connect.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -128,6 +135,7 @@ public class DAO_Resultat {
 				myResultat.add(res);
 
 			}
+			connect.close();
 			return myResultat;
 
 		} catch (SQLException e) {

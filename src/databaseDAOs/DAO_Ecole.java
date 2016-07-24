@@ -22,10 +22,14 @@ public class DAO_Ecole {
 		try {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_ECOLE);
+			connect.close();
 			return commeListEcole(resultSet);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			
 		}
+		
 		return null;
 	}
 
@@ -42,6 +46,7 @@ public class DAO_Ecole {
 					ec = ecole.get(i);
 				}
 			}
+			connect.close();
 			return ec;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,6 +63,7 @@ public class DAO_Ecole {
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("INSERT INTO " + TABLE_ECOLE + " VALUES('" + ecole.getNom() + "','" + ecole.getMotDePasse()
 					+ "','" + nom_inspection + "')");
+			connect.close();
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -75,9 +81,9 @@ public class DAO_Ecole {
 				Ecole ecole = new Ecole(nom_ecole, password);
 				myEcole.add(ecole);
 			}
-
+			connect.close();
 			return myEcole;
-
+            
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +97,7 @@ public class DAO_Ecole {
 			Statement stm = connect.createStatement();
 
 			stm.executeUpdate("DELETE FROM " + TABLE_ECOLE + " WHERE " + NOM_ECOLE + "='" + nom +"'");
-
+			connect.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

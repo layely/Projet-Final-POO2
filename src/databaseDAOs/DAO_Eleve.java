@@ -35,8 +35,9 @@ public class DAO_Eleve {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_ELEVE);
 			eleve = commeListeEleve(resultSet);
+			connect.close();
 			return eleve;
-
+            
 		} catch (SQLException e) {
 			e.printStackTrace();
 			if(connect != null)
@@ -61,6 +62,8 @@ public class DAO_Eleve {
 					+ "','" + eleve.getNom() + "','" + Outil.calendarToString(eleve.getDateNaissance()) + "','"
 					+ eleve.getLieuNaissance() + "','" + eleve.getSex() + "','" + eleve.getEmail() + "','"
 					+ eleve.getChoix() + "','" + eleve.getEtablissement() + "')");
+			
+			connect.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -75,7 +78,7 @@ public class DAO_Eleve {
 			Statement stm = connect.createStatement();
 
 			stm.executeUpdate("DELETE FROM " + TABLE_ELEVE + " WHERE " + COLONNE_NUM_TABLE + "=" + num_table);
-
+			connect.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -94,7 +97,8 @@ public class DAO_Eleve {
 					+ eleve.getSex() + "'," + COLONNE_EMAIL + "='" + eleve.getEmail() + "'," + COLONNE_CHOIX + "='"
 					+ eleve.getChoix() + "'," + COLONNE_NOM_ECOLE + "='" + eleve.getEtablissement() + "' WHERE "
 					+ COLONNE_NUM_TABLE + "=" + num_table);
-
+			
+			connect.close();
 		} catch (
 
 		SQLException e) {
@@ -121,6 +125,7 @@ public class DAO_Eleve {
 					el = myEcole.get(i);
 				}
 			}
+			connect.close();
 			return el;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -154,7 +159,7 @@ public class DAO_Eleve {
 				myEcole.add(eleve);
 			}
 			resultSet.close();
-
+			connect.close();
 			return myEcole;
 
 		} catch (SQLException e) {

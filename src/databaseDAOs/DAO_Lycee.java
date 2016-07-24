@@ -22,6 +22,7 @@ public class DAO_Lycee {
 		try {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_LYCEE);
+			connect.close();
 			return commListLycee(resultSet);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,6 +90,7 @@ public class DAO_Lycee {
 				Lycee lycee = new Lycee(nom, L, S, G, T);
 				listLycee.add(lycee);
 			}
+			connect.close();
 			return listLycee;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -103,6 +105,7 @@ public class DAO_Lycee {
 			stm.executeUpdate("INSERT INTO " + TABLE_LYCEE + " VALUES('" + lycee.getNom() + "',"
 					+ lycee.getNbPlacesSerieS() + "," + lycee.getNbPlacesSerieL() + "," + lycee.getNbPlacesSerieG()
 					+ "," + lycee.getNbPlacesSerieT() + ",'" + nom_inspection + "')");
+			connect.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -113,7 +116,7 @@ public class DAO_Lycee {
 			Statement stm = connect.createStatement();
 
 			stm.executeUpdate("DELETE FROM " + TABLE_LYCEE + " WHERE " + COLONNE_NOM_LYCEE + "='" + nom +"'");
-
+			connect.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

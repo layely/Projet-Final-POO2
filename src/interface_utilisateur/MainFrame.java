@@ -312,12 +312,12 @@ public class MainFrame extends JFrame {
 		panelIcon.setLayout(new MigLayout("", "[299px]", "[138px]"));
 
 		this.panelTop = new JPanel();
-		panelTop.setBackground(Color.BLUE);
+		panelTop.setBackground(new Color(102, 51, 255));
 		this.contentPane.add(this.panelTop, "flowx,cell 1 0,grow");
 		this.panelTop.setLayout(new BorderLayout());
 
 		lblGestion = new JXLabel();
-		this.lblGestion.setBackground(Color.BLUE);
+		this.lblGestion.setBackground(new Color(0, 153, 255));
 		lblGestion.setForeground(new Color(248, 248, 255));
 		lblGestion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGestion.setTextAlignment(TextAlignment.CENTER);

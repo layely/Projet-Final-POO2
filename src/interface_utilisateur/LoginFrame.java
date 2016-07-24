@@ -1,22 +1,37 @@
 package interface_utilisateur;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JPasswordField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import net.miginfocom.swing.MigLayout;
-import utilitaire.Outil;
-
 import java.awt.Color;
-import java.awt.SystemColor;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
+import net.miginfocom.swing.MigLayout;
+import objet.Ecole;
+import objet.Inspection;
+import objet.Lycee;
+
+import org.jdesktop.swingx.JXFormattedTextField;
+import org.jdesktop.swingx.JXList;
+import org.jdesktop.swingx.JXTextField;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import org.jdesktop.swingx.autocomplete.ObjectToStringConverter;
+import org.jdesktop.swingx.prompt.PromptSupport;
+import org.jdesktop.swingx.prompt.PromptSupport.FocusBehavior;
+
+import databaseDAOs.DAO_Ecole;
+import databaseDAOs.DAO_Inspection;
 
 public class LoginFrame extends JFrame {
 	protected JPanel panelTop;
@@ -26,14 +41,26 @@ public class LoginFrame extends JFrame {
 	protected JLabel lblMotDePasse;
 	protected JTextField textFieldlogin;
 	protected JPasswordField textFieldPassword;
-	protected JPanel panel;
 	protected JButton btnSeConnecter;
 	protected JButton btnAnnuler;
+	private JLabel lblGestionnaireDesOrientations;
+	private JLabel lblConnection;
+
+	private DAO_Ecole ecoleDAO = new DAO_Ecole();
+	private DAO_Inspection inspectionDAO = new DAO_Inspection();
+	private ArrayList<Ecole> listEcoles;
+	private ArrayList<Inspection> listInspection;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+			UIManager
+					.setLookAndFeel("de.muntjak.tinylookandfeel.TinyLookAndFeel");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -57,59 +84,125 @@ public class LoginFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 719, 420);
 		JPanel content = new JPanel();
-		content.setForeground(Color.WHITE);
+		content.setBackground(new Color(0, 153, 255));
+		content.setForeground(new Color(0, 153, 255));
 		setContentPane(content);
-		content.setLayout(new MigLayout("", "[grow]", "[60px,fill][grow,center][60px,fill]"));
+		content.setLayout(new MigLayout("", "[grow]",
+				"[60px,fill][grow,center][60px,fill]"));
 
 		this.panelTop = new JPanel();
+		this.panelTop.setBackground(new Color(0, 153, 255));
 		content.add(this.panelTop, "cell 0 0,grow");
+		this.panelTop.setLayout(new BorderLayout(0, 0));
+
+		this.lblGestionnaireDesOrientations = new JLabel(
+				"GESTIONNAIRE DES ORIENTATIONS POST-BFEM");
+		this.lblGestionnaireDesOrientations.setForeground(new Color(255, 255,
+				255));
+		this.lblGestionnaireDesOrientations
+				.setBackground(new Color(0, 153, 255));
+		this.lblGestionnaireDesOrientations.setFont(new Font(
+				"Footlight MT Light", Font.PLAIN, 24));
+		this.lblGestionnaireDesOrientations
+				.setHorizontalAlignment(SwingConstants.CENTER);
+		this.panelTop.add(this.lblGestionnaireDesOrientations,
+				BorderLayout.CENTER);
 
 		this.panelCenter = new JPanel();
-		content.add(this.panelCenter, "cell 0 1,growx,aligny center");
-		this.panelCenter.setLayout(new MigLayout("", "[grow,right][10px:n][100px,grow,fill][grow]", "[][][40px]"));
+		content.add(this.panelCenter, "cell 0 1,grow");
+		this.panelCenter
+				.setLayout(new MigLayout(
+						"",
+						"[grow,right][10px:n][80px:100px:120px,grow,fill][10px:n][80px:100px:120px,grow,fill][grow]",
+						"[grow][30px,fill][10px][30px,fill][30px][30px,fill][grow]"));
 
-		this.lblEcoleOuInspection = new JLabel("Ecole/Inspection :");
-		this.panelCenter.add(this.lblEcoleOuInspection, "cell 0 0,alignx trailing");
+		this.lblEcoleOuInspection = new JLabel("Nom d'utilisateur :");
+		this.lblEcoleOuInspection.setFont(new Font("Footlight MT Light",
+				Font.PLAIN, 17));
+		this.panelCenter.add(this.lblEcoleOuInspection,
+				"cell 0 1,alignx trailing");
 
-		this.textFieldlogin = new JTextField();
-		this.panelCenter.add(this.textFieldlogin, "cell 2 0");
+		this.textFieldlogin = new JXFormattedTextField("Ecole ou Inspection");
+		this.textFieldlogin.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldlogin.setFont(new Font("Footlight MT Light", Font.PLAIN,
+				17));
+		// PromptSupport.setPrompt("Ecole ou Inspection", this.textFieldlogin);
+		PromptSupport.setFocusBehavior(FocusBehavior.SHOW_PROMPT,
+				this.textFieldlogin);
+		// PromptSupport.setForeground(Color.darkGray, this.textFieldlogin);
+		
+		listEcoles = ecoleDAO.getAllEcole();
+		listInspection = inspectionDAO.getAllInspection();
+		
+		ArrayList<String> listAutoComplete = getListAutoComplete();
+		JXList jlist = new JXList(listAutoComplete.toArray());	
+		
+		this.panelCenter.add(this.textFieldlogin, "cell 2 1 3 1");
 		this.textFieldlogin.setColumns(10);
+		AutoCompleteDecorator.decorate(jlist, this.textFieldlogin, ObjectToStringConverter.DEFAULT_IMPLEMENTATION);
 
 		this.lblMotDePasse = new JLabel("Mot de passe :");
-		this.panelCenter.add(this.lblMotDePasse, "cell 0 1,alignx trailing");
+		this.lblMotDePasse.setFont(new Font("Footlight MT Light", Font.PLAIN,
+				17));
+		this.panelCenter.add(this.lblMotDePasse, "cell 0 3,alignx trailing");
 
 		this.textFieldPassword = new JPasswordField();
-		this.panelCenter.add(this.textFieldPassword, "cell 2 1");
+		this.textFieldPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldPassword.setFont(new Font("Footlight MT Light",
+				Font.PLAIN, 17));
+		this.panelCenter.add(this.textFieldPassword, "cell 2 3 3 1");
 		this.textFieldPassword.setColumns(10);
 
-		this.panel = new JPanel();
-		this.panelCenter.add(this.panel, "cell 0 2 4 1,alignx center");
-		this.panel.setLayout(new MigLayout("", "[fill][fill]", "[]"));
-
 		this.btnSeConnecter = new JButton("Connextion");
+		this.btnSeConnecter.setFont(new Font("Footlight MT Light", Font.PLAIN,
+				17));
+		this.panelCenter.add(this.btnSeConnecter, "cell 2 5");
 		this.btnSeConnecter.addActionListener(new ButtonActionListener());
-		this.panel.add(this.btnSeConnecter, "cell 0 0");
 
 		this.btnAnnuler = new JButton("Annuler");
+		this.btnAnnuler.setFont(new Font("Footlight MT Light", Font.PLAIN, 17));
+		this.panelCenter.add(this.btnAnnuler, "cell 4 5");
 		this.btnAnnuler.addActionListener(new BtnAnnulerActionListener());
-		this.panel.add(this.btnAnnuler, "cell 1 0");
 
 		this.panelBottom = new JPanel();
+		this.panelBottom.setBackground(new Color(0, 153, 255));
 		content.add(this.panelBottom, "cell 0 2,growx");
+		this.panelBottom.setLayout(new BorderLayout(0, 0));
+
+		this.lblConnection = new JLabel("CONNECTION");
+		this.lblConnection.setForeground(new Color(255, 255, 255));
+		this.lblConnection.setBackground(new Color(0, 153, 255));
+		this.lblConnection.setHorizontalAlignment(SwingConstants.CENTER);
+		this.lblConnection
+				.setFont(new Font("Footlight MT Light", Font.BOLD, 17));
+		this.panelBottom.add(this.lblConnection, BorderLayout.CENTER);
 	}
+
+	private ArrayList<String> getListAutoComplete() {
+		ArrayList<String> list = new ArrayList<>();
+		for(Ecole ecole : listEcoles) {
+			list.add(ecole.getNom());
+		}
+		for(Inspection inspection : listInspection) {
+			list.add(inspection.getNom());
+		}
+		return list;
+	}
+
 	private class ButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String login = textFieldlogin.getText();
 			String pass = textFieldPassword.getText();
 
-//			if(Outil.getConnection(login, pass)) {
-//				Outil.openHome();
-//				LoginFrame.this.dispose();
-//			} else {
-//
-//			}
+			// if(Outil.getConnection(login, pass)) {
+			// Outil.openHome();
+			// LoginFrame.this.dispose();
+			// } else {
+			//
+			// }
 		}
 	}
+
 	private class BtnAnnulerActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 		}

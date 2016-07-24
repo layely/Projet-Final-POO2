@@ -42,8 +42,8 @@ public class ModificationEleveDialog extends JDialog {
 
 	@Override
 	public void dispose() {
-		super.dispose();
 		eleveModel.reload();
+		super.dispose();
 	}
 
 }

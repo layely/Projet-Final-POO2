@@ -1,9 +1,13 @@
 package interface_utilisateur;
 
+import java.awt.AWTEvent;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.print.PrinterException;
 import java.text.MessageFormat;
 
@@ -13,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable.PrintMode;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 
 import net.miginfocom.swing.MigLayout;
@@ -22,11 +27,12 @@ import objet.Lycee;
 
 import org.jdesktop.swingx.JXTable;
 
-import databaseDAOs.DAO_Eleve;
 import tablemodels.EcoleModel;
 import tablemodels.EleveModel;
 import tablemodels.LyceeModel;
+import tablemodels.MyTableModel;
 import utilitaire.Outil;
+import databaseDAOs.DAO_Eleve;
 
 public class ListPanel extends JPanel {
 	protected JXTable table;
@@ -61,12 +67,17 @@ public class ListPanel extends JPanel {
 		this.setSize(400, 400);
 		// this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		initialize(tableModel);
+
 	}
 
 	private void initialize(AbstractTableModel tableModel) {
 		this.table = new JXTable();
+		this.table.setSelectionBackground(new java.awt.Color(102, 153, 255));
+		this.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.table.setColumnControlVisible(true);
+		this.table.setSelectionForeground(java.awt.Color.WHITE);
 		this.table.setBackground(Outil.CENTER_PANE_COLOR);
+
 		if (tableModel != null)
 			table.setModel(tableModel);
 		table.setIntercellSpacing(new Dimension(10, 0));
@@ -120,6 +131,8 @@ public class ListPanel extends JPanel {
 				.setFont(new Font("Footlight MT Light", Font.PLAIN, 17));
 
 		this.panel.add(this.btnModifier, "cell 4 0");
+
+		this.clearTableSelection();
 	}
 
 	private void initialize() {
@@ -200,51 +213,57 @@ public class ListPanel extends JPanel {
 	}
 
 	public Object deleteObject() {
-		Object model = table.getModel();
-		if (model instanceof EleveModel) {
-			EleveModel modelEleve = (EleveModel) table.getModel();
-			int selectedRow = table.getSelectedRow();
-			if (selectedRow < 0) {
-				System.out.println("pfff : pas de selection");
-				return null;
-			}
-			Eleve eleve = (Eleve) modelEleve.get(table
-					.convertRowIndexToModel(selectedRow));
-
-			modelEleve.delete(table.convertRowIndexToModel(selectedRow));
-
-			// Eleve eleve = (Eleve) model.get(selectedRow);
-			System.out.println("yuppi : on a : " + eleve.getNumTable());
-			return eleve;
+		MyTableModel model = (MyTableModel) table.getModel();
+		int selectedRow = table.getSelectedRow();
+		if(selectedRow < 0) {
+			return null;
 		}
-
-		if (model instanceof EcoleModel) {
-			EcoleModel modelEcole = (EcoleModel) table.getModel();
-			int selectedRow = table.getSelectedRow();
-			if (selectedRow < 0) {
-				System.out.println("pfff : pas de selection");
-				return null;
-			}
-			Ecole ecole = (Ecole) modelEcole.get(table
-					.convertRowIndexToModel(selectedRow));
-
-			System.out.println("yuppi : on a : " + ecole.getNom());
-			return ecole;
-		}
-
-		if (model instanceof LyceeModel) {
-			LyceeModel modelLycee = (LyceeModel) table.getModel();
-			int selectedRow = table.getSelectedRow();
-			if (selectedRow < 0) {
-				System.out.println("pfff : pas de selection");
-				return null;
-			}
-			Lycee lycee = (Lycee) modelLycee.get(table
-					.convertRowIndexToModel(selectedRow));
-			System.out.println("yuppi : on a : " + lycee.getNom());
-			return lycee;
-		}
-
+		model.delete(table.convertRowIndexToModel(selectedRow));
+		
+//		if (model instanceof EleveModel) {
+//			EleveModel modelEleve = (EleveModel) table.getModel();
+//			int selectedRow = table.getSelectedRow();
+//			if (selectedRow < 0) {
+//				System.out.println("pfff : pas de selection");
+//				return null;
+//			}
+//			Eleve eleve = (Eleve) modelEleve.get(table
+//					.convertRowIndexToModel(selectedRow));
+//
+//			modelEleve.delete(table.convertRowIndexToModel(selectedRow));
+//
+//			// Eleve eleve = (Eleve) model.get(selectedRow);
+//			System.out.println("yuppi : on a : " + eleve.getNumTable());
+//			return eleve;
+//		}
+//
+//		if (model instanceof EcoleModel) {
+//			EcoleModel modelEcole = (EcoleModel) table.getModel();
+//			int selectedRow = table.getSelectedRow();
+//			if (selectedRow < 0) {
+//				System.out.println("pfff : pas de selection");
+//				return null;
+//			}
+//			Ecole ecole = (Ecole) modelEcole.get(table
+//					.convertRowIndexToModel(selectedRow));
+//			
+//			System.out.println("yuppi : on a : " + ecole.getNom());
+//			return ecole;
+//		}
+//
+//		if (model instanceof LyceeModel) {
+//			LyceeModel modelLycee = (LyceeModel) table.getModel();
+//			int selectedRow = table.getSelectedRow();
+//			if (selectedRow < 0) {
+//				System.out.println("pfff : pas de selection");
+//				return null;
+//			}
+//			Lycee lycee = (Lycee) modelLycee.get(table
+//					.convertRowIndexToModel(selectedRow));
+//			System.out.println("yuppi : on a : " + lycee.getNom());
+//			return lycee;
+//		}
+		
 		System.out.println("pas d'instance");
 		return null;
 	}
@@ -260,7 +279,7 @@ public class ListPanel extends JPanel {
 	private Object modifierObject() {
 		Object model = table.getModel();
 		if (model instanceof EleveModel) {
-			EleveModel modelEleve = (EleveModel) table.getModel();
+			EleveModel modelEleve = (EleveModel) model;
 			int selectedRow = table.getSelectedRow();
 			if (selectedRow < 0) {
 				System.out.println("pfff : pas de selection");
@@ -268,8 +287,9 @@ public class ListPanel extends JPanel {
 			}
 			Eleve eleve = (Eleve) modelEleve.get(table
 					.convertRowIndexToModel(selectedRow));
-			
-			ModificationEleveDialog modifFrame = new ModificationEleveDialog(this.parent, this, eleve, eleveModel);
+
+			ModificationEleveDialog modifFrame = new ModificationEleveDialog(
+					this.parent, this, eleve, modelEleve);
 			modifFrame.setVisible(true);
 
 			// Eleve eleve = (Eleve) model.get(selectedRow);
@@ -306,6 +326,22 @@ public class ListPanel extends JPanel {
 
 		System.out.println("pas d'instance");
 		return null;
+
+	}
+
+	private void clearTableSelection() {
+		Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
+			@Override
+			public void eventDispatched(AWTEvent event) {
+				if (event.getID() == MouseEvent.MOUSE_CLICKED) {
+					MouseEvent mevent = (MouseEvent) event;
+					int row = table.rowAtPoint(mevent.getPoint());
+					if (row == -1) {
+						table.clearSelection();
+					}
+				}
+			}
+		}, AWTEvent.MOUSE_EVENT_MASK);
 
 	}
 }

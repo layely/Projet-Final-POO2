@@ -86,4 +86,15 @@ public class DAO_Ecole {
 
 	}
 
+	public void delete(String nom) {
+		try {
+			Statement stm = connect.createStatement();
+
+			stm.executeUpdate("DELETE FROM " + TABLE_ECOLE + " WHERE " + NOM_ECOLE + "='" + nom +"'");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

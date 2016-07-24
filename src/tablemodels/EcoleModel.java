@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 import databaseDAOs.DAO_Ecole;
 import objet.Ecole;
 
-public class EcoleModel extends AbstractTableModel {
+public class EcoleModel extends MyTableModel {
 
 	private final String[] entetes = {"Nom ecole", "Mot de passe" };
 
@@ -72,6 +72,14 @@ public class EcoleModel extends AbstractTableModel {
 		default:
 			return Object.class;
 		}
+	}
+
+	@Override
+	public boolean delete(int rowIndex) {
+		ecoleDAO.delete(listeEcoles.get(rowIndex).getNom());
+		listeEcoles.remove(rowIndex);
+		this.fireTableDataChanged();
+		return true;
 	}
 
 }

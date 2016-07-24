@@ -15,7 +15,7 @@ import objet.Eleve;
 import objet.Orientation;
 import utilitaire.Outil;
 
-public class EleveModel extends AbstractTableModel {
+public class EleveModel extends MyTableModel {
 
 	private final String[] entetes = { "Numero de Table", "Prenom", "Nom",
 			"Date de naissance", "Lieu de naissance", "Moyenne choix" };
@@ -126,10 +126,12 @@ public class EleveModel extends AbstractTableModel {
 		}
 	}
 
-	public void delete(int rowIndex) {
+	@Override
+	public boolean delete(int rowIndex) {
 		eleveDAO.deleteEleve(listEleves.get(rowIndex).getNumTable());
 		listEleves.remove(rowIndex);
 		this.fireTableDataChanged();
+		return true;
 	}
 
 	public void reload() {

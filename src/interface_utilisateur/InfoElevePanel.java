@@ -337,16 +337,26 @@ public class InfoElevePanel extends JPanel {
 			resultatDAO.supprimerResultat(toModify.getNumTable());
 			eleveDAO.deleteEleve(toModify.getNumTable());
 			eleveDAO.ajoutEleve(IdentificationPanel.dernierIdentifie);
+			// try {
 			// eleveDAO.modifierEleve(toModify.getNumTable(),
 			// IdentificationPanel.dernierIdentifie);
+			// } catch (ParseException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+
+			resultatDAO.ajoutResultat(
+					IdentificationPanel.dernierIdentifie.getResultat(),
+					IdentificationPanel.dernierIdentifie.getNumTable());
 			showMessageDialog("Modification effectué avec succès");
 			ModificationEleveDialog.modificationEleveDialog.dispose();
 		} else {
 			eleveDAO.ajoutEleve(IdentificationPanel.dernierIdentifie);
 			showMessageDialog("Enregistrement effectué avec succès");
+			resultatDAO.ajoutResultat(
+					IdentificationPanel.dernierIdentifie.getResultat(),
+					IdentificationPanel.dernierIdentifie.getNumTable());
 		}
-		resultatDAO.ajoutResultat(
-				IdentificationPanel.dernierIdentifie.getResultat(),
-				IdentificationPanel.dernierIdentifie.getNumTable());
+
 	}
 }

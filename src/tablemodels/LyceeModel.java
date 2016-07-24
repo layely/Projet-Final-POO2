@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 import databaseDAOs.DAO_Lycee;
 import objet.Lycee;
 
-public class LyceeModel extends AbstractTableModel {
+public class LyceeModel extends MyTableModel {
 
 	private final String[] entetes = { "Nom de Lycee", "Nombre de place en L", "Nombre de place en S",
 			"Nombre de place en G", "Nombre de place en T" };
@@ -90,5 +90,12 @@ public class LyceeModel extends AbstractTableModel {
 			return Object.class;
 		}
 	}
-
+	
+	@Override
+	public boolean delete(int rowIndex) {
+		lyceeDAO.delete(listLycee.get(rowIndex).getNom());
+		listLycee.remove(rowIndex);
+		this.fireTableDataChanged();
+		return true;
+	}
 }

@@ -2,8 +2,10 @@ package interface_utilisateur;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -30,6 +33,7 @@ import org.jdesktop.swingx.autocomplete.ObjectToStringConverter;
 import org.jdesktop.swingx.prompt.PromptSupport;
 import org.jdesktop.swingx.prompt.PromptSupport.FocusBehavior;
 
+import utilitaire.Outil;
 import databaseDAOs.DAO_Ecole;
 import databaseDAOs.DAO_Inspection;
 
@@ -82,7 +86,15 @@ public class LoginFrame extends JFrame {
 
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 719, 420);
+	//	setBounds(100, 100, 719, 420);
+		
+		int width = 650;
+		int height = 400;
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (screen.width - width) / 2;
+		int y = (screen.height - height) / 2;
+		setBounds(x, y, width, height);
+		
 		JPanel content = new JPanel();
 		content.setBackground(new Color(0, 153, 255));
 		content.setForeground(new Color(0, 153, 255));
@@ -109,6 +121,7 @@ public class LoginFrame extends JFrame {
 				BorderLayout.CENTER);
 
 		this.panelCenter = new JPanel();
+		this.panelCenter.setBackground(Outil.CENTER_PANE_COLOR);
 		content.add(this.panelCenter, "cell 0 1,grow");
 		this.panelCenter
 				.setLayout(new MigLayout(
@@ -123,6 +136,11 @@ public class LoginFrame extends JFrame {
 				"cell 0 1,alignx trailing");
 
 		this.textFieldlogin = new JXFormattedTextField("Ecole ou Inspection");
+		this.textFieldlogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_textFieldlogin_actionPerformed(e);
+			}
+		});
 		this.textFieldlogin.setHorizontalAlignment(SwingConstants.CENTER);
 		this.textFieldlogin.setFont(new Font("Footlight MT Light", Font.PLAIN,
 				17));
@@ -131,15 +149,20 @@ public class LoginFrame extends JFrame {
 				this.textFieldlogin);
 		// PromptSupport.setForeground(Color.darkGray, this.textFieldlogin);
 		
+		if(Outil.getProfileName() != null) {
+			textFieldlogin.setText(Outil.getProfileName());
+		}
+		
 		listEcoles = ecoleDAO.getAllEcole();
 		listInspection = inspectionDAO.getAllInspection();
-		
+
 		ArrayList<String> listAutoComplete = getListAutoComplete();
-		JXList jlist = new JXList(listAutoComplete.toArray());	
-		
+		JXList jlist = new JXList(listAutoComplete.toArray());
+
 		this.panelCenter.add(this.textFieldlogin, "cell 2 1 3 1");
 		this.textFieldlogin.setColumns(10);
-		AutoCompleteDecorator.decorate(jlist, this.textFieldlogin, ObjectToStringConverter.DEFAULT_IMPLEMENTATION);
+		AutoCompleteDecorator.decorate(jlist, this.textFieldlogin,
+				ObjectToStringConverter.DEFAULT_IMPLEMENTATION);
 
 		this.lblMotDePasse = new JLabel("Mot de passe :");
 		this.lblMotDePasse.setFont(new Font("Footlight MT Light", Font.PLAIN,
@@ -147,6 +170,11 @@ public class LoginFrame extends JFrame {
 		this.panelCenter.add(this.lblMotDePasse, "cell 0 3,alignx trailing");
 
 		this.textFieldPassword = new JPasswordField();
+		this.textFieldPassword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_textFieldPassword_actionPerformed(arg0);
+			}
+		});
 		this.textFieldPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		this.textFieldPassword.setFont(new Font("Footlight MT Light",
 				Font.PLAIN, 17));
@@ -180,16 +208,18 @@ public class LoginFrame extends JFrame {
 
 	private ArrayList<String> getListAutoComplete() {
 		ArrayList<String> list = new ArrayList<>();
-//		for(Ecole ecole : listEcoles) {
-//			list.add(ecole.getNom());
-//		}
-//		for(Inspection inspection : listInspection) {
-//			list.add(inspection.getNom());
-//		}
-		list.add("CEM Scat Urbam");
-		list.add("CEM HLM Grand Yoff 2");
-		list.add("CEM HLM Grand Yoff 1");
-		list.add("Les Pedagogues");
+		for (Ecole ecole : listEcoles) {
+			list.add(ecole.getNom());
+			System.out.println(ecole.getNom());
+		}
+		for (Inspection inspection : listInspection) {
+			list.add(inspection.getNom());
+			System.out.println(inspection.getNom());
+		}
+		// list.add("CEM Scat Urbam");
+		// list.add("CEM HLM Grand Yoff 2");
+		// list.add("CEM HLM Grand Yoff 1");
+		// list.add("Les Pedagogues");
 		return list;
 	}
 
@@ -198,17 +228,28 @@ public class LoginFrame extends JFrame {
 			String login = textFieldlogin.getText();
 			String pass = textFieldPassword.getText();
 
-			// if(Outil.getConnection(login, pass)) {
-			// Outil.openHome();
-			// LoginFrame.this.dispose();
-			// } else {
-			//
-			// }
+			if (Outil.getConnection(login, pass)) {
+				Outil.openHome();
+				LoginFrame.this.dispose();
+			}
+			else {
+				JOptionPane.showMessageDialog(LoginFrame.this, "Nom d'utilisateur/Mot de passe incorrect !");
+//				textFieldlogin.requestFocus();
+				textFieldPassword.requestFocus();
+			}
 		}
 	}
 
 	private class BtnAnnulerActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			textFieldlogin.setText("");
+			textFieldPassword.setText("");
 		}
+	}
+	protected void do_textFieldPassword_actionPerformed(ActionEvent arg0) {
+		this.btnSeConnecter.doClick();
+	}
+	protected void do_textFieldlogin_actionPerformed(ActionEvent e) {
+		this.textFieldPassword.requestFocus();
 	}
 }

@@ -51,8 +51,9 @@ public class DAO_Inspection {
 				String nom = resultSet.getString(COLONNE_NOM_INSPECTION);
 				String password = resultSet.getString(COLONNE_PASSWORD_INSPECTION);
 
-				Inspection insp = new Inspection();
                 
+				Inspection insp = new Inspection(nom, password);
+
 				myInspection.add(insp);
 
 			}

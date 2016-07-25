@@ -5,12 +5,16 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -149,7 +153,9 @@ public class MainFrame extends JFrame {
 	private void initialize() {
 		JPanel parentPane = new JPanel(new BorderLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 855, 530);
+
+		this.coverTheWholeScreen();
+
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
@@ -269,10 +275,11 @@ public class MainFrame extends JFrame {
 		});
 		// this.panelLeft.add(btnListeDesLycees);
 
-		this.btnQuitter = new JButton("Quitter");
+		this.btnQuitter = new JButton("Déconnection");
 		btnQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				MainFrame.this.dispose();
+				new LoginFrame().setVisible(true);
 			}
 		});
 		// this.panelLeft.add(this.btnQuitter);
@@ -289,6 +296,26 @@ public class MainFrame extends JFrame {
 		initPanelLeft();
 		chargerIcon();
 		actionHighlightMenu();
+	}
+
+	private void coverTheWholeScreen() {
+		
+		java.awt.Rectangle rec = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+		
+		this.setBounds(rec);
+		
+//		// TODO Auto-generated method stub
+//		// size of the screen
+//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//
+//		// height of the task bar
+//		Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(
+//				getGraphicsConfiguration());
+//		int taskBarSize = scnMax.bottom;
+//
+//		// available size of the screen
+//		setSize(screenSize.width - getWidth(), screenSize.height
+//				- taskBarSize - getHeight());
 	}
 
 	private void initialiseCenterPanel() {
@@ -345,8 +372,9 @@ public class MainFrame extends JFrame {
 
 	private void chargerIcon() {
 		try {
-			// Image image = ImageIO.read(uriIcon);
-			// panelIcon.setImage(image);
+			 Image image = ImageIO.read(new File("icon1.jpg"));
+			 Image scaledImage = image.getScaledInstance(200, 70, Image.SCALE_SMOOTH);
+			 panelIcon.setImage(scaledImage);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

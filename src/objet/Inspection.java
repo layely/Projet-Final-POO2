@@ -2,14 +2,17 @@ package objet;
 
 public class Inspection {
 	String nom;
-	String mot;
-	
+	String motDePasse;
 	
 	
    ////////////////////////////////
    // Getters and Setters
    ////////////////////////////////
 	
+	public Inspection(String nom2, String password) {
+		this.nom = nom2;
+			this.motDePasse = password;
+	}
 	public String getNom() {
 		return nom;
 	}
@@ -17,10 +20,10 @@ public class Inspection {
 		this.nom = nom;
 	}
 	public String getMot() {
-		return mot;
+		return motDePasse;
 	}
 	public void setMot(String mot) {
-		this.mot = mot;
+		this.motDePasse = mot;
 	}
 	
 	

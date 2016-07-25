@@ -22,25 +22,24 @@ public class DAO_Eleve {
 	public final static String COLONNE_NOM_ECOLE = "nom_ecole";
 	public final static String COLONNE_CHOIX = "choix";
 
-
 	// **************************
 	// liste de tous les eleves
 
 	public ArrayList<Eleve> getAllEleves() throws ParseException {
 		ArrayList<Eleve> eleve = new ArrayList<>();
-		
 
 		try {
 			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
-			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_ELEVE);
+			ResultSet resultSet = stm.executeQuery("SELECT * FROM "
+					+ TABLE_ELEVE);
 			eleve = commeListeEleve(resultSet);
-			
+
 			return eleve;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
+
 		}
 		return eleve;
 	}
@@ -53,11 +52,14 @@ public class DAO_Eleve {
 			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 
-			stm.executeUpdate("INSERT INTO " + TABLE_ELEVE + " VALUES(" + eleve.getNumTable() + ",'" + eleve.getPrenom()
-					+ "','" + eleve.getNom() + "','" + Outil.calendarToString(eleve.getDateNaissance()) + "','"
-					+ eleve.getLieuNaissance() + "','" + eleve.getSex() + "','" + eleve.getEmail() + "','"
-					+ eleve.getChoix() + "','" + eleve.getEtablissement() + "')");
-			
+			stm.executeUpdate("INSERT INTO " + TABLE_ELEVE + " VALUES("
+					+ eleve.getNumTable() + ",'" + eleve.getPrenom() + "','"
+					+ eleve.getNom() + "','"
+					+ Outil.calendarToString(eleve.getDateNaissance()) + "','"
+					+ eleve.getLieuNaissance() + "','" + eleve.getSex() + "','"
+					+ eleve.getEmail() + "','" + eleve.getChoix() + "','"
+					+ eleve.getEtablissement() + "')");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -72,8 +74,9 @@ public class DAO_Eleve {
 			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 
-			stm.executeUpdate("DELETE FROM " + TABLE_ELEVE + " WHERE " + COLONNE_NUM_TABLE + "=" + num_table);
-			
+			stm.executeUpdate("DELETE FROM " + TABLE_ELEVE + " WHERE "
+					+ COLONNE_NUM_TABLE + "=" + num_table);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -86,15 +89,19 @@ public class DAO_Eleve {
 		try {
 			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
-			stm.executeUpdate("UPDATE " + TABLE_ELEVE + " SET " + COLONNE_NUM_TABLE + "=" + eleve.getNumTable() + ","
-					+ COLONNE_PRENOM + "='" + eleve.getPrenom() + "'," + COLONNE_NOM + "='" + eleve.getNom() + "',"
-					+ COLONNE_DATE_NAISSANCE + "='" + Outil.calendarToString(eleve.getDateNaissance()) + "',"
-					+ COLONNE_LIEU_NAISSANCE + "='" + eleve.getLieuNaissance() + "'," + COLONNE_SEXE + "='"
-					+ eleve.getSex() + "'," + COLONNE_EMAIL + "='" + eleve.getEmail() + "'," + COLONNE_CHOIX + "='"
-					+ eleve.getChoix() + "'," + COLONNE_NOM_ECOLE + "='" + eleve.getEtablissement() + "' WHERE "
-					+ COLONNE_NUM_TABLE + "=" + num_table);
-			
-			
+			stm.executeUpdate("UPDATE " + TABLE_ELEVE + " SET "
+					+ COLONNE_NUM_TABLE + "=" + eleve.getNumTable() + ","
+					+ COLONNE_PRENOM + "='" + eleve.getPrenom() + "',"
+					+ COLONNE_NOM + "='" + eleve.getNom() + "',"
+					+ COLONNE_DATE_NAISSANCE + "='"
+					+ Outil.calendarToString(eleve.getDateNaissance()) + "',"
+					+ COLONNE_LIEU_NAISSANCE + "='" + eleve.getLieuNaissance()
+					+ "'," + COLONNE_SEXE + "='" + eleve.getSex() + "',"
+					+ COLONNE_EMAIL + "='" + eleve.getEmail() + "',"
+					+ COLONNE_CHOIX + "='" + eleve.getChoix() + "',"
+					+ COLONNE_NOM_ECOLE + "='" + eleve.getEtablissement()
+					+ "' WHERE " + COLONNE_NUM_TABLE + "=" + num_table);
+
 		} catch (
 
 		SQLException e) {
@@ -114,15 +121,16 @@ public class DAO_Eleve {
 		try {
 			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
-			ResultSet resultSet = stm
-					.executeQuery("SELECT * FROM " + TABLE_ELEVE + " WHERE " + COLONNE_NUM_TABLE + "=" + num_table);
+			ResultSet resultSet = stm.executeQuery("SELECT * FROM "
+					+ TABLE_ELEVE + " WHERE " + COLONNE_NUM_TABLE + "="
+					+ num_table);
 			myEcole = commeListeEleve(resultSet);
 			for (int i = 0; i < myEcole.size(); i++) {
 				if (myEcole != null) {
 					el = myEcole.get(i);
 				}
 			}
-			
+
 			return el;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -131,15 +139,43 @@ public class DAO_Eleve {
 		return el;
 	}
 
-	private ArrayList<Eleve> commeListeEleve(ResultSet resultSet) throws ParseException {
+	//************************************
+	// get all Eleve d'un ecole 
+	
+	
+	public ArrayList<Eleve> getElevesEcole(String ecole) throws ParseException {
+		ArrayList<Eleve> eleve = new ArrayList<>();
+
+		try {
+			Connection connect = (Connection) DBConnection.getConnection();
+			Statement stm = connect.createStatement();
+			ResultSet resultSet = stm
+					.executeQuery("SELECT * FROM " + TABLE_ELEVE + " WHERE "
+							+ COLONNE_NOM_ECOLE + "=" + ecole);
+
+			eleve = commeListeEleve(resultSet);
+
+			return eleve;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+		return eleve;
+	}
+
+	private ArrayList<Eleve> commeListeEleve(ResultSet resultSet)
+			throws ParseException {
 		ArrayList<Eleve> myEcole = new ArrayList<>();
 		try {
 			while (resultSet.next()) {
 				int numeroTable = resultSet.getInt(COLONNE_NUM_TABLE);
 				String prenom = resultSet.getString(COLONNE_PRENOM);
 				String nom = resultSet.getString(COLONNE_NOM);
-				String date_Naissance = resultSet.getString(COLONNE_DATE_NAISSANCE);
-				String lieu_Naissance = resultSet.getString(COLONNE_LIEU_NAISSANCE);
+				String date_Naissance = resultSet
+						.getString(COLONNE_DATE_NAISSANCE);
+				String lieu_Naissance = resultSet
+						.getString(COLONNE_LIEU_NAISSANCE);
 				String sexe = resultSet.getString(COLONNE_SEXE);
 				String email = resultSet.getString(COLONNE_EMAIL);
 				Resultat resultat = DAO_Resultat.getOneResultat(numeroTable);
@@ -148,7 +184,8 @@ public class DAO_Eleve {
 				Calendar dateNaissance = Outil.stringToCalendar(date_Naissance);
 				String choix = resultSet.getString(COLONNE_CHOIX);
 
-				Eleve eleve = new Eleve(numeroTable, nom, prenom, lieu_Naissance, dateNaissance, email, resultat,
+				Eleve eleve = new Eleve(numeroTable, nom, prenom,
+						lieu_Naissance, dateNaissance, email, resultat,
 						nom_ecole);
 				char a = sexe.charAt(0);
 				eleve.setSex(a);

@@ -108,8 +108,8 @@ public class DAO_Ecole {
 			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("UPDATE " + TABLE_ECOLE + " SET " + NOM_ECOLE
-					+ "=" + newEcole.getNom() + "," + PASSWORD + "="
-					+ newEcole.getMotDePasse()+" WHERE "+NOM_ECOLE+"="+nomEcoleAmodifier);
+					+ "='" + newEcole.getNom() + "'," + PASSWORD + "='"
+					+ newEcole.getMotDePasse()+"' WHERE "+NOM_ECOLE+"='"+nomEcoleAmodifier+"'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

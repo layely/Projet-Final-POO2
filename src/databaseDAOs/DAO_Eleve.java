@@ -87,6 +87,7 @@ public class DAO_Eleve {
 
 	public void modifierEleve(int num_table, Eleve eleve) throws ParseException {
 		try {
+			
 			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 			stm.executeUpdate("UPDATE " + TABLE_ELEVE + " SET "
@@ -143,7 +144,7 @@ public class DAO_Eleve {
 	// get all Eleve d'un ecole 
 	
 	
-	public ArrayList<Eleve> getElevesEcole(String ecole) throws ParseException {
+	public ArrayList<Eleve> getElevesEcole(Ecole ecole) throws ParseException {
 		ArrayList<Eleve> eleve = new ArrayList<>();
 
 		try {
@@ -151,7 +152,7 @@ public class DAO_Eleve {
 			Statement stm = connect.createStatement();
 			ResultSet resultSet = stm
 					.executeQuery("SELECT * FROM " + TABLE_ELEVE + " WHERE "
-							+ COLONNE_NOM_ECOLE + "=" + ecole);
+							+ COLONNE_NOM_ECOLE + "=" + ecole.getNom());
 
 			eleve = commeListeEleve(resultSet);
 

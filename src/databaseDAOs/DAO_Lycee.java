@@ -16,13 +16,13 @@ public class DAO_Lycee {
 	public final static String COLONNE_NB_PLACE_G = "nb_place_G";
 	public final static String COLONNE_NB_PLACE_T = "nb_place_T";
 
-
 	public ArrayList<Lycee> getAllLycee() {
 		try {
 			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
-			ResultSet resultSet = stm.executeQuery("SELECT * FROM " + TABLE_LYCEE);
-		
+			ResultSet resultSet = stm.executeQuery("SELECT * FROM "
+					+ TABLE_LYCEE);
+
 			return commListLycee(resultSet);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -30,7 +30,7 @@ public class DAO_Lycee {
 		return null;
 	}
 
-	public int nbPlacesSerie(String serie)  {
+	public int nbPlacesSerie(String serie) {
 		switch (serie.toUpperCase()) {
 		case "L":
 			return nbPlacesSerieL();
@@ -102,10 +102,12 @@ public class DAO_Lycee {
 		try {
 			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
-			stm.executeUpdate("INSERT INTO " + TABLE_LYCEE + " VALUES('" + lycee.getNom() + "',"
-					+ lycee.getNbPlacesSerieS() + "," + lycee.getNbPlacesSerieL() + "," + lycee.getNbPlacesSerieG()
-					+ "," + lycee.getNbPlacesSerieT() + ",'" + nom_inspection + "')");
-		
+			stm.executeUpdate("INSERT INTO " + TABLE_LYCEE + " VALUES('"
+					+ lycee.getNom() + "'," + lycee.getNbPlacesSerieS() + ","
+					+ lycee.getNbPlacesSerieL() + ","
+					+ lycee.getNbPlacesSerieG() + ","
+					+ lycee.getNbPlacesSerieT() + ",'" + nom_inspection + "')");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -116,9 +118,28 @@ public class DAO_Lycee {
 			Connection connect = (Connection) DBConnection.getConnection();
 			Statement stm = connect.createStatement();
 
-			stm.executeUpdate("DELETE FROM " + TABLE_LYCEE + " WHERE " + COLONNE_NOM_LYCEE + "='" + nom +"'");
-			
+			stm.executeUpdate("DELETE FROM " + TABLE_LYCEE + " WHERE "
+					+ COLONNE_NOM_LYCEE + "='" + nom + "'");
+
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void modifiLycee(String nomLyceeAModifie, Lycee lycee) {
+		try {
+			Connection connect = (Connection) DBConnection.getConnection();
+			Statement stm = connect.createStatement();
+			stm.executeUpdate("UPDATE " + TABLE_LYCEE + " SET "
+					+ COLONNE_NOM_LYCEE + "='" + lycee.getNom() + "',"
+					+ COLONNE_NB_PLACE_S + "=" + lycee.getNbPlacesSerieS()
+					+ "," + COLONNE_NB_PLACE_L + "="
+					+ lycee.getNbPlacesSerieL() + "," + COLONNE_NB_PLACE_G
+					+ "=" + lycee.getNbPlacesSerieG() + ","
+					+ COLONNE_NB_PLACE_T + "=" + lycee.getNbPlacesSerieT()
+					+ " WHERE " + TABLE_LYCEE + "='" + nomLyceeAModifie + "'");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

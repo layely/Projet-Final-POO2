@@ -319,9 +319,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initialiseCenterPanel() {
-		this.contentPane.setLayout(new MigLayout("",
-				"[180px:n:180px,leading][grow]",
-				"[50px:n:50px][grow,top][20px:n]"));
+		this.contentPane.setLayout(new MigLayout("", "[210px:n:210px,leading][grow]", "[50px:n:50px][grow,top][20px:n]"));
 		panelCenterContainer.setBorder(new BevelBorder(BevelBorder.LOWERED,
 				new Color(0, 102, 204), null, null, null));
 

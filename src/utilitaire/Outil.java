@@ -23,6 +23,8 @@ import databaseDAOs.DAO_Inspection;
 public class Outil {
 
 	public static final Color CENTER_PANE_COLOR = new Color(250, 240, 230);
+	public static final Color CENTER_PANE_BLUE = new Color(0, 153, 255);
+	
 	public static final String PROFILE_ECOLE = "ECOLE";
 	public static final String PROFILE_INSPECTION = "INSPECTION";
 	
